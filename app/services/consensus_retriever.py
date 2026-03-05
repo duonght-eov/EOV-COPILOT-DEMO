@@ -1,10 +1,30 @@
 import time
 import asyncio
+import hashlib
 from typing import List, Dict, Set, Any
 from collections import defaultdict
 import logging
 
 logger = logging.getLogger("ConsensusRetriever")
+
+# In-memory keyword cache: {md5(query): (keywords_str, expire_timestamp)}
+_keyword_cache: Dict[str, tuple] = {}
+_KEYWORD_CACHE_TTL = 3600  # 60 phút
+
+
+def _get_cached_keywords(query: str) -> str | None:
+    key = hashlib.md5(query.encode()).hexdigest()
+    if key in _keyword_cache:
+        kw, expire = _keyword_cache[key]
+        if time.time() < expire:
+            return kw
+        del _keyword_cache[key]
+    return None
+
+
+def _set_cached_keywords(query: str, keywords: str):
+    key = hashlib.md5(query.encode()).hexdigest()
+    _keyword_cache[key] = (keywords, time.time() + _KEYWORD_CACHE_TTL)
 
 
 class ConsensusRetriever:
@@ -49,21 +69,28 @@ class ConsensusRetriever:
                 """
 
             if hasattr(self.rag, 'llm_model_func'):
-                try:
-                    t0 = time.perf_counter()
-                    prompt = keywords_template.format(query=query)
-                    keyword_str = await self.rag.llm_model_func(prompt)
-                    ms = (time.perf_counter() - t0) * 1000
-                    logger.info(f"[Consensus][TIMING] keyword_extraction={ms:.0f}ms")
+                # Kiểm tra cache trước
+                cached = _get_cached_keywords(query)
+                if cached:
+                    logger.info(f"[Consensus] Keyword cache HIT: '{cached[:50]}'")
+                    search_query = cached
+                else:
+                    try:
+                        t0 = time.perf_counter()
+                        prompt = keywords_template.format(query=query)
+                        keyword_str = await self.rag.llm_model_func(prompt)
+                        ms = (time.perf_counter() - t0) * 1000
+                        logger.info(f"[Consensus][TIMING] keyword_extraction={ms:.0f}ms")
 
-                    if keyword_str and ":" in keyword_str and "{" not in keyword_str:
-                        keyword_str = keyword_str.split(":")[-1].strip()
+                        if keyword_str and ":" in keyword_str and "{" not in keyword_str:
+                            keyword_str = keyword_str.split(":")[-1].strip()
 
-                    if keyword_str and len(keyword_str.strip()) > 0:
-                        logger.info(f"Consensus: Extracted keywords: {keyword_str}")
-                        search_query = keyword_str
-                except Exception as ke:
-                    logger.warning(f"Consensus: Keyword extraction failed, using raw query. Error: {ke}")
+                        if keyword_str and len(keyword_str.strip()) > 0:
+                            logger.info(f"Consensus: Extracted keywords: {keyword_str}")
+                            _set_cached_keywords(query, keyword_str)  # lưu cache
+                            search_query = keyword_str
+                    except Exception as ke:
+                        logger.warning(f"Consensus: Keyword extraction failed, using raw query. Error: {ke}")
 
             # 2. Entity Vector Search
             t0 = time.perf_counter()

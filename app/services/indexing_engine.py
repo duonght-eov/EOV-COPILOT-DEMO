@@ -322,26 +322,53 @@ async def query_llm_func(prompt: str, system_prompt: str = None, history_message
         messages.extend(history_messages)
     messages.append({"role": "user", "content": prompt})
 
-    max_tokens = min(kwargs.get("max_tokens", settings.LLM_MAX_TOKENS), settings.LLM_MAX_TOKENS)
+    max_tokens = min(kwargs.get("max_tokens", 256), 256)  # extraction chỉ cần ~20 tokens
+
+    # Tắt thinking mode cho qwen3 — ngăn model generate hàng trăm <think> tokens ẩn
+    # Ollama hỗ trợ /no_think suffix; OpenAI-compat hỗ trợ extra_body={"think": False}
+    final_messages = list(messages)
+    if final_messages and final_messages[-1]["role"] == "user":
+        final_messages[-1] = {
+            "role": "user",
+            "content": final_messages[-1]["content"] + " /no_think"
+        }
 
     try:
+        import time as _time
+        t0 = _time.perf_counter()
         response = await asyncio.wait_for(
             client.chat.completions.create(
                 model=settings.LLM_MODEL_NAME,
-                messages=messages,
-                temperature=kwargs.get("temperature", 0),
+                messages=final_messages,
+                temperature=0,
                 max_tokens=max_tokens,
+                extra_body={"think": False},  # Ollama/vLLM: tắt reasoning
             ),
             timeout=settings.LLM_TIMEOUT,
         )
+        elapsed_ms = (_time.perf_counter() - t0) * 1000
+
         content = response.choices[0].message.content or ""
         content = re.sub(r'<think>.*?</think>', '', content, flags=re.DOTALL).strip()
         content = content.replace("```json", "").replace("```", "").strip()
-        logger.info(f"[QueryLLM] Response: {len(content)} chars")
+
+        # Tính tốc độ từ usage nếu có
+        usage = getattr(response, 'usage', None)
+        if usage:
+            prompt_tok = getattr(usage, 'prompt_tokens', 0)
+            completion_tok = getattr(usage, 'completion_tokens', 0)
+            tok_per_sec = completion_tok / max(elapsed_ms / 1000, 0.001)
+            logger.info(
+                f"[QueryLLM] {elapsed_ms:.0f}ms | "
+                f"prompt={prompt_tok}tok, completion={completion_tok}tok @ {tok_per_sec:.1f} tok/s"
+            )
+        else:
+            logger.info(f"[QueryLLM] {elapsed_ms:.0f}ms | {len(content)} chars")
+
         return content
 
     except asyncio.TimeoutError:
-        logger.warning(f"[QueryLLM] Timeout {settings.LLM_TIMEOUT}s – returning empty (ConsensusRetriever will use raw query)")
+        logger.warning(f"[QueryLLM] Timeout {settings.LLM_TIMEOUT}s – returning empty")
         return ""
     except Exception as e:
         logger.warning(f"[QueryLLM] Failed: {e} – returning empty")

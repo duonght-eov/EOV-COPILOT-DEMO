@@ -587,12 +587,20 @@ class QueryEngine:
         # Stream LLM tokens
         full_answer = ""
         t0 = time.perf_counter()
-        token_count = 0
         async for token in stream_response_llm_func(prompt):
             full_answer += token
-            token_count += 1
             yield {"type": "token", "content": token}
         llm_ms = 1000 * (time.perf_counter() - t0)
+
+        # Đo tốc độ tok/s bằng tiktoken
+        try:
+            import tiktoken
+            enc = tiktoken.get_encoding("cl100k_base")
+            output_tokens = len(enc.encode(full_answer))
+        except Exception:
+            output_tokens = max(1, len(full_answer) // 4)
+
+        tok_per_sec = output_tokens / max(llm_ms / 1000, 0.001)
 
         # Sau khi có full answer, tính image refs
         if mode == "consensus":
@@ -602,7 +610,8 @@ class QueryEngine:
 
         total_ms = 1000 * (time.perf_counter() - t_total) if mode == "consensus" else llm_ms
         logger.info(
-            f"[StreamQuery][TIMING] llm_generate={llm_ms:.0f}ms ({len(full_answer)} chars) "
+            f"[StreamQuery][TIMING] llm_generate={llm_ms:.0f}ms "
+            f"| {output_tokens} tokens @ {tok_per_sec:.1f} tok/s "
             f"| total={total_ms:.0f}ms"
         )
         logger.info(f"[StreamQuery] Done: {len(full_answer)} chars, {len(image_refs)} images")
