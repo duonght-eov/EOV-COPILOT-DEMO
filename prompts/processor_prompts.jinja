@@ -1,0 +1,373 @@
+{# ========================================== #}
+{#              SYSTEM PROMPTS                #}
+{# ========================================== #}
+
+{% block IMAGE_ANALYSIS_SYSTEM %}
+Bạn là một chuyên gia phân tích hình ảnh người Việt Nam. Hãy cung cấp các mô tả chi tiết và chính xác bằng Tiếng Việt.
+{% endblock %}
+
+{% block IMAGE_ANALYSIS_FALLBACK_SYSTEM %}
+Bạn là một chuyên gia phân tích hình ảnh. Hãy cung cấp phân tích chi tiết dựa trên thông tin có sẵn.
+{% endblock %}
+
+{% block TABLE_ANALYSIS_SYSTEM %}
+Bạn là một chuyên gia phân tích dữ liệu. Hãy cung cấp phân tích bảng chi tiết với những thông tin cụ thể.
+{% endblock %}
+
+{% block EQUATION_ANALYSIS_SYSTEM %}
+Bạn là một chuyên gia toán học. Hãy cung cấp phân tích toán học chi tiết.
+{% endblock %}
+
+{% block GENERIC_ANALYSIS_SYSTEM %}
+Bạn là một chuyên gia phân tích nội dung, chuyên về loại nội dung {content_type}.
+{% endblock %}S
+
+{# ========================================== #}
+{#           IMAGE ANALYSIS PROMPTS           #}
+{# ========================================== #}
+
+{% block vision_prompt %}
+Vui lòng phân tích chi tiết hình ảnh này và cung cấp phản hồi JSON theo cấu trúc sau.
+QUAN TRỌNG: 
+1. Hãy suy nghĩ và viết toàn bộ câu trả lời bằng Tiếng Việt.
+2. Trả về kết quả dưới dạng chuỗi JSON thô hợp lệ. Không sử dụng Markdown block (```json).
+3. Bắt đầu ngay bằng dấu mở ngoặc nhọn `{`.
+
+{{ "{{" }}
+    "detailed_description": "Một mô tả trực quan chi tiết và toàn diện về hình ảnh theo các hướng dẫn sau:
+    - Mô tả bố cục tổng thể và cách sắp xếp
+    - Xác định tất cả các đối tượng, con người, văn bản và các yếu tố trực quan
+    - Giải thích mối quan hệ giữa các yếu tố
+    - Ghi chú về màu sắc, ánh sáng và phong cách hình ảnh
+    - Mô tả bất kỳ hành động hoặc hoạt động nào đang diễn ra
+    - Bao gồm các chi tiết kỹ thuật nếu có liên quan (biểu đồ, sơ đồ, v.v.)
+    - Luôn sử dụng tên cụ thể thay vì đại từ chung chung",
+    "entity_info": {{ "{{" }}
+        "entity_name": "{entity_name}",
+        "entity_type": "image",
+        "summary": "tóm tắt ngắn gọn về nội dung hình ảnh và ý nghĩa của nó (tối đa 100 từ)"
+    {{ "}}" }}
+{{ "}}" }}
+
+Ngữ cảnh bổ sung:
+- Đường dẫn ảnh: {image_path}
+- Chú thích (Captions): {captions}
+- Ghi chú chân trang (Footnotes): {footnotes}
+
+Hãy tập trung cung cấp phân tích trực quan chính xác, chi tiết, hữu ích cho việc truy xuất kiến thức (knowledge retrieval).
+{% endblock %}
+
+{% block vision_prompt_with_context %}
+Vui lòng phân tích chi tiết hình ảnh này, có xem xét đến ngữ cảnh xung quanh. Cung cấp phản hồi JSON theo cấu trúc sau:
+
+{{ "{{" }}
+    "detailed_description": "Một mô tả trực quan chi tiết và toàn diện về hình ảnh theo các hướng dẫn sau:
+    - Mô tả bố cục tổng thể và cách sắp xếp
+    - Xác định tất cả các đối tượng, con người, văn bản và các yếu tố trực quan
+    - Giải thích mối quan hệ giữa các yếu tố và cách chúng liên quan đến ngữ cảnh xung quanh
+    - Ghi chú về màu sắc, ánh sáng và phong cách hình ảnh
+    - Mô tả bất kỳ hành động hoặc hoạt động nào đang diễn ra
+    - Bao gồm các chi tiết kỹ thuật nếu có liên quan (biểu đồ, sơ đồ, v.v.)
+    - Tham chiếu các kết nối với nội dung xung quanh khi có liên quan
+    - Luôn sử dụng tên cụ thể thay vì đại từ chung chung",
+    "entity_info": {{ "{{" }}
+        "entity_name": "{entity_name}",
+        "entity_type": "image",
+        "summary": "tóm tắt ngắn gọn về nội dung hình ảnh, ý nghĩa của nó và mối quan hệ với nội dung xung quanh (tối đa 100 từ)"
+    {{ "}}" }}
+{{ "}}" }}
+
+Ngữ cảnh từ nội dung xung quanh:
+{context}
+
+Chi tiết hình ảnh:
+- Đường dẫn ảnh: {image_path}
+- Chú thích (Captions): {captions}
+- Ghi chú chân trang (Footnotes): {footnotes}
+
+Hãy tập trung cung cấp phân tích trực quan chính xác, chi tiết, kết hợp với ngữ cảnh và hữu ích cho việc truy xuất kiến thức.
+{% endblock %}
+
+{% block text_prompt %}
+Dựa trên thông tin hình ảnh sau đây, hãy cung cấp phân tích:
+
+Đường dẫn ảnh: {image_path}
+Chú thích: {captions}
+Ghi chú chân trang: {footnotes}
+
+{vision_prompt}
+{% endblock %}
+
+{# ========================================== #}
+{#           TABLE ANALYSIS PROMPTS           #}
+{# ========================================== #}
+
+{% block table_prompt %}
+Vui lòng phân tích nội dung bảng này và cung cấp phản hồi JSON theo cấu trúc sau:
+
+{{ "{{" }}
+    "detailed_description": "Một phân tích toàn diện về bảng bao gồm:
+    - Cấu trúc và cách tổ chức bảng
+    - Tiêu đề cột và ý nghĩa của chúng
+    - Các điểm dữ liệu chính và các mẫu hình (patterns)
+    - Thông tin chi tiết thống kê và xu hướng
+    - Mối quan hệ giữa các yếu tố dữ liệu
+    - Ý nghĩa của dữ liệu được trình bày
+    - Luôn sử dụng tên và giá trị cụ thể thay vì tham chiếu chung chung.",
+    "entity_info": {{ "{{" }}
+        "entity_name": "{entity_name}",
+        "entity_type": "table",
+        "summary": "tóm tắt ngắn gọn về mục đích của bảng và các phát hiện chính (tối đa 100 từ)"
+    {{ "}}" }}
+{{ "}}" }}
+
+Thông tin bảng:
+Đường dẫn ảnh: {table_img_path}
+Chú thích: {table_caption}
+Nội dung (Body): {table_body}
+Ghi chú chân trang: {table_footnote}
+
+Hãy tập trung trích xuất những thông tin chi tiết và mối quan hệ có ý nghĩa từ dữ liệu bảng.
+{% endblock %}
+
+{% block table_prompt_with_context %}
+Vui lòng phân tích nội dung bảng này có xem xét đến ngữ cảnh xung quanh, và cung cấp phản hồi JSON theo cấu trúc sau:
+
+{{ "{{" }}
+    "detailed_description": "Một phân tích toàn diện về bảng bao gồm:
+    - Cấu trúc và cách tổ chức bảng
+    - Tiêu đề cột và ý nghĩa của chúng
+    - Các điểm dữ liệu chính và các mẫu hình (patterns)
+    - Thông tin chi tiết thống kê và xu hướng
+    - Mối quan hệ giữa các yếu tố dữ liệu
+    - Ý nghĩa của dữ liệu được trình bày trong mối liên hệ với ngữ cảnh xung quanh
+    - Cách bảng hỗ trợ hoặc minh họa các khái niệm từ nội dung xung quanh
+    - Luôn sử dụng tên và giá trị cụ thể thay vì tham chiếu chung chung.",
+    "entity_info": {{ "{{" }}
+        "entity_name": "{entity_name}",
+        "entity_type": "table",
+        "summary": "tóm tắt ngắn gọn về mục đích của bảng, các phát hiện chính và mối quan hệ với ngữ cảnh xung quanh (tối đa 100 từ)"
+    {{ "}}" }}
+{{ "}}" }}
+
+Ngữ cảnh từ nội dung xung quanh:
+{context}
+
+Thông tin bảng:
+Đường dẫn ảnh: {table_img_path}
+Chú thích: {table_caption}
+Nội dung (Body): {table_body}
+Ghi chú chân trang: {table_footnote}
+
+Hãy tập trung trích xuất những thông tin chi tiết và mối quan hệ có ý nghĩa từ dữ liệu bảng trong ngữ cảnh của nội dung xung quanh.
+{% endblock %}
+
+{# ========================================== #}
+{#          EQUATION ANALYSIS PROMPTS         #}
+{# ========================================== #}
+
+{% block equation_prompt %}
+Vui lòng phân tích phương trình toán học này và cung cấp phản hồi JSON theo cấu trúc sau:
+
+{{ "{{" }}
+    "detailed_description": "Một phân tích toàn diện về phương trình bao gồm:
+    - Ý nghĩa toán học và cách giải thích
+    - Các biến số và định nghĩa của chúng
+    - Các phép toán và hàm số được sử dụng
+    - Miền ứng dụng và ngữ cảnh
+    - Ý nghĩa vật lý hoặc lý thuyết
+    - Mối quan hệ với các khái niệm toán học khác
+    - Ứng dụng thực tế hoặc trường hợp sử dụng
+    - Luôn sử dụng thuật ngữ toán học cụ thể.",
+    "entity_info": {{ "{{" }}
+        "entity_name": "{entity_name}",
+        "entity_type": "equation",
+        "summary": "tóm tắt ngắn gọn về mục đích và ý nghĩa của phương trình (tối đa 100 từ)"
+    {{ "}}" }}
+{{ "}}" }}
+
+Thông tin phương trình:
+Phương trình: {equation_text}
+Định dạng: {equation_format}
+
+Hãy tập trung cung cấp thông tin chi tiết về toán học và giải thích ý nghĩa của phương trình.
+{% endblock %}
+
+{% block equation_prompt_with_context %}
+Vui lòng phân tích phương trình toán học này có xem xét đến ngữ cảnh xung quanh, và cung cấp phản hồi JSON theo cấu trúc sau:
+
+{{ "{{" }}
+    "detailed_description": "Một phân tích toàn diện về phương trình bao gồm:
+    - Ý nghĩa toán học và cách giải thích
+    - Các biến số và định nghĩa của chúng trong ngữ cảnh nội dung xung quanh
+    - Các phép toán và hàm số được sử dụng
+    - Miền ứng dụng và ngữ cảnh dựa trên tài liệu xung quanh
+    - Ý nghĩa vật lý hoặc lý thuyết
+    - Mối quan hệ với các khái niệm toán học khác được đề cập trong ngữ cảnh
+    - Ứng dụng thực tế hoặc trường hợp sử dụng
+    - Cách phương trình liên quan đến cuộc thảo luận hoặc khung lý thuyết rộng hơn
+    - Luôn sử dụng thuật ngữ toán học cụ thể.",
+    "entity_info": {{ "{{" }}
+        "entity_name": "{entity_name}",
+        "entity_type": "equation",
+        "summary": "tóm tắt ngắn gọn về mục đích, ý nghĩa của phương trình và vai trò của nó trong ngữ cảnh xung quanh (tối đa 100 từ)"
+    {{ "}}" }}
+{{ "}}" }}
+
+Ngữ cảnh từ nội dung xung quanh:
+{context}
+
+Thông tin phương trình:
+Phương trình: {equation_text}
+Định dạng: {equation_format}
+
+Hãy tập trung cung cấp thông tin chi tiết về toán học và giải thích ý nghĩa của phương trình trong bối cảnh rộng hơn.
+{% endblock %}
+
+{# ========================================== #}
+{#          GENERIC CONTENT PROMPTS           #}
+{# ========================================== #}
+
+{% block generic_prompt %}
+Vui lòng phân tích nội dung loại {content_type} này và cung cấp phản hồi JSON theo cấu trúc sau:
+
+{{ "{{" }}
+    "detailed_description": "Một phân tích toàn diện về nội dung bao gồm:
+    - Cấu trúc và tổ chức nội dung
+    - Các thông tin và yếu tố chính
+    - Mối quan hệ giữa các thành phần
+    - Ngữ cảnh và ý nghĩa
+    - Các chi tiết liên quan cho việc truy xuất kiến thức
+    - Luôn sử dụng thuật ngữ cụ thể phù hợp với nội dung loại {content_type}.",
+    "entity_info": {{ "{{" }}
+        "entity_name": "{entity_name}",
+        "entity_type": "{content_type}",
+        "summary": "tóm tắt ngắn gọn về mục đích và các điểm chính của nội dung (tối đa 100 từ)"
+    {{ "}}" }}
+{{ "}}" }}
+
+Nội dung: {content}
+
+Hãy tập trung trích xuất thông tin có ý nghĩa hữu ích cho việc truy xuất kiến thức.
+{% endblock %}
+
+{% block generic_prompt_with_context %}
+Vui lòng phân tích nội dung loại {content_type} này có xem xét đến ngữ cảnh xung quanh, và cung cấp phản hồi JSON theo cấu trúc sau:
+
+{{ "{{" }}
+    "detailed_description": "Một phân tích toàn diện về nội dung bao gồm:
+    - Cấu trúc và tổ chức nội dung
+    - Các thông tin và yếu tố chính
+    - Mối quan hệ giữa các thành phần
+    - Ngữ cảnh và ý nghĩa trong mối liên hệ với nội dung xung quanh
+    - Cách nội dung này kết nối hoặc hỗ trợ cuộc thảo luận rộng hơn
+    - Các chi tiết liên quan cho việc truy xuất kiến thức
+    - Luôn sử dụng thuật ngữ cụ thể phù hợp với nội dung loại {content_type}.",
+    "entity_info": {{ "{{" }}
+        "entity_name": "{entity_name}",
+        "entity_type": "{content_type}",
+        "summary": "tóm tắt ngắn gọn về mục đích, các điểm chính của nội dung và mối quan hệ với ngữ cảnh xung quanh (tối đa 100 từ)"
+    {{ "}}" }}
+{{ "}}" }}
+
+Ngữ cảnh từ nội dung xung quanh:
+{context}
+
+Nội dung: {content}
+
+Hãy tập trung trích xuất thông tin có ý nghĩa hữu ích cho việc truy xuất kiến thức và hiểu vai trò của nội dung trong bối cảnh rộng hơn.
+{% endblock %}
+
+{# ========================================== #}
+{#             CHUNK TEMPLATES                #}
+{# ========================================== #}
+
+{% block image_chunk %}
+Phân tích Nội dung Hình ảnh:
+Đường dẫn ảnh: {image_path}
+Chú thích: {captions}
+Ghi chú chân trang: {footnotes}
+
+Phân tích Trực quan: {enhanced_caption}
+{% endblock %}
+
+{% block table_chunk %}
+Phân tích Bảng:
+Đường dẫn ảnh: {table_img_path}
+Chú thích: {table_caption}
+Cấu trúc: {table_body}
+Ghi chú chân trang: {table_footnote}
+
+Phân tích: {enhanced_caption}
+{% endblock %}
+
+{% block equation_chunk %}
+Phân tích Phương trình Toán học:
+Phương trình: {equation_text}
+Định dạng: {equation_format}
+
+Phân tích Toán học: {enhanced_caption}
+{% endblock %}
+
+{% block generic_chunk %}
+Phân tích Nội dung {content_type}:
+Nội dung: {content}
+
+Phân tích: {enhanced_caption}
+{% endblock %}
+
+{# ========================================== #}
+{#            QUERY & RETRIEVAL               #}
+{# ========================================== #}
+
+{% block QUERY_IMAGE_DESCRIPTION %}
+Vui lòng mô tả ngắn gọn nội dung chính, các yếu tố then chốt và thông tin quan trọng trong hình ảnh này.
+{% endblock %}
+
+{% block QUERY_IMAGE_ANALYST_SYSTEM %}
+Bạn là một chuyên gia phân tích hình ảnh chuyên nghiệp, người có thể mô tả chính xác nội dung hình ảnh.
+{% endblock %}
+
+{% block QUERY_TABLE_ANALYSIS %}
+Vui lòng phân tích nội dung chính, cấu trúc và thông tin quan trọng của dữ liệu bảng sau:
+
+Dữ liệu bảng:
+{table_data}
+
+Chú thích bảng: {table_caption}
+
+Vui lòng tóm tắt ngắn gọn nội dung chính, đặc điểm dữ liệu và các phát hiện quan trọng của bảng.
+{% endblock %}
+
+{% block QUERY_TABLE_ANALYST_SYSTEM %}
+Bạn là một chuyên gia phân tích dữ liệu chuyên nghiệp, người có thể phân tích chính xác dữ liệu bảng.
+{% endblock %}
+
+{% block QUERY_EQUATION_ANALYSIS %}
+Vui lòng giải thích ý nghĩa và mục đích của công thức toán học sau:
+
+Công thức LaTeX: {latex}
+Chú thích công thức: {equation_caption}
+
+Vui lòng giải thích ngắn gọn ý nghĩa toán học, các tình huống ứng dụng và tầm quan trọng của công thức này.
+{% endblock %}
+
+{% block QUERY_EQUATION_ANALYST_SYSTEM %}
+Bạn là một chuyên gia toán học, người có thể giải thích rõ ràng các công thức toán học.
+{% endblock %}
+
+{% block QUERY_GENERIC_ANALYSIS %}
+Vui lòng phân tích nội dung loại {content_type} sau đây và trích xuất thông tin chính cùng các tính năng quan trọng của nó:
+
+Nội dung: {content_str}
+
+Vui lòng tóm tắt ngắn gọn các đặc điểm chính và thông tin quan trọng của nội dung này.
+{% endblock %}
+
+{% block QUERY_GENERIC_ANALYST_SYSTEM %}
+Bạn là một chuyên gia phân tích nội dung chuyên nghiệp, người có thể phân tích chính xác nội dung loại {content_type}.
+{% endblock %}
+
+{% block QUERY_ENHANCEMENT_SUFFIX %}
+Vui lòng cung cấp một câu trả lời toàn diện dựa trên câu hỏi của người dùng và thông tin nội dung đa phương thức được cung cấp.
+{% endblock %}

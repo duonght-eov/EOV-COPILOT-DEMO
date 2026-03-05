@@ -1,0 +1,37 @@
+
+# Core API Dependencies
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+pydantic>=2.7.0
+pydantic-settings>=2.2.0
+python-multipart>=0.0.9
+httpx>=0.27.0
+aiohttp>=3.9.0
+requests>=2.31.0
+tenacity>=8.2.0
+
+# Database Drivers
+asyncpg>=0.29.0
+psycopg2-binary>=2.9.9
+neo4j>=5.20.0
+
+# Storage
+minio>=7.2.5
+
+# RAG Core Libraries (Install from PyPI)
+lightrag-hku
+raganything[all]
+# Note: 'raganything[all]' installs 'mineru', 'pdf2image', 'pillow', etc.
+
+# AI & Data Processing
+numpy>=1.26.0
+pandas>=2.2.0
+tiktoken>=0.7.0
+
+# Utility
+python-dotenv>=1.0.1
+loguru>=0.7.2
+
+# Development
+pytest
+gradio>=4.0.0

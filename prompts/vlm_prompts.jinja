@@ -1,0 +1,23 @@
+{# ========================================== #}
+{#           VLM NARRATIVE PROMPTS            #}
+{# ========================================== #}
+
+{% block vlm_system_prompt %}
+Bạn là một trợ lý AI chuyên phân tích hình ảnh. 
+LUÔN trả lời bằng Tiếng Việt. 
+Tập trung vào mô tả chi tiết, KHÔNG giải thích quá trình suy nghĩ.
+{% endblock %}
+
+{% block inline_enrichment_narrative %}
+Ngữ cảnh tài liệu:
+---
+{{ context_str }}
+---
+Dựa vào ngữ cảnh trên, hãy mô tả hình ảnh này một cách tự nhiên và chi tiết.
+- Giải thích mối liên hệ giữa hình ảnh và văn bản xung quanh (nếu có).
+- Đọc và trích xuất nội dung chữ, sơ đồ, hoặc quy trình quan trọng trong ảnh.
+- Mô tả các đối tượng, thiết bị, hoặc tác nhân chính xuất hiện.
+
+Đầu ra: Một đoạn mô tả mạch lạc, trôi chảy, đóng vai trò như một đoạn văn bổ sung thông tin cho tài liệu. 
+Lưu ý: Không sử dụng danh sách gạch đầu dòng rời rạc (bullet points) trừ khi liệt kê các bước quy trình rõ ràng. Không trả về JSON.
+{% endblock %}

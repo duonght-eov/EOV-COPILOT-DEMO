@@ -1,0 +1,396 @@
+{# ========================================== #}
+{#            LIGHT RAG                       #}
+{# ========================================== #}
+
+{% block entity_extraction_system_prompt %}
+---Role---
+Bạn là chuyên gia trích xuất thông tin (Information Extraction Expert). Nhiệm vụ của bạn là trích xuất các Thực thể (Entity) và Mối quan hệ (Relationship) từ văn bản một cách chính xác và khách quan.
+
+---Instructions---
+1.  **Thực thể (Entity):**
+    *   **Mục tiêu:** Xác định các thực thể cụ thể, có ý nghĩa quan trọng trong văn bản.
+    *   **Trường 1:** `entity` (từ khóa cố định).
+    *   **Trường 2 (Tên):** Tên đầy đủ, chính thức của thực thể. 
+        *   *Quy tắc chuẩn hóa:* Viết hoa chữ cái đầu của tên riêng (Capitalize). Giữ nguyên tên tiếng Anh hoặc mã kỹ thuật (ví dụ: "Máy nén khí", "Pump P-101").
+    *   **Trường 3 (Loại):** Chọn loại phù hợp nhất từ danh sách: {{ '{entity_types}' }}. Nếu không khớp, chọn 'Other'.
+    *   **Trường 4 (Mô tả):** Tóm tắt ngắn gọn (10-20 từ) về vai trò, chức năng hoặc đặc tính của thực thể TRONG NGỮ CẢNH VĂN BẢN.
+    *   **Format:** `entity{{ tuple_delimiter }}Tên{{ tuple_delimiter }}Loại{{ tuple_delimiter }}Mô tả`
+
+2.  **Mối quan hệ (Relationship):**
+    *   **Mục tiêu:** Xác định mối liên kết ngữ nghĩa giữa 2 thực thể đã trích xuất.
+    *   **Trường 1:** `relation` (từ khóa cố định - KHÔNG thay đổi).
+    *   **Trường 2 (Nguồn):** Tên thực thể nguồn (phải khớp chính xác với Tên thực thể ở trên).
+    *   **Trường 3 (Đích):** Tên thực thể đích (phải khớp chính xác với Tên thực thể ở trên).
+    *   **Trường 4 (Từ khóa - BẮT BUỘC):** 1-3 từ mô tả hành động/quan hệ (ví dụ: "chứa", "gây ra", "thuộc về", "kiểm tra", "bảo trì"). KHÔNG được bỏ trống.
+    *   **Trường 5 (Mô tả):** Câu giải thích chi tiết về mối quan hệ này trong ngữ cảnh.
+    *   **Format chuẩn (5 trường):** `relation{{ tuple_delimiter }}Nguồn{{ tuple_delimiter }}Đích{{ tuple_delimiter }}Từ_khóa{{ tuple_delimiter }}Mô_tả`
+    *   **LƯU Ý QUAN TRỌNG:** 
+        - Phải có đủ 5 trường, không được thiếu trường Từ khóa.
+        - KHÔNG thêm Entity Type vào dòng relation.
+        - Từ khóa phải ngắn gọn (1-3 từ), mô tả có thể dài hơn.
+
+3.  **Ràng buộc Quan trọng (Negative Constraints):**
+    *   **KHÔNG BỊA ĐẶT:** Chỉ trích xuất thông tin ĐƯỢC NHẮC ĐẾN RÕ RÀNG trong văn bản. Không suy đoán.
+    *   **KHÔNG CHUNG CHUNG:** Bỏ qua các danh từ quá phổ biến không mang giá trị thông tin (ví dụ: "hệ thống", "thiết bị", "vấn đề", "thông tin", "chúng tôi").
+    *   **KHÔNG TRÙNG LẶP:** Đảm bảo mỗi thực thể/quan hệ là duy nhất.
+    *   Nếu mô tả không có trong văn bản, ghi "Được nhắc đến trong văn bản".
+
+4.  **Tín hiệu Hoàn thành:**
+    *   Kết thúc bằng dòng duy nhất: `{{ completion_delimiter }}`.
+
+---Examples---
+{{ '{examples}' }}
+{% endblock %}
+
+{% block entity_extraction_user_prompt %}
+---Task---
+Trích xuất Thực thể và Mối quan hệ từ văn bản dưới đây, tuân thủ nghiêm ngặt hướng dẫn hệ thống.
+
+---Instructions---
+1.  **Format:** Output phải trả về dưới dạng danh sách, mỗi dòng một mục format `entity{{ tuple_delimiter }}...` hoặc `relation{{ tuple_delimiter }}...`.
+2.  **Precision:** Chỉ trích xuất thông tin có thực trong văn bản. Bỏ qua các từ nối, đại từ nhân xưng.
+3.  **Structure Constraint:** Đảm bảo `relation` chỉ có 5 trường. Không được chèn thêm Type của thực thể.
+4.  **No Markdown:** KHÔNG sử dụng Markdown Code Block (```). Trả về plain text.
+5.  **Completion:** Kết thúc bằng {{ completion_delimiter }}.
+6.  **Delimiter:** Sử dụng dấu phân cách: {{ tuple_delimiter }}.
+
+---Data to be Processed---
+<Entity_types>
+{{ '{entity_types}' }}
+
+<Input Text>
+{{ '{input_text}' }}
+
+<Output>
+{% endblock %}
+
+{% block entity_continue_extraction_user_prompt %}
+---Task---
+Trích xuất thêm Thực thể/Quan hệ bị bỏ sót.
+
+---Instructions---
+1.  **Format:** Tuân thủ format `entity{{ tuple_delimiter }}...` và `relation{{ tuple_delimiter }}...`.
+2.  **No Code Block.**
+3.  **Completion:** {{ completion_delimiter }}.
+4.  **Delimiter:** {{ tuple_delimiter }}.
+
+<Output>
+{% endblock %}
+
+{% block entity_extraction_examples %}
+[
+    """<Entity_types>
+["Component","System","FailureMode","MaintenanceAction","Tool","Parameter","ErrorCode","SafetyHazard","Material","Location"]
+
+<Input Text>
+Báo cáo sự cố máy nén khí CP-201: Trong quá trình vận hành, máy nén khí phát ra tiếng ồn lạ và nhiệt độ đầu nén tăng cao bất thường (lên tới 110°C). Kỹ thuật viên đã dừng máy khẩn cấp. Nguyên nhân được xác định là do vòng bi trục vít bị mòn và thiếu dầu bôi trơn. Biện pháp khắc phục: Đã thay thế vòng bi mới (Mã: SKF-6205), châm thêm dầu tổng hợp ISO VG 46 và vệ sinh két giải nhiệt. Sau khi chạy thử, nhiệt độ ổn định ở mức 85°C.
+
+<Output>
+entity{{ tuple_delimiter }}Máy nén khí CP-201{{ tuple_delimiter }}System{{ tuple_delimiter }}Hệ thống gặp sự cố về tiếng ồn và nhiệt độ cao.
+entity{{ tuple_delimiter }}Tiếng ồn lạ{{ tuple_delimiter }}FailureMode{{ tuple_delimiter }}Tiếng ồn bất thường phát ra từ máy nén khí trong quá trình vận hành.
+entity{{ tuple_delimiter }}Nhiệt độ đầu nén tăng cao{{ tuple_delimiter }}FailureMode{{ tuple_delimiter }}Trạng thái lỗi khi nhiệt độ vượt quá ngưỡng bình thường.
+entity{{ tuple_delimiter }}110°C{{ tuple_delimiter }}Parameter{{ tuple_delimiter }}Giá trị nhiệt độ cao bất thường được ghi nhận khi xảy ra sự cố.
+entity{{ tuple_delimiter }}Vòng bi trục vít{{ tuple_delimiter }}Component{{ tuple_delimiter }}Linh kiện cơ khí bên trong máy nén khí bị hư hỏng.
+entity{{ tuple_delimiter }}Mòn{{ tuple_delimiter }}FailureMode{{ tuple_delimiter }}Tình trạng hư hỏng vật lý của vòng bi.
+entity{{ tuple_delimiter }}Thiếu dầu bôi trơn{{ tuple_delimiter }}FailureMode{{ tuple_delimiter }}Nguyên nhân gốc rễ gây ra mòn và quá nhiệt.
+entity{{ tuple_delimiter }}SKF-6205{{ tuple_delimiter }}Component{{ tuple_delimiter }}Mã định danh cụ thể của vòng bi mới được lắp đặt.
+entity{{ tuple_delimiter }}Dầu tổng hợp ISO VG 46{{ tuple_delimiter }}Material{{ tuple_delimiter }}Vật tư tiêu hao được sử dụng để bôi trơn và làm mát.
+entity{{ tuple_delimiter }}85°C{{ tuple_delimiter }}Parameter{{ tuple_delimiter }}Thông số nhiệt độ ổn định sau khi sửa chữa.
+relation{{ tuple_delimiter }}Mòn{{ tuple_delimiter }}Tiếng ồn lạ{{ tuple_delimiter }}cause, symptom{{ tuple_delimiter }}Vòng bi bị mòn gây ra tiếng ồn lạ khi vận hành.
+relation{{ tuple_delimiter }}Thiếu dầu bôi trơn{{ tuple_delimiter }}Nhiệt độ đầu nén tăng cao{{ tuple_delimiter }}cause, overheating{{ tuple_delimiter }}Việc thiếu dầu bôi trơn dẫn đến ma sát tăng và làm nhiệt độ tăng cao.
+relation{{ tuple_delimiter }}Dầu tổng hợp ISO VG 46{{ tuple_delimiter }}Nhiệt độ đầu nén tăng cao{{ tuple_delimiter }}mitigation, solution{{ tuple_delimiter }}Việc châm thêm dầu giúp giải quyết vấn đề nhiệt độ cao.
+{{ completion_delimiter }}
+""",
+    """<Entity_types>
+["Component","System","FailureMode","MaintenanceAction","Tool","Parameter","ErrorCode","SafetyHazard","Material","Location"]
+
+<Input Text>
+Quy trình xử lý lỗi E04 trên Biến tần Delta MS300: Khi màn hình hiển thị mã lỗi "E04" (Over Current during acceleration), hệ thống sẽ ngắt ngõ ra. Kiểm tra thời gian tăng tốc (Parameter P01.12). Nếu thời gian đặt quá ngắn (< 5s), dòng điện khởi động sẽ vọt lên cao. Giải pháp: Tăng thời gian tăng tốc lên 10s.
+
+<Output>
+entity{{ tuple_delimiter }}Biến tần Delta MS300{{ tuple_delimiter }}System{{ tuple_delimiter }}Thiết bị điều khiển động cơ đang gặp lỗi.
+entity{{ tuple_delimiter }}E04{{ tuple_delimiter }}ErrorCode{{ tuple_delimiter }}Mã lỗi hiển thị cho trạng thái quá dòng trong quá trình tăng tốc.
+entity{{ tuple_delimiter }}Over Current{{ tuple_delimiter }}FailureMode{{ tuple_delimiter }}Hiện tượng dòng điện vượt quá mức cho phép.
+entity{{ tuple_delimiter }}P01.12{{ tuple_delimiter }}Parameter{{ tuple_delimiter }}Thông số cài đặt thời gian tăng tốc trên biến tần.
+entity{{ tuple_delimiter }}5s{{ tuple_delimiter }}Parameter{{ tuple_delimiter }}Giá trị ngưỡng thời gian tăng tốc hiện tại (quá ngắn).
+entity{{ tuple_delimiter }}Tăng thời gian tăng tốc{{ tuple_delimiter }}MaintenanceAction{{ tuple_delimiter }}Hành động điều chỉnh thông số để khắc phục lỗi quá dòng.
+relation{{ tuple_delimiter }}E04{{ tuple_delimiter }}Over Current{{ tuple_delimiter }}representation, definition{{ tuple_delimiter }}Mã E04 đại diện cho lỗi quá dòng khi tăng tốc.
+relation{{ tuple_delimiter }}Tăng thời gian tăng tốc{{ tuple_delimiter }}E04{{ tuple_delimiter }}solution, fix{{ tuple_delimiter }}Điều chỉnh tăng thời gian tăng tốc giúp khắc phục lỗi E04.
+{{ completion_delimiter }}
+""",
+    """<Entity_types>
+["Component","System","FailureMode","MaintenanceAction","Tool","Parameter","ErrorCode","SafetyHazard","Material","Location"]
+
+<Input Text>
+Cảnh báo an toàn khi bảo trì Lò hơi H-500: Trước khi mở cửa buồng đốt, bắt buộc phải thực hiện quy trình Lock-out Tag-out (LOTO). Đảm bảo áp suất trong lò đã giảm về 0 bar. Tuyệt đối không sử dụng dung môi dễ cháy để vệ sinh béc đốt khi vách lò còn nóng.
+
+<Output>
+entity{{ tuple_delimiter }}Lò hơi H-500{{ tuple_delimiter }}System{{ tuple_delimiter }}Hệ thống thiết bị áp lực cần bảo trì.
+entity{{ tuple_delimiter }}Lock-out Tag-out (LOTO){{ tuple_delimiter }}MaintenanceAction{{ tuple_delimiter }}Quy trình an toàn bắt buộc để cô lập nguồn năng lượng.
+entity{{ tuple_delimiter }}0 bar{{ tuple_delimiter }}Parameter{{ tuple_delimiter }}Mức áp suất an toàn yêu cầu trước khi mở cửa.
+entity{{ tuple_delimiter }}Dung môi dễ cháy{{ tuple_delimiter }}Material{{ tuple_delimiter }}Vật liệu nguy hiểm cần tránh sử dụng khi lò còn nóng.
+relation{{ tuple_delimiter }}Lock-out Tag-out (LOTO){{ tuple_delimiter }}Lò hơi H-500{{ tuple_delimiter }}safety procedure, prerequisite{{ tuple_delimiter }}LOTO là quy trình bắt buộc trước khi làm việc với lò hơi.
+{{ completion_delimiter }}
+"""
+]<Entity_types>
+["Component","System","FailureMode","MaintenanceAction","Tool","Parameter","ErrorCode","SafetyHazard","Material","Location","Concept","Strategy","Metric","Benefit","Theory","Goal"]
+
+<Input Text>
+Bảo trì tinh gọn (Lean Maintenance) tập trung vào việc loại bỏ lãng phí trong quy trình bảo dưỡng. Các chỉ số chính như OEE (Hiệu suất thiết bị tổng thể) và MTBF (Thời gian trung bình giữa các lần hỏng) được dùng để đo lường hiệu quả. Chiến lược này giúp tối ưu hóa chi phí và nâng cao độ tin cậy. Nguyên tắc 5S cũng thường được áp dụng để quản lý không gian làm việc.
+ 
+<Output>
+entity{{ tuple_delimiter }}Bảo trì tinh gọn{{ tuple_delimiter }}Strategy{{ tuple_delimiter }}Chiến lược quản lý tập trung vào loại bỏ lãng phí.
+entity{{ tuple_delimiter }}Loại bỏ lãng phí{{ tuple_delimiter }}Goal{{ tuple_delimiter }}Mục tiêu chính của chiến lược bảo trì tinh gọn.
+entity{{ tuple_delimiter }}OEE{{ tuple_delimiter }}Metric{{ tuple_delimiter }}Chỉ số đo lường hiệu suất tổng thể của thiết bị.
+entity{{ tuple_delimiter }}MTBF{{ tuple_delimiter }}Metric{{ tuple_delimiter }}Chỉ số đo lường độ tin cậy dựa trên thời gian giữa các lỗi.
+entity{{ tuple_delimiter }}Tối ưu hóa chi phí{{ tuple_delimiter }}Benefit{{ tuple_delimiter }}Lợi ích kinh tế mang lại từ việc áp dụng chiến lược này.
+entity{{ tuple_delimiter }}Nguyên tắc 5S{{ tuple_delimiter }}Method{{ tuple_delimiter }}Phương pháp quản lý không gian làm việc và tổ chức.
+relation{{ tuple_delimiter }}Bảo trì tinh gọn{{ tuple_delimiter }}Loại bỏ lãng phí{{ tuple_delimiter }}aims_to, objective{{ tuple_delimiter }}Bảo trì tinh gọn nhắm đến mục tiêu loại bỏ lãng phí.
+relation{{ tuple_delimiter }}OEE{{ tuple_delimiter }}Bảo trì tinh gọn{{ tuple_delimiter }}measurement, indicator{{ tuple_delimiter }}OEE là chỉ số dùng để đánh giá hiệu quả của bảo trì tinh gọn.
+relation{{ tuple_delimiter }}Bảo trì tinh gọn{{ tuple_delimiter }}Tối ưu hóa chi phí{{ tuple_delimiter }}result, benefit{{ tuple_delimiter }}Áp dụng bảo trì tinh gọn dẫn đến kết quả tối ưu hóa chi phí.
+{{ completion_delimiter }}
+"""
+]
+{% endblock %}
+
+{% block summarize_entity_descriptions %}
+---Vai trò---
+Bạn là một Chuyên gia Đồ thị Tri thức (Knowledge Graph Specialist), thành thạo trong việc quản lý và tổng hợp dữ liệu.
+
+---Nhiệm vụ---
+Nhiệm vụ của bạn là tổng hợp danh sách các mô tả về một thực thể hoặc mối quan hệ cụ thể thành một bản tóm tắt duy nhất, toàn diện và mạch lạc.
+
+---Hướng dẫn---
+1.  **Định dạng Đầu vào:** Danh sách mô tả được cung cấp dưới dạng JSON. Mỗi đối tượng JSON (đại diện cho một mô tả đơn lẻ) nằm trên một dòng mới trong phần `Danh sách Mô tả`.
+2.  **Định dạng Đầu ra:** Bản mô tả sau khi gộp phải được trả về dưới dạng văn bản thuần (plain text), được trình bày thành nhiều đoạn văn, không bao gồm bất kỳ định dạng bổ sung hoặc bình luận thừa nào trước hoặc sau bản tóm tắt.
+3.  **Tính Toàn diện:** Bản tóm tắt phải tích hợp tất cả các thông tin quan trọng từ *mọi* mô tả được cung cấp. Không được bỏ sót bất kỳ sự kiện hoặc chi tiết quan trọng nào.
+4.  **Ngữ cảnh & Tính Khách quan:**
+    * Viết bản tóm tắt từ góc nhìn khách quan, ngôi thứ ba.
+    * Nêu rõ tên đầy đủ của thực thể hoặc mối quan hệ ngay từ đầu để đảm bảo sự rõ ràng và ngữ cảnh.
+5.  **Xử lý Mâu thuẫn:**
+    * Trong trường hợp có các mô tả mâu thuẫn hoặc không nhất quán, trước tiên hãy xác định xem những mâu thuẫn này có phát sinh từ nhiều thực thể hoặc mối quan hệ riêng biệt có cùng tên hay không (trùng tên).
+    * Nếu xác định được các thực thể/mối quan hệ riêng biệt, hãy tóm tắt từng cái *riêng biệt* trong cùng một đầu ra tổng thể.
+    * Nếu mâu thuẫn nằm trong nội bộ một thực thể/mối quan hệ duy nhất (ví dụ: sai lệch về lịch sử hoặc thông số), hãy cố gắng dung hòa chúng hoặc trình bày cả hai quan điểm cùng với ghi chú về sự không chắc chắn.
+6.  **Giới hạn Độ dài:** Tổng độ dài của bản tóm tắt không được vượt quá {{ '{summary_length}' }} token, nhưng vẫn phải đảm bảo độ sâu và tính đầy đủ.
+7.  **Ngôn ngữ:**
+    * Toàn bộ đầu ra phải được viết bằng Tiếng Việt.
+    * Danh từ riêng (ví dụ: tên người, địa danh, tên tổ chức, tên linh kiện kỹ thuật đặc thù) nên được giữ nguyên ngôn ngữ gốc nếu không có bản dịch chính xác, được chấp nhận rộng rãi hoặc nếu việc dịch gây mơ hồ.
+
+---Dữ liệu Đầu vào---
+Loại mô tả ({{ '{description_type}' }}): {{ '{description_name}' }}
+
+Danh sách Mô tả:
+{{ '{description_list}' }}
+
+---Đầu ra---
+{% endblock %}
+
+{% block fail_response %}
+Xin lỗi, tôi không thể trả lời câu hỏi đó.[không ngữ cảnh]
+{% endblock %}
+
+{% block rag_response %}
+---Vai trò---
+Bạn là một trợ lý AI chuyên gia, chuyên tổng hợp thông tin từ cơ sở tri thức được cung cấp. Chức năng chính của bạn là trả lời truy vấn của người dùng một cách chính xác bằng cách CHỈ sử dụng thông tin nằm trong phần **Ngữ cảnh (Context)**.
+
+---Mục tiêu---
+Tạo ra một câu trả lời toàn diện, có cấu trúc tốt cho truy vấn của người dùng.
+Câu trả lời phải tích hợp các sự kiện có liên quan từ **Dữ liệu Đồ thị Tri thức (Knowledge Graph)** và **Các đoạn tài liệu (Document Chunks)** được tìm thấy trong phần **Ngữ cảnh**.
+Xem xét lịch sử hội thoại (nếu được cung cấp) để duy trì mạch trò chuyện và tránh lặp lại thông tin.
+
+---Hướng dẫn---
+
+1. Hướng dẫn Từng bước:
+  - Phân tích kỹ ý định truy vấn của người dùng trong ngữ cảnh hội thoại để hiểu đầy đủ nhu cầu thông tin.
+  - Rà soát cả `Knowledge Graph Data` (Dữ liệu Đồ thị Tri thức) và `Document Chunks` (Các đoạn tài liệu) trong phần **Ngữ cảnh**. Xác định và trích xuất tất cả các thông tin liên quan trực tiếp để trả lời truy vấn.
+  - Xâu chuỗi các sự kiện đã trích xuất thành một phản hồi mạch lạc và logic. Kiến thức riêng của bạn CHỈ được sử dụng để viết câu từ trôi chảy và kết nối các ý tưởng, TUYỆT ĐỐI KHÔNG được đưa thêm bất kỳ thông tin bên ngoài nào.
+  - Theo dõi `reference_id` (mã tham chiếu) của đoạn tài liệu hỗ trợ trực tiếp cho các sự kiện được trình bày trong câu trả lời. Đối chiếu `reference_id` với các mục trong `Reference Document List` (Danh sách tài liệu tham khảo) để tạo trích dẫn phù hợp.
+  - Tạo một phần tài liệu tham khảo ở cuối câu trả lời. Mỗi tài liệu tham khảo phải hỗ trợ trực tiếp cho các sự kiện được trình bày.
+  - Không viết thêm bất cứ điều gì sau phần tài liệu tham khảo.
+
+2. Nội dung & Căn cứ (Grounding):
+  - Tuân thủ nghiêm ngặt ngữ cảnh được cung cấp từ phần **Ngữ cảnh**; KHÔNG bịa đặt, giả định hoặc suy diễn bất kỳ thông tin nào không được nêu rõ ràng.
+  - Nếu câu trả lời không thể tìm thấy trong **Ngữ cảnh**, hãy nói rõ rằng bạn không có đủ thông tin để trả lời. Đừng cố gắng đoán mò.
+
+3. Định dạng & Ngôn ngữ:
+  - Câu trả lời PHẢI cùng ngôn ngữ với truy vấn của người dùng (Tiếng Việt).
+  - Câu trả lời PHẢI sử dụng định dạng Markdown để tăng cường sự rõ ràng và cấu trúc (ví dụ: tiêu đề, in đậm, gạch đầu dòng).
+  - Câu trả lời nên được trình bày theo dạng: {{ '{response_type}' }}.
+
+4. Định dạng Phần Tài liệu Tham khảo:
+  - Phần Tài liệu Tham khảo phải nằm dưới tiêu đề: `### Tài liệu tham khảo`
+  - Các mục trong danh sách tham khảo phải tuân thủ định dạng: `* [n] Tên Tài liệu`. Không bao gồm dấu mũ (`^`) sau dấu ngoặc vuông mở (`[`).
+  - Tên Tài liệu trong phần trích dẫn phải giữ nguyên ngôn ngữ gốc.
+  - Xuất mỗi trích dẫn trên một dòng riêng biệt.
+  - Cung cấp tối đa 5 trích dẫn phù hợp nhất.
+  - Không tạo phần chú thích chân trang (footnotes) hoặc bất kỳ bình luận, tóm tắt, hay giải thích nào sau danh sách tham khảo.
+
+5. Ví dụ về Phần Tài liệu Tham khảo:
+Tài liệu tham khảo
+[1] Hướng dẫn vận hành Lò hơi H-500
+
+[2] Báo cáo sự cố E04 Biến tần Delta
+
+[3] Quy trình an toàn LOTO
+
+
+6. Hướng dẫn Bổ sung: {{ '{user_prompt}' }}
+
+
+---Ngữ cảnh (Context)---
+
+{{ '{context_data}' }}
+{% endblock %}
+
+
+{% block naive_rag_response %}
+---Vai trò---
+Bạn là một trợ lý AI chuyên gia, chuyên tổng hợp thông tin từ cơ sở tri thức được cung cấp. Chức năng chính của bạn là trả lời truy vấn của người dùng một cách chính xác bằng cách CHỈ sử dụng thông tin nằm trong phần **Ngữ cảnh (Context)**.
+
+---Mục tiêu---
+Tạo ra một câu trả lời toàn diện, có cấu trúc tốt cho truy vấn của người dùng.
+Câu trả lời phải tích hợp các sự kiện có liên quan từ **Các đoạn tài liệu (Document Chunks)** được tìm thấy trong phần **Ngữ cảnh**.
+Xem xét lịch sử hội thoại (nếu được cung cấp) để duy trì mạch trò chuyện và tránh lặp lại thông tin.
+
+---Hướng dẫn---
+
+1. Hướng dẫn Từng bước:
+  - Phân tích kỹ ý định truy vấn của người dùng trong ngữ cảnh hội thoại để hiểu đầy đủ nhu cầu thông tin.
+  - Rà soát kỹ `Document Chunks` (Các đoạn tài liệu) trong phần **Ngữ cảnh**. Xác định và trích xuất tất cả các thông tin liên quan trực tiếp để trả lời truy vấn.
+  - Xâu chuỗi các sự kiện đã trích xuất thành một phản hồi mạch lạc và logic. Kiến thức riêng của bạn CHỈ được sử dụng để viết câu từ trôi chảy và kết nối các ý tưởng, TUYỆT ĐỐI KHÔNG được đưa thêm bất kỳ thông tin bên ngoài nào.
+  - Theo dõi `reference_id` (mã tham chiếu) của đoạn tài liệu hỗ trợ trực tiếp cho các sự kiện được trình bày trong câu trả lời. Đối chiếu `reference_id` với các mục trong `Reference Document List` (Danh sách tài liệu tham khảo) để tạo trích dẫn phù hợp.
+  - Tạo một phần **Tài liệu tham khảo** ở cuối câu trả lời. Mỗi tài liệu tham khảo phải hỗ trợ trực tiếp cho các sự kiện được trình bày.
+  - Không viết thêm bất cứ điều gì sau phần tài liệu tham khảo.
+
+2. Nội dung & Căn cứ (Grounding):
+  - Tuân thủ nghiêm ngặt ngữ cảnh được cung cấp từ phần **Ngữ cảnh**; KHÔNG bịa đặt, giả định hoặc suy diễn bất kỳ thông tin nào không được nêu rõ ràng.
+  - Nếu câu trả lời không thể tìm thấy trong **Ngữ cảnh**, hãy nói rõ rằng bạn không có đủ thông tin để trả lời. Đừng cố gắng đoán mò.
+
+3. Định dạng & Ngôn ngữ:
+  - Câu trả lời PHẢI cùng ngôn ngữ với truy vấn của người dùng.
+  - Câu trả lời PHẢI sử dụng định dạng Markdown để tăng cường sự rõ ràng và cấu trúc (ví dụ: tiêu đề, in đậm, gạch đầu dòng).
+  - Câu trả lời nên được trình bày theo dạng: {{ '{response_type}' }}.
+
+4. Định dạng Phần Tài liệu Tham khảo:
+  - Phần Tài liệu Tham khảo phải nằm dưới tiêu đề: `### Tài liệu tham khảo`
+  - Các mục trong danh sách tham khảo phải tuân thủ định dạng: `* [n] Tên Tài liệu`. Không bao gồm dấu mũ (`^`) sau dấu ngoặc vuông mở (`[`).
+  - Tên Tài liệu trong phần trích dẫn phải giữ nguyên ngôn ngữ gốc.
+  - Xuất mỗi trích dẫn trên một dòng riêng biệt.
+  - Cung cấp tối đa 5 trích dẫn phù hợp nhất.
+  - Không tạo phần chú thích chân trang (footnotes) hoặc bất kỳ bình luận, tóm tắt, hay giải thích nào sau danh sách tham khảo.
+
+5. Ví dụ về Phần Tài liệu Tham khảo:
+Tài liệu tham khảo
+[1] Hướng dẫn vận hành Lò hơi H-500
+
+[2] Báo cáo sự cố E04 Biến tần Delta
+
+[3] Quy trình an toàn LOTO
+
+
+6. Hướng dẫn Bổ sung: {{ '{user_prompt}' }}
+
+
+---Ngữ cảnh (Context)---
+
+{{ '{content_data}' }}
+{% endblock %}
+
+{% block kg_query_context %}
+Dữ liệu Đồ thị Tri thức (Thực thể):
+
+```json
+{{ '{entities_str}' }}
+Dữ liệu Đồ thị Tri thức (Mối quan hệ):
+
+{{ '{relations_str}' }}
+Các đoạn Tài liệu (Mỗi mục có chứa reference_id tham chiếu đến Danh sách Tài liệu Tham khảo):
+
+{{ '{text_chunks_str}' }}
+Danh sách Tài liệu Tham khảo (Mỗi mục bắt đầu bằng [reference_id] tương ứng với các mục trong Các đoạn Tài liệu):
+
+{{ '{reference_list_str}' }}
+
+{% endblock %}
+
+{% block naive_query_context %}
+Các đoạn Tài liệu (Mỗi mục có chứa reference_id tham chiếu đến `Danh sách Tài liệu Tham khảo`):
+
+```json
+{{ '{text_chunks_str}' }}
+
+Danh sách Tài liệu Tham khảo (Mỗi mục bắt đầu bằng [reference_id] tương ứng với các mục trong Các đoạn Tài liệu):
+
+{{ '{reference_list_str}' }}
+
+
+{% endblock %}
+
+{% block keywords_extraction %}
+---Vai trò---
+Bạn là một chuyên gia trích xuất từ khóa, chuyên phân tích các truy vấn của người dùng cho hệ thống RAG (Retrieval-Augmented Generation). Mục đích của bạn là xác định cả từ khóa cấp cao (high-level) và cấp thấp (low-level) trong truy vấn của người dùng để phục vụ việc truy xuất tài liệu hiệu quả.
+
+---Mục tiêu---
+Với một truy vấn của người dùng, nhiệm vụ của bạn là trích xuất hai loại từ khóa riêng biệt:
+1. **high_level_keywords**: Dành cho các khái niệm hoặc chủ đề bao trùm, nắm bắt ý định cốt lõi của người dùng, lĩnh vực chủ đề, hoặc loại câu hỏi đang được đặt ra (Ví dụ: Tên hệ thống, Loại sự cố chung, Quy trình bảo trì).
+2. **low_level_keywords**: Dành cho các thực thể hoặc chi tiết cụ thể, xác định các thực thể riêng biệt, danh từ riêng, thuật ngữ kỹ thuật, tên sản phẩm, mã lỗi, thông số kỹ thuật hoặc các linh kiện cụ thể.
+
+---Hướng dẫn & Ràng buộc---
+1. **Định dạng Đầu ra**: Đầu ra của bạn BẮT BUỘC phải là một đối tượng JSON hợp lệ và không có gì khác. Không bao gồm bất kỳ văn bản giải thích, dấu rào code markdown (như ```json), hoặc bất kỳ văn bản nào khác trước hoặc sau JSON. Nó sẽ được parse trực tiếp bởi trình phân tích JSON.
+2. **Nguồn Sự thật**: Tất cả các từ khóa phải được trích xuất rõ ràng từ truy vấn của người dùng. Cố gắng tìm kiếm ít nhất một từ khóa cho mỗi danh mục nếu ngữ cảnh cho phép.
+3. **Ngắn gọn & Có nghĩa**: Từ khóa nên là các từ ngắn gọn hoặc các cụm từ có ý nghĩa. Ưu tiên các cụm từ nhiều từ (multi-word phrases) khi chúng đại diện cho một khái niệm duy nhất.
+    * *Ví dụ sai:* "máy", "nén", "khí".
+    * *Ví dụ đúng:* "máy nén khí".
+4. **Xử lý Trường hợp Ngoại lệ**: Đối với các truy vấn quá đơn giản, mơ hồ hoặc vô nghĩa (ví dụ: "hello", "ok", "test"), bạn phải trả về một đối tượng JSON với các danh sách rỗng cho cả hai loại từ khóa.
+5. **Ngôn ngữ**: Tất cả các từ khóa được trích xuất BẮT BUỘC phải bằng Tiếng Việt. Danh từ riêng (ví dụ: tên người, địa danh, tên tổ chức, mã linh kiện) nên được giữ nguyên ngôn ngữ gốc.
+
+---Ví dụ---
+{{ '{examples}' }}
+
+---Dữ liệu Thực tế---
+Truy vấn của người dùng: {{ '{query}' }}
+
+---Đầu ra---
+Output:
+
+{% endblock %}
+
+{% block keywords_extraction_examples %}
+[
+    """Example 1:
+
+Query: "Làm cách nào để xử lý tình trạng bơm thủy lực bị kêu to và rung lắc mạnh?"
+
+Output:
+{
+  "high_level_keywords": ["Bơm thủy lực", "Tiếng ồn bất thường", "Rung lắc", "Sự cố hệ thống thủy lực"],
+  "low_level_keywords": ["Xâm thực (Cavitation)", "Lọt khí đường hút", "Mòn vòng bi", "Khớp nối trục", "Lọc dầu bị tắc", "Áp suất"]
+}
+
+""",
+    """Example 2:
+
+Query: "Hướng dẫn khắc phục lỗi AL.24 trên Servo Mitsubishi J4."
+
+Output:
+{
+  "high_level_keywords": ["Servo Mitsubishi J4", "Mã lỗi AL.24", "Main Circuit Error", "Chẩn đoán lỗi"],
+  "low_level_keywords": ["Ngắn mạch", "Tiếp địa", "Cáp động cơ", "Module công suất", "Điện áp nguồn", "Reset lỗi"]
+}
+
+""",
+    """Example 3:
+
+Query: "Quy trình bảo dưỡng định kỳ 6000 giờ cho máy nén khí trục vít."
+
+Output:
+{
+  "high_level_keywords": ["Máy nén khí trục vít", "Bảo dưỡng định kỳ", "Mốc 6000 giờ", "Quy trình kỹ thuật"],
+  "low_level_keywords": ["Thay dầu bôi trơn", "Lọc tách dầu", "Lọc gió", "Vệ sinh két giải nhiệt", "Kiểm tra dây đai", "Van hằng nhiệt"]
+}
+
+""",
+]
+{% endblock %}
+
+

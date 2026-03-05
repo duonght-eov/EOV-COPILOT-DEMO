@@ -1,0 +1,1785 @@
+================================================================================
+CHUNK ID: chunk-576ebe5dff134d51734c836f4fc89480 | PAGE: ?
+================================================================================
+{
+  "document_id": "bea97e069de14dc1a39d0e9c4ca8bda9",
+  "file_name": "",
+  "total_pages": 37,
+  "content": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "TÀI LIỆU QUẢN LÝ BẢO  TRÌ HỆ THỐNG ĐIỆN  TRONG TÒA NHÀ",
+      "page_idx": 0
+    },
+    {
+      "type": "paragraph",
+      "text": "(Tài liệu tham khảo)",
+      "page_idx": 0
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "MỘ ĐẠU",
+      "page_idx": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "Tòa nhà chung cư là nơi ở của hàng trăm hộ gia đình, nhất là tại các tòa nhà chung cư lón có thể chưa dân số lên tôi hàng nghìn người. Lúc này tòa nhà nếu muôn vận hành hiệu quả và ổn định thì ban quản lý tòa nhà cần đảm bảo hệ thông điện luôn luôn hoạt động ổn định hiệu quả.",
+      "page_idx": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "Điều này đổi hơi ban quản lý tòa nhà cần quản lý chất chế và bảo trì hệ thông điện trong tòa nhà thương xuyên, qua đó có thể kip thôi phát hiện sự cố bất ngữ xảy ra cùng như kip thôi xử lý hiệu quả.",
+      "page_idx": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi quản lý bảo hành bảo trì hệ thông điện trong tòa nhà, ban quản lý cần:",
+      "page_idx": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Quản lý việc điều khiển, duy trì hoạt động của hệ thông trang thiết bị (hệ thông điện, nước,...) thuốc phàn sở hữu chung hoặc phàn sử dụng chung của tòa nhà.",
+      "page_idx": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Thông báo bằng văn bản về những yếu câu, những điều cần chú ý cho người sử dụng khi bất đâu sử dụng tòa nhà, hưống dân việc lắp đặt các trang thiết bị thuốc phàn sở hữu riెng vào hệ thông trang thiết bị dùng chung.",
+      "page_idx": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Định kỳ kiểm tra cụ thể, chi tiết, bộ phận hệ thông cấp điện, hệ thông điện, hệ thông trang",
+      "page_idx": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "thiết bị cấp, thoát nước trong và ngoài nhà của tòa nhà.",
+      "page_idx": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Thực hiện ngay việc ngăn ngừa nguy cơ gây thiết hải cho người sử dụng tòa nhà.",
+      "page_idx": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Sửa chữa bất kỳ chi tiết nào của hệ thống kỹ thuật bị hư hỏng nhảm đảm bảo cho tòa nhà hoạt động được bình thương.",
+      "page_idx": 1
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "HỆ THỐNG ĐIỆN TỒA NHÀ CÓ NHỮNG GÌ?",
+      "page_idx": 2
+    },
+    {
+      "type": "paragraph",
+      "text": "Quy trình vận hành hệ thông điện tòa nhà đã phúc tập, quy trình bảo dưỡng càng phúc tập hon. Quản lý bảo trì hệ thông điện đổi hơi nhiều đầu công việc, đổi ngữ nhân lực có trình độ và chuyên môn cao với những máy móc, thiết bị chuyên dụng hỗ trợ. Quan trọng nhất là việc bảo trì cần được tiến hành thương xuyên, đúng định kỳ.",
+      "page_idx": 2
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/2_0.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 2
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/2_1.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 2
+    },
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "NGUYÊN TẮC VẬN HÀNH VÀ BẢO TRỊ",
+      "page_idx": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "HỆ THỐNG ĐIỆN",
+      "page_idx": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi quản lý vận hành, bảo trì hệ thông điện trong tòa nhà, ban quản lý cần tuân thủ một số nguyên tắc cơ bản như sau:",
+      "page_idx": 3
+    },
+    {
+      "type": "paragraph",
+
+================================================================================
+CHUNK ID: chunk-0726d3db96fb1782b256608ea6f26157 | PAGE: ?
+================================================================================
+},
+    {
+      "type": "paragraph",
+      "text": "+ Các thông số kỹ thuật, công nghệ của công trình, bộ phân công trình và thiết bị công trình điện",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Quy định đổi tượng, phương pháp và tần suất kiểm tra công trình",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Quy định nội dung và chi dân thực hiện bảo dưỡng công trình",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Quy định thời điểm và chỉ dân thay thế định kỳ các thiết bị lắp đặt vào công trình",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Chỉ dân phương pháp sửa chữa các hư hỏng, xử lý các trường hợp công trình bị xuống cấp",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Quy định thời gian sử dụng của công trình",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Quy định về nội dung, thời gian đánh giá định kỳ đổi với công trình phải đánh giá an toàn trong quá trình khai thác sử dụng",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Xác định thời điểm, đổi tượng và nội dung cần kiểm định định kỳ",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Quy định thời điểm, phương pháp, chu kỳ quan trắc đổi với công trình có yêu cầu quan trắc",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Các chỉ dân khác liên quan đến bảo trì công trình xây dựng.",
+      "page_idx": 5
+    },
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "NHIỆM VỰ CỦA BAN QUẢN LÝ KHI VẬN",
+      "page_idx": 6
+    },
+    {
+      "type": "paragraph",
+      "text": "HÀNH HỆ THỐNG KỶ THUẬT ĐIỆN",
+      "page_idx": 6
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi quản lý vận hành và bảo trì bảo dưỡng hệ thông điện trong tòa nhà, ban quản lý tòa nhà cần phải có nhiệm vụ và trách nhiệm sau: + Quản lý việc điều khiển, duy trì hoạt động của hệ thông trang thiết bị (hệ thông điện, nước...) thuốc phàn sở hữu chung hoặc phàn sử dụng chung của tòa nhà.",
+      "page_idx": 6
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Thông báo bằng văn bản về những yếu câu, những điều cần chú ý cho người sử dụng khi bất đâu sử dụng tòa nhà, hưống dân việc lắp đặt các trang thiết bị thuốc phàn sở hữu riెng vào hệ thông trang thiết bị dùng chung.",
+      "page_idx": 6
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Đình kỳ kiểm tra cụ thể, chi tiết, bộ phận hệ thông cấp điện, hệ thông điện, hệ thông trang thiết bị cấp, thoát nước trong và ngoài nhà của tòa nhà.",
+      "page_idx": 6
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/6_0.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 6
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Thực hiện ngay việc ngăn ngừa nguy cơ gây thiết hại cho người sử dụng tòa nhà. + Sửa chữa bất kỳ chi tiết nào của hệ thống kỹ thuật bị hư hỏng nhảm đảm bảo cho tòa nhà hoạt động được bình thường.",
+      "page_idx": 6
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "TỔ CHỨC BỘ PHẬN KỶ THUẬT",
+      "page_idx": 7
+    },
+    {
+      "type": "paragraph",
+      "text": "Ban quản lý tòa nhà cần tổ chức một bộ phận kỹ thuật để thương xuyên vận hành, kiểm tra và thực hiện bảo trì định kỳ hệ thống kỹ thuật trong tòa nhà. Trong đó bộ phận kỹ thuật cần có đủ các vị trí:",
+      "page_idx": 7
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/7_0.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 7
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "CÁC BƯỚC BẢO TRÌ DỰ PHÒNG",
+      "page_idx": 8
+    },
+    {
+      "type": "paragraph",
+      "text": "Trong quá trình vận hành hệ thống điện tòa nhà, nếu hệ thống điện
+
+================================================================================
+CHUNK ID: chunk-1186f69e77cf20fb37aa502477fcac27 | PAGE: ?
+================================================================================
+"caption": [],
+      "footnote": [],
+      "page_idx": 7
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "CÁC BƯỚC BẢO TRÌ DỰ PHÒNG",
+      "page_idx": 8
+    },
+    {
+      "type": "paragraph",
+      "text": "Trong quá trình vận hành hệ thống điện tòa nhà, nếu hệ thống điện xuất hiện sự cố  hư hỏng hay thiệt hại, hoặc tới thời hạn bảo trì bảo dưỡng mà đội ngũ kỹ thuật tòa  nhà có thể thực hiện. Bộ phận kỹ thuật tòa nhà cần thực hiện công tác bảo trì hệ  thống điện. Phương pháp sửa chữa và bảo trì hệ thống điện tòa nhà gồm:",
+      "page_idx": 8
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/8_0.jpg",
+      "caption": [],
+      "footnote": [
+        "* Phương pháp sửa chữa liên tục: Sửa  chữa theo tuần tự từng công đoạn,  Không đòi hỏi lượng tập trung nhân công  cao nhưng có thời gian sửa chữa dài.",
+        "* Phương pháp sửa chữa song song: Tiến hành đồng thời các công đoạn, thời gian sửa chữa được rút ngắn nhưng đòi hỏi nhân sự cần tập trung cao.",
+        "* Phương pháp sửa chữa phối hợp.",
+        "* Phương pháp sửa chữa cụm: Tiến  hành thay thế ngay bộ phận có các chi  tiết máy hư hỏng bằng một bộ phận mới,  có thời gian sửa chữa ngắn nhất, lượng  nhân sự tập trung tại mỗi thời điểm là  không cao. Bộ phận hư hỏng sau khi  được tháo ra sẽ được sửa chữa tại một  thời điểm thích hợp.Đòi hỏi trang thiết bị  đồng nhất, lượng phụ tùng dự trữ phải  lớn và đầy đủ."
+      ],
+      "page_idx": 8
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "QUY TRỊNH BẢO TRỊ HỆ THỔNG ĐIỀU HÓA",
+      "page_idx": 9
+    },
+    {
+      "type": "paragraph",
+      "text": "TRUNG TÂM",
+      "page_idx": 9
+    },
+    {
+      "type": "paragraph",
+      "text": "Hệ thông điều hòa trung tâm thương phải hoạt động liên tục, vì vây nên cần có kế hoạch để bảo trì, bảo dưỡng để hệ thông điều hòa trung tâm luôn vận hành ổn định. Nên bảo dưỡng hệ thông điều hòa trung tâm khi nhận thây điều hòa hoạt động có vận để như chay yếu, không mát, không hoạt động, hỏng... hoặc khi nhận thây hệ thông nước ngưng bị tắc nghên, trực trắc, mạch điện hỏ, điện chập chờn...",
+      "page_idx": 9
+    },
+    {
+      "type": "paragraph",
+      "text": "Thời gian để bảo dưỡng hệ thông điều hòa trung tâm hợp lý nhất sẽ là khoảng 1 năm 1 lần. Riెng với những khu vực có môi trường ô nhiễm hay gàn biển có tính hao môn và hỏng hóc cao hơn thì nên bảo dưỡng 6 tháng 1 lần để đảm bảo điều hòa luôn hoạt động tốt.",
+      "page_idx": 9
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiêm tra • Kiêm tra quát dân lãnh, Block, dòng điện định mức, quát dân nóng, hoạt động của tay điều khiển như kiểm tra Pin, màn hình hiện thị... chức năng hoạt động của máy điều hòa xem hoạt động ổn định không.",
+      "page_idx": 9
+    },
+    {
+      "type": "paragraph",
+      "text": "Báo dưỡng dàn lãnh • Kiểm tra và vệ sinh máng hứng nước ngưng, thông tắc đường ống thoát nước, vệ sinh thiết bị bơm, vệ sinh trong dàn lãnh và kiểm tra các chức năng điều khiển và độ chính xác của các bộ điều khiển",
+      "page_idx": 9
+    },
+    {
+      "type": "paragraph",
+      "text": "Báo dưỡng dàn nóng • Kiểm tra bộ cảm biến nhiệm độ và các bộ cảm biến áp suất, nập gas bổ sung nếu cần. Vệ sinh dàn ngưng",
+      "page_idx": 9
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiêm tra nguôn điện • Kiêm tra người điện và các chế độ vận hành điều khiển, Aptomat cấp điện người cho thiết bị.",
+      "page_idx": 9
+    },
+    {
+      "type": "paragraph",
+      "text": "• Làm sách phía bên trong của tù điện và các câu đâu điện.",
+      "page_idx": 9
+    },
+    {
+      "type": "paragraph",
+      "text": "Vận hành chay thử • Vận hành chay thử lại toàn bộ hệ thông để chắc chắn máy móc vận hành trơn tru, ổn định.",
+      "page_idx": 9
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "QUY TRỊNH BẢO TRỊ H
+
+================================================================================
+CHUNK ID: chunk-39936f7484a6a69f09207fea6c6ba89c | PAGE: ?
+================================================================================
+"page_idx": 9
+    },
+    {
+      "type": "paragraph",
+      "text": "Vận hành chay thử • Vận hành chay thử lại toàn bộ hệ thông để chắc chắn máy móc vận hành trơn tru, ổn định.",
+      "page_idx": 9
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "QUY TRỊNH BẢO TRỊ HỆ THỐNG THANG",
+      "page_idx": 10
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "MÁY",
+      "page_idx": 10
+    },
+    {
+      "type": "paragraph",
+      "text": "Bảo trì thang máy là quá trình kiểm tra, bảo dưỡng nhảm duy trì thang máy không bị hư hỏng và luôn trong tình trạng vận hành an toàn, tin cây. Nếu phát hiện hư hỏng thì có biện pháp khác phục, thay thẻ để tránh các rủi ro đáng tiếc xảy ra. Có 2 hình thực bảo trì thang máy là:",
+      "page_idx": 10
+    },
+    {
+      "type": "paragraph",
+      "text": "Bảo trì thông thương: Tức là hàng tháng đơn vị bảo trì sẽ kiểm tra, bảo dưỡng các chi tiết và cụm chi tiết theo hương dân của nhà chế tạo và các tiêu chuẩn về an toàn thang máy hiện hành của Việt Nam. Nếu trong quá trình thực hiện bộ phận nào đó của thang bị hỏng hóc, cần thay thẻ thì đơn vị bảo trì sẽ báo với chủ thang về kinh phí, thời gian thay thẻ nếu đồng ý thì hộ sẽ thực hiện, bằng không chủ thang máy có thể thuê đơn vị khác thay thẻ.",
+      "page_idx": 10
+    },
+    {
+      "type": "paragraph",
+      "text": "Bảo trì trơn gói: Chị khác với bảo trì thông thương là khi phát hiện những chi tiết bị hỏng hóc (Thuộc danh mục thỏa thuận trong hợp đồng bảo trì) đơn vị bảo trì sẽ tự động thay thẻ để đảm bảo thang máy chay ổn định, an toàn là được.",
+      "page_idx": 10
+    },
+    {
+      "type": "paragraph",
+      "text": "Quy trình bảo trì bảo dưỡng thang máy gồm 5 bước:",
+      "page_idx": 10
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiêm tra và vệ sinh buồng thang máy",
+      "page_idx": 10
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiêm tra giếng thang và trên cabin",
+      "page_idx": 10
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiêm tra đáy giếng thang và dưới cabin",
+      "page_idx": 10
+    },
+    {
+      "type": "paragraph",
+      "text": "Bảo trì bên trong cabin",
+      "page_idx": 10
+    },
+    {
+      "type": "paragraph",
+      "text": "Bảo trì bảo dưỡng ngoài cưa tàng",
+      "page_idx": 10
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "KIÊM TRA VÊ SINH BUÔNG THANG MÁY",
+      "page_idx": 11
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi kiểm tra vệ sinh buồng thang máy, nhận viện kỹ thuật cần phải kiểm tra các hàng mục sau:",
+      "page_idx": 11
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Cần phải tiến hành kiểm tra người điện áp và các thiết bị đóng ngắt điện người của máy xem có an toàn hay không.",
+      "page_idx": 11
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Sau đó kiểm tra tôi tù điều khiển xem các thiết bị apitomat, rơ le, quạt có xảy ra bất cứ ván để hỏng hóc nào hay không.",
+      "page_idx": 11
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Sử dụng dụng cụ siết chất các vít kép đâu đây điện và các đâu đâu thiết bị điện.",
+      "page_idx": 11
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Kiểm tra vệ sinh một số bộ phận khác như kiểm tra bộ cứu hộ để xem chế độ nập điện có còn hoạt động tốt không, má phanh bên trái động cơ có bị Ản mòn hay không, mức đâu còn lại và chất lượng đâu trong hộp giám tốc của thang máy có còn đủ không. Nếu như không đủ cần phải đổ thêm đâu. Còn trong trường hợp lượng đâu bên trong đã kém chất lượng cần thay đâu.",
+      "page_idx": 11
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Kiểm tra lại độ kín khít của các ổ trục, tình trạng hiện tại của thép, puly và bộ hạn chế tốc độ lãy cơ, công tắc điện tránh gắp các sự cố hỏng hóc.",
+      "page_idx": 11
+    },
+    {
+      "type": "paragraph",
+      "text": "Độ Ảm, nhiết độ, mức độ thông thoáng của buồng thang
+
+================================================================================
+CHUNK ID: chunk-6fa4acb475283297b909cded4c4e68d0 | PAGE: ?
+================================================================================
+paragraph",
+      "text": "+ Kiểm tra lại độ kín khít của các ổ trục, tình trạng hiện tại của thép, puly và bộ hạn chế tốc độ lãy cơ, công tắc điện tránh gắp các sự cố hỏng hóc.",
+      "page_idx": 11
+    },
+    {
+      "type": "paragraph",
+      "text": "Độ Ảm, nhiết độ, mức độ thông thoáng của buồng thang máy cùng cần được xem xét đạt chuẩn. Phần ổ cắm, công tắc, đèn chiếu sáng cần hoạt động tốt và cửa ra vào, khóa cửa cùng cần chắc chắn, đóng kín.",
+      "page_idx": 11
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "KIÊM TRA GIÊNG THANG & PHÍA TRÊN CABIN",
+      "page_idx": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "Trong bước kiểm tra giếng thang cùng với phía trên cabin, nhận viện kỹ thuật sẽ chú ý một số bộ phận cần kiểm tra như sau:",
+      "page_idx": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Kiểm tra kỹ sự liên kết của công tắc với giá đổ và giá đổ tay.",
+      "page_idx": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Kiểm tra bu lông tại chỗ nôi rat xem có bị lông hay không. Nếu đang bị lông cần phải siết chất lại.",
+      "page_idx": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Kiểm tra phản đâu treo cabin, đâu treo cáp đôi trọng và ê cu khóa cáp, đổ căng của cáp xem có đều không.",
+      "page_idx": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Phần liên kết giữa các bộ phận dùng tàng và gá, gá và ray có đang hoạt động tốt.",
+      "page_idx": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Kiểm tra lại phản đâu bên trong hộp cabin, hộp ray có cơn đủ hay không. Đế ý chất lượng đâu xem có bị đóng cận không. Nếu có cần phải được thay kịp thời.",
+      "page_idx": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Phần guốc trưởng trên của cabin và đổi trọng cần đảm bảo hoạt động tốt, không có bất cứ hư hỏng gì.",
+      "page_idx": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Kiểm tra đêm cao su có tác dụng chống rung lắc cho cabin. Nếu có hư hỏng cần phải thay thế ngay đảm bảo an toàn cho người sử dụng.",
+      "page_idx": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Kiểm tra lại phản công tắc hạn chế hành trình trên thang máy.",
+      "page_idx": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Kiểm tra quạt thông gió năm phía trên nóc cabin, đèn chiếu sáng ở đọc giếng thang. Nếu không hoạt động tốt cùng cần thay thế.",
+      "page_idx": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Cáp treo quả đổi trọng và khóa cửa tùng tàng cần phải hoạt động tốt đảm bảo an toàn.",
+      "page_idx": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Khe hở của tàng và độ thẳng đứng các cửa tàng, tiếp điện các cửa tàng và cáp điện độc giếng thang cần phải gơn gàng.",
+      "page_idx": 12
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "KIỂM TRA ĐÁY GIẾNG THANG VÀ DƯỚI CABIN",
+      "page_idx": 13
+    },
+    {
+      "type": "paragraph",
+      "text": "Trong bước này chứng ta tiếp tục kiểm tra tôi các chi tiết bộ phận ở dưới đây giếng thang và dưới cabin. Nhân viên kỹ thuật sẽ tiến hành các bước bảo trì sau:",
+      "page_idx": 13
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra xem xét các công tắc hạn chế hành trình bên dưới, liên kết của công tắc và giá đổ, giá đổ với ray.",
+      "page_idx": 13
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra guốc trưởng bên dưới của cabin và đổi trọng đảm bảo hoạt động tốt nhất.",
+      "page_idx": 13
+    },
+    {
+      "type": "paragraph",
+      "text": "Xem lại công tắc và bộ gá công tắc quá tải, bộ căng cáp để hạn chế hành trình, đồng thời dùng dụng cụ siết kỹ lại các vít. Kiểm tra má phanh trái và cá má phanh phải bên dưới cabin xem có hoạt động tốt hay mài mòn, điều chỉnh khe hở má phanh",
+      "page_idx": 13
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra lại chỗ tre
+
+================================================================================
+CHUNK ID: chunk-84e408410791339085e81a81c3b5f96a | PAGE: ?
+================================================================================
+"paragraph",
+      "text": "+ Tuyệt đối không được thay đổi các tham số đã được cài đặt trên panel điều khiển máy.",
+      "page_idx": 18
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Cửa cách ly giữa phòng đặt máy phát và phòng Main Switch Board phải luôn được khoá chặt để đề phòng cháy lan.",
+      "page_idx": 18
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "BẢO DƯỠNG MÁY PHÁT ĐIỆN",
+      "page_idx": 19
+    },
+    {
+      "type": "paragraph",
+      "text": "Máy phát điện sử dụng trong tòa nhà cần bảo dưỡng hàng tuần + Chạy không tải 5 phút + chạy có tải 30 phút. Quy trình bảo dưỡng sẽ theo hương dân của nhà cung cấp, lắp đặt máy phát.",
+      "page_idx": 19
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi bảo dưỡng máy phát điện cần thực hiện các công việc:",
+      "page_idx": 19
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/19_0.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 19
+    },
+    {
+      "type": "paragraph",
+      "text": "Bôn dâu, máy bom dâu, hệ thông đường ông tiếp nhận và phân phối.",
+      "page_idx": 19
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/19_1.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 19
+    },
+    {
+      "type": "paragraph",
+      "text": "Các panel điều khiển máy bom và hiện thị mức dầu.",
+      "page_idx": 19
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/19_2.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 19
+    },
+    {
+      "type": "paragraph",
+      "text": "Các bộ sác tự động và ắc quy dự phòng.",
+      "page_idx": 19
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "CHÚ Ý KHI BẢO DƯỠNG MÁY PHÁT ĐIỆN",
+      "page_idx": 20
+    },
+    {
+      "type": "paragraph",
+      "text": "Cành báo : Sự khỏi động bất ngữ của máy phát điện trong khi đang bảo trì có thể gây ra tai nạn nghiêm trọng hoặc chết người",
+      "page_idx": 20
+    },
+    {
+      "type": "paragraph",
+      "text": "→ Ngăn ngừa sự khỏi động bất ngữ bằng cách tháo rời các cáp ắc qui khỏi động.",
+      "page_idx": 20
+    },
+    {
+      "type": "paragraph",
+      "text": "Cần thận: Luôn ngất người AC ra khỏi bộ sác trước khi tháo cáp ắc qui (Tránh tạo xung điện áp cao đủ để làm hư mạch kiểm soát dòng DC của máy).",
+      "page_idx": 20
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Máy phát điện phải không hoạt động trước khi bảo trì dưỡng ít nhất 6 gi|= máy người.",
+      "page_idx": 20
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Găn đèn sạc vào ổ cắm để để phòng trong khi bảo dưỡng bị mất điện.",
+      "page_idx": 20
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Hồ quang có thể làm kích nổ khí hydrogen bay ra từ bình ắc qui.",
+      "page_idx": 20
+    },
+    {
+      "type": "paragraph",
+      "text": "→ Khu vực ắc qui phải được thông gió tốt trước khi bảo dưỡng. + Luôn luôn tháo cáp đâu cực âm (-) của ắc qui trước và nôi chứng lại sau cùng.",
+      "page_idx": 20
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "THAO TÁC BỘ CHUYÊN NGUỒN",
+      "page_idx": 21
+    },
+    {
+      "type": "paragraph",
+      "text": "Bộ chuyển người là thiết bị kết nối với máy phát điện và hệ thống điện của tòa nhà. Đây là hệ thống điều khiển dùng để truyền tải người tự động từ lưới điện chính sang người điện dự phòng sẽ dùng máy phát điện khi điện lưới chính xảy ra sự cố. Khi lưới điện hoạt động trở lại, hệ thống ATS sẽ chuyển đổi phụ tải vận hành vào lưới điện chính và sau đó dùng máy phát điện dự phòng.",
+      "page_idx": 21
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi thao tác bộ
+
+================================================================================
+CHUNK ID: chunk-a7196978da63c777bc6994d4fefb47eb | PAGE: ?
+================================================================================
+Mở lại MCB tổng, ELCB, rôi lần lưu tư tùng MCB. Cảm lần lưu tư các phích cắm trở lại.",
+      "page_idx": 23
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Cho hoạt động, kiểm tra cường độ dòng điện, dòng điện rỉ và tất cá các chức năng hoạt động của thiết bị để đảm bảo loại trừ hết tất cá các nguyên nhân có thể gây ra sự cố.",
+      "page_idx": 23
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Trong trường hợp đêm khuya hoặc khách đang cần nghỉ ngơi, thì cần thương lượng với khách về các hàng mục cần kiểm tra để đưa vào hoạt động ngay.",
+      "page_idx": 23
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Các hàng mục để lại chưa kiểm tra thì phải lưu ý khách không sử dụng.",
+      "page_idx": 23
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "MẮT ĐIỆN TẠI MỘT THIẾT BỊ/NHÓM THIẾT BỊ",
+      "page_idx": 24
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi trong tòa nhà có một thiết bị hoặc một nhóm thiết bị điện không có điện hoạt động, bộ phận kỹ thuật tòa nhà cần thực hiện xử lý sự cố:",
+      "page_idx": 24
+    },
+    {
+      "type": "paragraph",
+      "text": "Cách ly thiết bị ra khỏi nguồn cung cấp.",
+      "page_idx": 24
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra lại tính trạng của môi thiết bị để loại trừ các rò rỉ hay chạm gây ngăn mạch (dùng đồng hồ đo độ cách điện).",
+      "page_idx": 24
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra lại tính trạng của hệ thống cấp điện cho thiết bị hoặc nhóm thiết bị xem có ván để gì hay không (hệ thống bảo vệ, đường đây, môi nôi, độ cách điện, điện áp).",
+      "page_idx": 24
+    },
+    {
+      "type": "paragraph",
+      "text": "Cho thiết bị hoạt động trở lại. Kiểm tra điện áp, dòng điện, dòng rò.",
+      "page_idx": 24
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "MẮT ĐIỆN TẠI MỘT NHÁNH/TỪ PHÂN PHỐI",
+      "page_idx": 25
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi một nhánh hoặc một tủ phân phối hệ thông điện cho tòa nhà xuất hiện sự cố mất điện, bộ phân kỹ thuật tòa nhà cần xử lý theo các bước:",
+      "page_idx": 25
+    },
+    {
+      "type": "paragraph",
+      "text": "Cách ly nhánh hoặc tủ phân phối đó ra khỏi hệ thông.",
+      "page_idx": 25
+    },
+    {
+      "type": "paragraph",
+      "text": "Báo cho trường bộ phận biết.",
+      "page_idx": 25
+    },
+    {
+      "type": "paragraph",
+      "text": "Báo cho lã tàn nếu sự có có liên quan đến việc phục vụ khách hàng (đế thông báo cho khách).",
+      "page_idx": 25
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra trên toàn bộ nhánh và các tủ phân phối để loại trừ nguyên nhân hư hỏng trước khi cấp điện trợ lại.",
+      "page_idx": 25
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi sự cố mất điện xảy ra, hệ thông người tự động dự phòng sẽ tự động đóng điện trong 5 giấy. Nhưng thời gian mất điện này làm cho các hệ thông động lực có cùng Contractor, hệ thông báo cháy, thang máy,...sẽ tự ngất hoặc thương bị treo hệ thông. Do vây nhân viên kỹ thuật tòa nhà cùng cần thao tác lại để khỏi động hệ thông theo các hàng mục:",
+      "page_idx": 25
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Hệ thông quạt tạo áp câu thang, quạt hút toilet",
+      "page_idx": 25
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Kiêm tra và reset thang máy",
+      "page_idx": 25
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Kiêm tra và reset hệ thông báo cháy.",
+      "page_idx": 25
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "MẬT ĐIỆN DO MẬT ĐIỆN LUỐI",
+      "page_idx": 26
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi mất điện lưới, máy phát điện dự phòng sẽ khỏi động nhỏ mạch cảm biến. Lúc này trường ca trực cần phải:",
+      "page_idx": 26
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Trường ca trực và nhận
+
+================================================================================
+CHUNK ID: chunk-01650f937ec62a62d9392735d438c905 | PAGE: ?
+================================================================================
+vụ khách hàng để thông báo tình trạng hiện thời cho khách và trần an các khách còn kết trong thang máy.",
+      "page_idx": 28
+    },
+    {
+      "type": "paragraph",
+      "text": "Báo cho bảo vệ để tăng cường an ninh và hỗ trợ cứu nạn khách bị kết trong thang máy.",
+      "page_idx": 28
+    },
+    {
+      "type": "paragraph",
+      "text": "Cắt MCB cấp cho các thang máy tại phòng MSB hoặc phòng máy thang máy.",
+      "page_idx": 28
+    },
+    {
+      "type": "paragraph",
+      "text": "Mở cửa buồng thang máy để xác định vị trí đang dùng của các thang.",
+      "page_idx": 28
+    },
+    {
+      "type": "paragraph",
+      "text": "Thực hiện cứu nạn theo hư永久 cộng việc cứu nạn thang máy.",
+      "page_idx": 28
+    },
+    {
+      "type": "paragraph",
+      "text": "Trường ca trực gọi điện đến nhà cung cấp máy phát để hộ sang kiểm tra sửa chữa máy phát ngay.",
+      "page_idx": 28
+    },
+    {
+      "type": "paragraph",
+      "text": "Báo cho trường bộ phận kỹ thuật và Ban giám đốc công ty để có các hư永久 dân và chỉ đạo cần thiết.",
+      "page_idx": 28
+    },
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "QUY TRỊNH BẢO TRỊ HỆ THỐNG",
+      "page_idx": 29
+    },
+    {
+      "type": "paragraph",
+      "text": "ĐIỆN TRONG TÒA NHÀ",
+      "page_idx": 29
+    },
+    {
+      "type": "paragraph",
+      "text": "Hệ thông điện dù tốt đến đâu cùng cần được bảo trị. Đế hệ thông điện của tòa nhà hoạt động tốt và an toàn trong quá trình sử dụng, phải liên hệ ngay với đơn vị hệ thông điện tòa nhà chuyên nghiệp. Đặc biết, quy trình bảo trị hệ thông điện tòa nhà phải chính xác và hiệu quả nhất có thể. Nếu không được sử dụng đúng cách sẽ ảnh hưởng xấu đến hệ thông điện vận hành trong tòa nhà.",
+      "page_idx": 29
+    },
+    {
+      "type": "paragraph",
+      "text": "Trong đó ban quản lý cần chú ý bảo trì các hệ thông điện chung trong tòa nhà như:",
+      "page_idx": 29
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/29_0.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 29
+    },
+    {
+      "type": "paragraph",
+      "text": "Đơn vị quản lý vận hành tòa nhà cần triển khai bảo trị hệ thông điện định kỳ thương xuyên để đảm bảo mợi hoạt động của toà nhà được điện ra suôn sẻ.",
+      "page_idx": 29
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "QUY TRỊNH BẢO TRỊ HỆ THỐNG ĐIỆN NHỆ",
+      "page_idx": 30
+    },
+    {
+      "type": "paragraph",
+      "text": "Đối với hệ thống cơ điện trong tòa nhà, tỉ lệ tối đa của công trình cơ điện nhệ thường chiếm 20%. Các hàng mục cần bảo trì trong hệ thống điện tòa nhà sẽ bao gồm:",
+      "page_idx": 30
+    },
+    {
+      "type": "paragraph",
+      "text": "Bảo trì hệ thông mạng LAN",
+      "page_idx": 30
+    },
+    {
+      "type": "paragraph",
+      "text": "Bảo trì hệ thông Camera",
+      "page_idx": 30
+    },
+    {
+      "type": "paragraph",
+      "text": "Bảo trì hệ thông điện thoại nội bộ",
+      "page_idx": 30
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "QUY TRỊNH BẢO TRỊ HỆ THỐNG MẠNG LAN",
+      "page_idx": 30
+    },
+    {
+      "type": "paragraph",
+      "text": "Bảo trì thiết bị mạng là một bước không thể bỏ qua trong bảo trì hệ thông điện tòa nhà. Nhân viên bảo trì cần tiến hành bằng việc xác định, đánh dấu, kiểm vị trí đầu cuối và sau đó kiểm tra người điện trợ của toà nhà.",
+      "page_idx": 30
+    },
+    {
+      "type": "paragraph",
+      "text": "Bảo trì hệ thông tủ đầu nôi: Vệ sinh vò tủ, vệ sinh các tâm nôi đây và môi cấp tôi tâm nôi đây, thay thế khi các môi nôi đã bị oxy hóa hoặc không đảm bảo tiêu chuẩn kỹ thuật.",
+      "page_idx": 30
+    },
+    {
+      "type": "paragraph",
+      "text": "Bảo trì hệ thông đường truyền: Xác định, đánh đâu và kiểm tra vị trí cấp mạng điều dầu, điều trung gian và điều cuối. Kiểm tra điện trợ và điều tiếp xúc kết nôi, kiểm tra độ suy hao của hệ thông đường truyền
+
+================================================================================
+CHUNK ID: chunk-26dcffc71b63efea7893c67580118b5a | PAGE: ?
+================================================================================
+{
+      "type": "paragraph",
+      "text": "HỆ THỐNG ĐIỆN",
+      "page_idx": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi quản lý vận hành, bảo trì hệ thông điện trong tòa nhà, ban quản lý cần tuân thủ một số nguyên tắc cơ bản như sau:",
+      "page_idx": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Phải nghìn cứu, năm vùng câu tạo và nguyên tắc hoạt động của hệ thông cung cấp điện.",
+      "page_idx": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Không đi một minh vào phòng máy biến áp. Không lau chủ các thiết bị khi đang có điện.",
+      "page_idx": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Chí được phép thao tác tại khu vực trung thẻ khi được sự chấp thuận của trường bộ phận kỹ thuật hoặc trong trường hợp khẩn cấp.",
+      "page_idx": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Khi cần ngất điện thì cất các MCCB phụ tải trước, ngất MCCB tổng sau (Khi mở thì ngược lại).",
+      "page_idx": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Khi mất điện lưới toàn bộ, ca trực phải cấp thời trở về khu vực máy phát điện và thực hiện theo các hương dân công việc: Trường hợp mất điện, bộ phận kỹ thuật cần chuyển đổi bộ ATS (Automatic Transfer Switches) bằng tay. Vận hành và bảo dưỡng hệ thống máy phát.",
+      "page_idx": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Khi có cháy nổ xảy ra thì phải cách ly hệ thông điện khu vực cháy nổ và lân cận ra khỏi hệ thông phân phối chính.",
+      "page_idx": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Các thiết bị phân phối chính tại phòng biến áp và phòng MSB: chủ yếu chỉ làm vệ sinh các khu vực chung quanh thiết bị. Viல் làm vệ sinh bên trong thiết bị sẽ do nhà thầu chuyên môn thực hiện khi đã ngất điện.",
+      "page_idx": 3
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "LẬP QUY TRÌNH BẢO TRÌ HỆ THỐNG ĐIỆN",
+      "page_idx": 4
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi quản lý bảo trì hệ thông điện trong tòa nhà, ban quản lý cần bàn giao và giám sát cho đơn vị/bộ phận có chuyên môn để lập quy trình bảo trì hệ thông điện chuyên nghiệp, đảm bảo hệ thông điện tòa nhà vận hành an toàn và ổn định.",
+      "page_idx": 4
+    },
+    {
+      "type": "paragraph",
+      "text": "Trong đó tùy từng hệ thông trang thiết bị điện thuốc đơn vị nhà thâu nào cung cấp thì quy trình bảo trì hệ thông sẽ do đơn vị nhà thâu đó lập và bàn giao cho chủ đầu tư.",
+      "page_idx": 4
+    },
+    {
+      "type": "paragraph",
+      "text": "Nhà thâu thiết kế Chịu trách nhiệm lập và bàn giao cho chủ đầu tư quy trình bảo trì công trình, bộ phận công trình do mình thiết kế cùng với hồ sơ thiết kế triển khai sau thiết kế cơ sở",
+      "page_idx": 4
+    },
+    {
+      "type": "paragraph",
+      "text": "Nhà thâu cung cấp thiết bị Chịu trách nhiệm lập và bàn giao cho chủ đầu tư quy trình bảo trì đổi với thiết bị do mình cung cấp trước khi lắp đặt vào công trình.",
+      "page_idx": 4
+    },
+    {
+      "type": "paragraph",
+      "text": "Không có nhà thâu Trường hợp các nhà thâu trên không lập được quy trình bảo trì thì chủ đầu tư có thể thuê tổ chức tư văn khác có đủ điều kiện năng lực hoạt động xây dựng để lập quy trình bảo trì.",
+      "page_idx": 4
+    },
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "NỘI DUNG QUY TRÌNH BẢO TRÌ HỆ",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "THỐNG ĐIỆN",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "Trong quy trình bảo trì, bảo dưỡng hệ thông điện trong tòa nhà, chủ đầu tư sẽ phải thảm định, giám sát và xác định trong quy trình công việc có đảy đủ các hàng mục nội dung sau trước khi phê duyệt:",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Các thông số kỹ thuật, công nghệ của công trình, bộ phân công trình và thiết bị công trình điện",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Quy định đổi tượng, phương pháp và tần suất kiểm tra công trình",
+      "page_idx": 5
+    },
+    {
+      "type": "paragraph",
+      "text
+
+================================================================================
+CHUNK ID: chunk-4d5e951fa497848dbc6353cca4fdb5fb | PAGE: ?
+================================================================================
+bảo hệ thống hoạt động tốt.",
+      "page_idx": 32
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "QUY TRÌNH BẢO TRÌ HỆ THỐNG CƠ ĐIỆN",
+      "page_idx": 33
+    },
+    {
+      "type": "paragraph",
+      "text": "Nhảm đảm bảo mức độ an toàn khi sử dụng, ban quản lý vận hành trường học, trung tâm thương mại hay các toà nhà chung cư cần phải yêu câu đổi bảo trì điện tòa nhà tiến hành kiểm tra so bộ các kỹ thuật thông dụng.",
+      "page_idx": 33
+    },
+    {
+      "type": "paragraph",
+      "text": "Trong quá trình bảo trì, các kỹ thuật viện phải tuân thủ các quy định an toàn và sử dụng các thiết bị bảo hộ đảm bảo an toàn cho cá nhân viện và hệ thống. Các công việc bảo trì, bảo dưỡng hệ thống cơ điện tòa nhà thường được thực hiện theo định kỳ để giữ cho hệ thống luôn hoạt động tốt và tránh được những sự cố xảy ra. Quy trình bảo trì, bảo dưỡng hệ thống cơ điện tòa nhà thường được chia thành các bước như sau:",
+      "page_idx": 33
+    },
+    {
+      "type": "paragraph",
+      "text": "Đánh giá tính trạng hệ thống",
+      "page_idx": 33
+    },
+    {
+      "type": "paragraph",
+      "text": "Lập kế hoạch bảo trì",
+      "page_idx": 33
+    },
+    {
+      "type": "paragraph",
+      "text": "Thực hiện bảo trì",
+      "page_idx": 33
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra & Thử nghiểm",
+      "page_idx": 33
+    },
+    {
+      "type": "paragraph",
+      "text": "Báo cáo",
+      "page_idx": 33
+    },
+    {
+      "type": "paragraph",
+      "text": "• Thực hiện việc kiểm tra tính trạng hệ thống cơ điện trong tòa nhà để xác định những bộ phận cần bảo trì, sửa chữa, hoặc thay thẻ.",
+      "page_idx": 33
+    },
+    {
+      "type": "paragraph",
+      "text": "• Dưa trên kết quả đánh giá, lập kế hoạch bảo trì cho từng hệ thống. Kế hoạch bảo trì sẽ bao gồm thời gian thực hiện, danh sách các thiết bị, vật tư cần thiết, chi phí ước tính, và các công việc cần thực hiện.",
+      "page_idx": 33
+    },
+    {
+      "type": "paragraph",
+      "text": "• Thực hiện các công việc được lên kế hoạch trong kế hoạch bảo trì, bao gồm các hoạt động như vệ sinh, kiểm tra, bảo dưỡng, sửa chữa, thay thẻ các bộ phận cũ, cải đạt phản mêm, và các hoạt động khác.",
+      "page_idx": 33
+    },
+    {
+      "type": "paragraph",
+      "text": "• Sau khi hoàn thành các công việc bảo trì, hệ thống sẽ được kiểm tra và thử nghịêm để đảm bảo hoạt động ổn định, an toàn và hiệu quả.",
+      "page_idx": 33
+    },
+    {
+      "type": "paragraph",
+      "text": "• Lập báo cáo kết quả sau khi hoàn thành bảo trì để cấp nhật tinh trạng hệ thống và đưa ra những để xuất cải tiến cho quá trình bảo trì tiếp theo.",
+      "page_idx": 33
+    },
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "QUY TRỊNH BẢO TRỊ HỆ THỐNG ĐIỆN",
+      "page_idx": 34
+    },
+    {
+      "type": "paragraph",
+      "text": "CHIỂU SÁNG",
+      "page_idx": 34
+    },
+    {
+      "type": "paragraph",
+      "text": "Ban Quản lý tòa nhà cần thương xuyên bảo trì bảo dưỡng hệ thống điện chiếu sáng. Nhất là khi độ chiếu sáng của hệ thống bóng đèn sẽ có khả năng giám dần theo thời gian. Do vây, việc kiểm tra định kỳ hệ thống chiếu sáng sẽ cải thiện người sáng trong toà nhà. Điều này luôn đảm bảo được trong quá trình khai thác và vận hành được hiệu quả hơn.",
+      "page_idx": 34
+    },
+    {
+      "type": "paragraph",
+      "text": "Quy trình bảo trì hệ thống điện chiếu sáng tòa nhà thương bao gồm các bước sau:",
+      "page_idx": 34
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra hệ thống điện chiếu sáng",
+      "page_idx": 34
+    },
+    {
+      "type": "paragraph",
+      "text": "Vệ sinh hệ thống • Kiểm tra tất cá các thiết bị điện chiếu sáng như bóng đèn, đèn LED, bằng điều khiển điện, máng đèn, công tắc điện, ô cắm, đây điện, ống dân điện, nút bám, ... để đảm bảo chứng hoạt động tốt và an toàn.",
+      "page_idx": 34
+    },
+    {
+      "type": "paragraph",
+      "text": "• Vệ sinh các bóng đèn, đèn LED, máng đèn, các bộ phận điện khác như công tắc điện, ô cắm điện, các tâm nôi, nút b
+
+================================================================================
+CHUNK ID: chunk-83d993d968c9b38aec68675b811285e9 | PAGE: ?
+================================================================================
+ắc và bộ gá công tắc quá tải, bộ căng cáp để hạn chế hành trình, đồng thời dùng dụng cụ siết kỹ lại các vít. Kiểm tra má phanh trái và cá má phanh phải bên dưới cabin xem có hoạt động tốt hay mài mòn, điều chỉnh khe hở má phanh",
+      "page_idx": 13
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra lại chỗ treo, chỗ có định cáp đạt.",
+      "page_idx": 13
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra ổ cắm, đèn, công tắc bên dưới đáy giếng thang.",
+      "page_idx": 13
+    },
+    {
+      "type": "paragraph",
+      "text": "Vệ sinh kỹ lại hộp chưa đâu thừa bên dưới giếng thang, đồng thời đơn đep lại khu vực đáy giếng thang sao cho luôn sách sẻ, khổ ráo.",
+      "page_idx": 13
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "BẢO TRỊ BÊN TRONG CABIN",
+      "page_idx": 14
+    },
+    {
+      "type": "paragraph",
+      "text": "Ở trong cabin cùng cần phải kiểm tra các bộ phận như đèn chiếu sáng, điện thoại nội bộ, bằng điều khiển hay chuông cứu hộ xem còn hoạt động tốt hay không. Ngoài ra, kiểm tra thêm rãnh hướng dẫn và sensor an toàn của phàn cửa cabin.",
+      "page_idx": 14
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/14_0.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 14
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "BẢO TRỊ, BẢO DƯỠNG NGOÀI CỦA TÀNG",
+      "page_idx": 14
+    },
+    {
+      "type": "paragraph",
+      "text": "THANG MÁY",
+      "page_idx": 14
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi bảo trì ngoài cửa tàng thang máy, nhận viện kỹ thuật sẽ cần thực hiện các công việc:",
+      "page_idx": 14
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra bằng điều khiển ở từng tàng xem có sáng, có hoạt động tốt không.",
+      "page_idx": 14
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra khe hở ở cửa tàng và khóa cửa tàng.",
+      "page_idx": 14
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra ray hương dân của từng tàng.",
+      "page_idx": 14
+    },
+    {
+      "type": "paragraph",
+      "text": "Chay thử thang máy xem có côn bất kỳ sự cố nào hay không để khác phục kip thời.",
+      "page_idx": 14
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "BẢO TRỊ TRẠM BIỂN ÁP HẠ THẾ",
+      "page_idx": 15
+    },
+    {
+      "type": "paragraph",
+      "text": "Vièce quản lý, vận hành và sửa chữa trạm biến áp hạ thể thường được giao cho Công ty Điện lực (dạng thuê khoán hoặc bàn giao tài sản). Khi phát hiện sự cố tại trạm biến áp hạ thể:",
+      "page_idx": 15
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Thông báo ngay cho Công ty Điện lực khu vực.",
+      "page_idx": 15
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Nếu có cháy nổ phải báo ngay cho cảnh sát PCCC.",
+      "page_idx": 15
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Phôi hợp với cơ quan chức năng để tзм ra nguyên nhân sự cố.",
+      "page_idx": 15
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/15_0.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 15
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "VẬN HÀNH BỘ TỰ BÙ",
+      "page_idx": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "Trong lúc vận hành bộ tụ bù, bộ phận kỹ thuật tòa nhà cần chú ý:",
+      "page_idx": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Khi cất điện khỏi bộ tụ sẽ văn tồn tại điện áp dư lưu trên tụ bằng giá trị điện áp của lưới điện vận hành.",
+      "page_idx": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Đi
+
+================================================================================
+CHUNK ID: chunk-564c63c0e6abba396c149e84ef8e584c | PAGE: ?
+================================================================================
+Trong lúc vận hành bộ tụ bù, bộ phận kỹ thuật tòa nhà cần chú ý:",
+      "page_idx": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Khi cất điện khỏi bộ tụ sẽ văn tồn tại điện áp dư lưu trên tụ bằng giá trị điện áp của lưới điện vận hành.",
+      "page_idx": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Điện áp lưu trên tụ cao áp rất lón lên có thể làm nguy hiểm đến tính mạng của người làm việc nếu không làm đủ các biện pháp an toàn hoặc vi phạm quy trình vận hành tụ điện.",
+      "page_idx": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Đóng cất tụ điện chỉ được phép đóng cất tụ bằng máy cất hoặc câu dao phụ tải (Không dùng câu dao thông thường).",
+      "page_idx": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "Ngoài ra, khi làm việc trên bộ tụ bù nhận viện kỹ thuật cần:",
+      "page_idx": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "Cắt điện khỏi tụ",
+      "page_idx": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "Đâu một đâu của điện trợ phóng với điều chung của bộ tụ",
+      "page_idx": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "Dùng bút thử, thử hết điện Dùng đâu càn lại của điện trợ phóng lân lương đâu vào từng pha của bộ tụ",
+      "page_idx": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "Tiến hành đất tiếp địa các cực của tụ",
+      "page_idx": 16
+    },
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "HỆ THỐNG PHÂN PHỐI DIỆN ĐẾN CÁC",
+      "page_idx": 17
+    },
+    {
+      "type": "paragraph",
+      "text": "TẬNG",
+      "page_idx": 17
+    },
+    {
+      "type": "paragraph",
+      "text": "Môi tòa nhà quản lý hệ thông cơ điện đều có phân phối hệ thông điện đến các tàng trong tòa nhà. Nguồn điện từ tủ điện tổng được chia ra các riser để đến các tủ điện từng tàng sau đó tủ phân phối điện từng tàng sẽ cấp người cho từng căn hộ.",
+      "page_idx": 17
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/17_0.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 17
+    },
+    {
+      "type": "paragraph",
+      "text": "Nguồn điện từ tủ điện tổng được chia ra các riser để đến các tủ điện từng tàng.",
+      "page_idx": 17
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "VẬN HÀNH MÁY PHÁT ĐIỆN DỰ PHÒNG",
+      "page_idx": 18
+    },
+    {
+      "type": "paragraph",
+      "text": "Các tòa nhà lớn thường có hệ thống máy phát điện dự phòng để phòng ngừa sự cố mất điện xảy ra. Tuy nhiên, khi vận hành hệ thống máy phát điện ban quản lý tòa nhà cần lưu ý:",
+      "page_idx": 18
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Hệ thống máy phát điện có thể vận hành tự động hoàn toàn trong điều kiện bình thường, nhưng vẫn cần giám sát thường xuyên và liên tục để đề phòng rò rỉ dầu hoặc nước làm mát. Thiết bị cảm biến bị hư cùng lúc với một hư hỏng khác.",
+      "page_idx": 18
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Khi máy hoạt động, nhân viên trực ca phải hiện diện tại phòng MSB để theo dõi hệ thống điện và máy phát điện.",
+      "page_idx": 18
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Cứ mỗi 15 phút, nhân viên trực vào phòng máy:",
+      "page_idx": 18
+    },
+    {
+      "type": "paragraph",
+      "text": "Ghi các thông số trên panel điều khiển.",
+      "page_idx": 18
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra tổng quát xung quanh máy: Có tiếng động lạ? Có rò rỉ nhiên liệu, chất bôi trơn, chất làm mát ?",
+      "page_idx": 18
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Tuyệt đối không được thay đổi các tham số đã được cài đặt trên panel điều khiển máy.",
+      "page_idx": 18
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Cửa cách ly giữa phòng đặt máy phát và phòng Main Switch Board phải luôn được khoá chặt để đề phòng cháy lan.",
+      "page_idx": 18
+    },
+    {
+      "type": "heading
+
+================================================================================
+CHUNK ID: chunk-4224a266a5672a89c8ec52432b202de2 | PAGE: ?
+================================================================================
+ển dùng để truyền tải người tự động từ lưới điện chính sang người điện dự phòng sẽ dùng máy phát điện khi điện lưới chính xảy ra sự cố. Khi lưới điện hoạt động trở lại, hệ thống ATS sẽ chuyển đổi phụ tải vận hành vào lưới điện chính và sau đó dùng máy phát điện dự phòng.",
+      "page_idx": 21
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi thao tác bộ chuyển người, bộ phận kỹ thuật cần:",
+      "page_idx": 21
+    },
+    {
+      "type": "paragraph",
+      "text": "Trường ca trực là người chịu trách nhiệm chính trong việc tổ chức chuyên đổi ATS.",
+      "page_idx": 21
+    },
+    {
+      "type": "paragraph",
+      "text": "Thao tác bằng tay khi ATS không chuyển đổi tự động",
+      "page_idx": 21
+    },
+    {
+      "type": "paragraph",
+      "text": "Thao tác theo trình tự các tài liệu hưống dân của nhà cung cấp thiết bị.",
+      "page_idx": 21
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/21_0.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 21
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "XỨ LỨ SỰ CỐ MẬT ĐIỆN TẠI TỒA NHÀ",
+      "page_idx": 22
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi tòa nhà xuất hiện tình trạng mất điện, ban quản lý cần phải xác định được nguyên nhân sự cố trước khi mở MCB cấp người trở lại. Phải bình tĩnh và có suy nghĩ trước khi quyết định phương pháp khác phục cụ thể. Đồng thời, cần chú ý cần thận:",
+      "page_idx": 22
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Khi thao tác tại khu vực riser phải luôn đi 2 người: một người thao tác, một người kiểm tra an toàn.",
+      "page_idx": 22
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Phải sử dụng các phương tiện bảo hộ cá nhân.",
+      "page_idx": 22
+    },
+    {
+      "type": "paragraph",
+      "text": "Các trường hợp mất điện trong tòa nhà cần chú ý xử lý:",
+      "page_idx": 22
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/22_0.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 22
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "MẬT ĐIỆN TẠI MỘT CẢN HỘ",
+      "page_idx": 23
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi một căn hộ trong tòa nhà xuất hiện tình trạng mất điện, nhưng những khu vực khác hệ thống điện văn hoạt động bình thường, bộ phận kỹ thuật cần:",
+      "page_idx": 23
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Hôi khách hàng về hiện tượng sự cố. Mở cửa riser.",
+      "page_idx": 23
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Mở cửa tủ phân phối điện của căn hộ kiểm tra tình trạng của các MCB. Chuyên sang trạng thái Off tất cá các MCB.",
+      "page_idx": 23
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Mở cửa tủ kết nối đường đảy để kiểm tra đường đảy, các hợp nối.",
+      "page_idx": 23
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Kiểm tra đồng hồ điện, đường đảy và các môi nôi.",
+      "page_idx": 23
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Mở nắp tủ phân phối điện của căn hộ kiểm tra tình trạng của các MCB, đường đảy và các môi nôi.",
+      "page_idx": 23
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Gǎn lái càu chì ǒ tù kết nôi.",
+      "page_idx": 23
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Chuyên tất cá các trang thiết bị bên trong về trạng thái Off và rút tất cá phích cắm ra khỏi ổ cắm điện.",
+      "page_idx": 23
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Mở lại MCB tổng, ELCB, rôi lần lưu tư tùng MCB. Cảm lần lưu tư các phích cắm trở lại.",
+      "page_idx": 23
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Cho hoạt động, kiểm tra cường độ dòng điện, dòng điện rỉ và tất cá các chức năng hoạt động của thiết bị để đảm bảo loại trừ hết tất cá các nguyên nhân có thể gây
+
+================================================================================
+CHUNK ID: chunk-5cc7cd01a28cc04be77982a3d513c3a6 | PAGE: ?
+================================================================================
+IỆN DO MẬT ĐIỆN LUỐI",
+      "page_idx": 26
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi mất điện lưới, máy phát điện dự phòng sẽ khỏi động nhỏ mạch cảm biến. Lúc này trường ca trực cần phải:",
+      "page_idx": 26
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Trường ca trực và nhận viện trợ về ngay khu vực phòng máy biến áp, MSB và máy phát điện để kiểm tra các ATS có chuyển đổi đảy đủ hay không (xem các đèn báo), lý do mất điện, tinh trạng hoạt động của máy phát điện.",
+      "page_idx": 26
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Nếu ATS không tự chuyển đổi được thì thực hiện chuyển đổi bằng tay theo hương dân công việc chuyển đổi ATS bằng tay.",
+      "page_idx": 26
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Trường ca trực liên hệ Đội vận hành lưới điện khu vực để hơi về nguyên nhân mất điện và dự kiến thời gian mất điện.",
+      "page_idx": 26
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Khi điện lưới cung cấp lại bình thường, đến báo tín hiệu điện lưới trên MSB sẽ sáng. Máy phát sẽ tự động ngưng.",
+      "page_idx": 26
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Trường ca trực và nhận viện trực ca phải kiểm tra ràng các ATS đã chuyển đổi đảy đủ hay không. Nếu không phải thực hiện chuyển đổi bằng tay.",
+      "page_idx": 26
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/26_0.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 26
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "MẮT ĐIỆN LUỐI + MÁY PHÁT ĐIỆN KHÔNG",
+      "page_idx": 27
+    },
+    {
+      "type": "paragraph",
+      "text": "HOẠT ĐỘNG",
+      "page_idx": 27
+    },
+    {
+      "type": "paragraph",
+      "text": "Nếu tòa nhà xảy ra mất điện lưới nhưng máy phát điện không hoạt động được. Nhân viên kỹ thuật cần:",
+      "page_idx": 27
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Kiêm tra vị trí của selector trên mát phát điện có ở vị trí Off hay không.",
+      "page_idx": 27
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Nếu có, hây chuyển đổi sang vị trí Auto để máy phát khỏi động.",
+      "page_idx": 27
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Nếu vị trí selector đã ở vị trí Auto mà máy phát văn không khỏi động được thì chuyển sang vị trí Manual.",
+      "page_idx": 27
+    },
+    {
+      "type": "paragraph",
+      "text": "+ Nếu máy văn chưa khỏi động được thì phải chuyển selector về trạng thái Off và kiểm tra nguyên nhân.",
+      "page_idx": 27
+    },
+    {
+      "type": "paragraph",
+      "text": "Trong trường hợp máy phát điện không thể khỏi động do ắc quy thì nhận viện kỹ thuật cần:",
+      "page_idx": 27
+    },
+    {
+      "type": "image",
+      "img_path": "ocr-results/bea97e069de14dc1a39d0e9c4ca8bda9/images/27_0.jpg",
+      "caption": [],
+      "footnote": [],
+      "page_idx": 27
+    },
+    {
+      "type": "paragraph",
+      "text": "Lưu ý: Siết chất các đầu cục bình ắc qui.",
+      "page_idx": 27
+    },
+    {
+      "type": "paragraph",
+      "text": "Tuy nhiên, trong trường hợp sau khi tỏa nhà đã mất điện 5 phút, nhưng vẫn không thể khởi động được máy phát điện dự phòng, hoặc máy phát điện dự phòng dù vẫn đang vận hành nhưng lại dừng khẩn cấp do hư hỏng. Lúc này trưởng ca trực cùng nhân viên kỹ thuật cần phải làm theo các bước:",
+      "page_idx": 28
+    },
+    {
+      "type": "paragraph",
+      "text": "Xử lý sự cố mất điện khi máy phát điện không hoạt động Nếu là gi|= hành chính thì thông báo ngay về phòng trực bộ phận kỹ thuật để nhỏ hỗ trợ.",
+      "page_idx": 28
+    },
+    {
+      "type": "paragraph",
+      "text": "Báo cho bộ phận dịch vụ khách hàng để thông báo tình trạng hiện thời cho khách và trần an các khách còn kết trong thang máy.",
+      "page_idx": 28
+    },
+    {
+      "type": "paragraph",
+      "text": "Báo cho bảo vệ để tăng cường an ninh và hỗ trợ cứu nạn khách bị kết trong thang máy.",
+      "page_idx": 28
+    },
+    {
+      "type": "paragraph",
+      "text": "
+
+================================================================================
+CHUNK ID: chunk-800b0285b7b9a84ca82344b9a12a0e9b | PAGE: ?
+================================================================================
+đây, thay thế khi các môi nôi đã bị oxy hóa hoặc không đảm bảo tiêu chuẩn kỹ thuật.",
+      "page_idx": 30
+    },
+    {
+      "type": "paragraph",
+      "text": "Bảo trì hệ thông đường truyền: Xác định, đánh đâu và kiểm tra vị trí cấp mạng điều dầu, điều trung gian và điều cuối. Kiểm tra điện trợ và điều tiếp xúc kết nôi, kiểm tra độ suy hao của hệ thông đường truyền, thay thẻ các môi nôi không đạt tiêu chuẩn.",
+      "page_idx": 30
+    },
+    {
+      "type": "paragraph",
+      "text": "Bảo trì thiết bị mạng: Cập nhật các phiên bản môi nhất của phàn mêm quét virus, xóa file rác để đảm bảo an toàn dữ liệu và tăng tốc độ của máy tính. Khi có đâu hiệu hư hỏng của ổ cứng càn ngay lập tức sao lưu dữ liệu và thay thẻ ổ cứng môi. Khi bảo trì Server càn lưu ý cải đạt chế độ sao lưu dư phòng.",
+      "page_idx": 30
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "BẢO TRỊ HỆ THỐNG CAMERA GIÁM SÁT",
+      "page_idx": 31
+    },
+    {
+      "type": "paragraph",
+      "text": "Đối với hệ thống camera giám sát, việc bảo trì cùng cần được ban quản lý toà nhà văn phòng, toà nhà chung cư triển khai thương xuyên. Đội ngữ nhân viện bảo trì cần kiểm tra lại toàn bộ góc quay của camera.",
+      "page_idx": 31
+    },
+    {
+      "type": "paragraph",
+      "text": "Quy trình bảo trì hệ thống camera giám sát tòa nhà cần thực hiện theo các bước sau đây:",
+      "page_idx": 31
+    },
+    {
+      "type": "paragraph",
+      "text": "• Đánh đâu, đán nhân và lập sơ đỏ các đâu nôi.",
+      "page_idx": 31
+    },
+    {
+      "type": "paragraph",
+      "text": "Trước khi • Chuân bị sổ theo đổi để ghi lại quá trình bảo trì hệ thống camera giám sát.",
+      "page_idx": 31
+    },
+    {
+      "type": "paragraph",
+      "text": "• Vệ sinh các đâu ghi hình của hệ thống các camera",
+      "page_idx": 31
+    },
+    {
+      "type": "paragraph",
+      "text": "Vệ sinh camera • Điều chỉnh lại góc quay cho phù hợp sau khi vệ sinh camera xong",
+      "page_idx": 31
+    },
+    {
+      "type": "paragraph",
+      "text": "• Nếu phát hiện bất kỳ sự cố nào với đường đây cấp, phàn cứng hoặc phàn mêm của hệ thống camera, cần thay thẻ ngay lập tức",
+      "page_idx": 31
+    },
+    {
+      "type": "paragraph",
+      "text": "• Cài đặt chế độ ghi hình theo nhu câu thực tế của tòa nhà.",
+      "page_idx": 31
+    },
+    {
+      "type": "paragraph",
+      "text": "• Bước cuối cùng là truyền dữ liệu từ đầu ghi hình vào ổ cứng để lưu trữ dữ liệu lâu dài.",
+      "page_idx": 31
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "BẢO TRỊ HỆ THỐNG ĐIỆN THOẠI NỘI BỘ",
+      "page_idx": 32
+    },
+    {
+      "type": "paragraph",
+      "text": "Khi bảo trì hệ thống điện thoại nội bộ trong tòa nhà, đội ngữ nhận viện bảo trì cần tiến hành sao lưu dữ liệu về ổ cứng trước khi vệ sinh hệ thống điện thoại nội bộ. Nếu gặp sự cố về hệ thống, ban quản lý toà nhà chung cư, văn phòng cần nhanh chóng liên hệ bộ phận bảo trì điện toà nhà để giải quyết kịp thời.",
+      "page_idx": 32
+    },
+    {
+      "type": "paragraph",
+      "text": "Quy trình bảo trì hệ thống điện thoại nội bộ tòa nhà cần thực hiện theo các bước sau đây:",
+      "page_idx": 32
+    },
+    {
+      "type": "paragraph",
+      "text": "Nhân viên bảo trì cần đánh dấu và lập sơ đồ đầu nôi, đồng thời lập số theo đổi bảo trì hệ thống điện thoại nội bộ.",
+      "page_idx": 32
+    },
+    {
+      "type": "paragraph",
+      "text": "Vệ sinh hệ thống điện thoại đồng thời tiến hành sao lưu dữ liệu về ổ cứng để phòng trường hợp xảy ra sự cố.",
+      "page_idx": 32
+    },
+    {
+      "type": "paragraph",
+      "text": "Nếu phát hiện các sự cố như đứt cáp, mất tín hiệu điện thoại, cần thay thế hoặc sửa chữa ngay lập tức để đảm bảo hệ thống hoạt động tốt.",
+      "page_idx": 32
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "QUY TRÌNH BẢO TRÌ HỆ THỐNG CƠ ĐIỆN",
+      "page_idx": 33
+    },
+    {
+      "type": "paragraph",
+      "text": "Nhảm đảm bảo mức độ an toàn khi sử dụng, ban quản lý vận
+
+================================================================================
+CHUNK ID: chunk-20637a4e9b8f9e74b9747a921c8976f0 | PAGE: ?
+================================================================================
+tắc điện, ô cắm, đây điện, ống dân điện, nút bám, ... để đảm bảo chứng hoạt động tốt và an toàn.",
+      "page_idx": 34
+    },
+    {
+      "type": "paragraph",
+      "text": "• Vệ sinh các bóng đèn, đèn LED, máng đèn, các bộ phận điện khác như công tắc điện, ô cắm điện, các tâm nôi, nút bám, ... để đảm bảo chứng sách sẽ và không gây ánh hương đến sức khỏe của nhân viên.",
+      "page_idx": 34
+    },
+    {
+      "type": "paragraph",
+      "text": "Thay thẻ linh kiện hư hông • Thay thẻ các bóng đèn, đèn LED, các bộ phận điện khác như công tắc điện, ô cắm điện, các tâm nôi, nút bám, ... nếu cần thiết.",
+      "page_idx": 34
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra hệ thống đây điện • Kiểm tra các đây điện, ống dân điện để phát hiện và khác phục những hư hỏng có thể gây nguy hiểm cho hệ thống và đổi với người sử dụng.",
+      "page_idx": 34
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra chất lượng chiếu sáng • Kiểm tra chất lượng chiếu sáng, độ sáng của các bóng đèn, đèn LED để đảm bảo chứng phát sáng đúng tiêu chuẩn, không quá sáng hoặc quá tôi.",
+      "page_idx": 34
+    },
+    {
+      "type": "paragraph",
+      "text": "Kiểm tra tiết kiểm điện • Kiểm tra các bóng đèn, đèn LED để xem chứng có tiết kiểm điện không và đưa ra các giải pháp tôi ưu hóa tiết kiểm điện.",
+      "page_idx": 34
+    },
+    {
+      "type": "paragraph",
+      "text": "Lập sổ theo đổi bảo trì • Lập sổ theo đổi bảo trì để ghi lại các thông tin về bảo trì hệ thống điện chiếu sáng, bao gồm thời gian kiểm tra, các công việc được thực hiện, những linh kiện được thay thẻ, v.v...",
+      "page_idx": 34
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "KẾT LUẬN",
+      "page_idx": 35
+    },
+    {
+      "type": "paragraph",
+      "text": "Quy trình vận hành hệ thông điện tòa nhà đã phúc tập, quy trình bảo dưỡng càng phúc tập hơn. Bảo trì hệ thông điện đổi hơi nhiều đâu mủ công việc; đổi ngữ nhân lực có trình độ và chuyên môn cao với những máy móc, thiết bị chuyên dụng hỗ trợ. Quan trọng nhất là việc bảo trì cần được tiến hành thương xuyên, đúng định kỳ.",
+      "page_idx": 35
+    },
+    {
+      "type": "paragraph",
+      "text": "Vây làm thẻ nào để đơn vị quản lý tòa nhà nhỏ lịch bảo trì hệ thông điện tòa nhà?",
+      "page_idx": 35
+    },
+    {
+      "type": "paragraph",
+      "text": "Làm thẻ nào để phân công; giám sát và quản lý đổi ngữ nhân lực chịu trách nhiệm bảo trì hệ thông điện tòa nhà?",
+      "page_idx": 35
+    },
+    {
+      "type": "paragraph",
+      "text": "Làm thẻ nào để việc bảo dưỡng, bảo trì được thực hiện một cách chuyên nghiệp, hiệu quả?",
+      "page_idx": 35
+    },
+    {
+      "type": "paragraph",
+      "text": "Công việc của ban quản lý không chỉ là bảo trì hệ thông điện mà còn gồm hàng loạt nghiệp vụ phúc tập khác như: quản lý dịch vụ; quản lý tài chính; quản lý khách hàng; quản lý mật bằng; quản lý nhân sự... Muôn làm tốt công việc bảo trì hệ thông điện, hộ cần có “trợ lý đặc biết”. Đó chính là các phàn mêm quản lý tòa nhà.",
+      "page_idx": 35
+    },
+    {
+      "type": "paragraph",
+      "text": "Phần mêm quản lý tòa nhà Landsoft Control giúp ban quản lý thực hiện đúng, đủ quy trình bảo trì hệ thông điện toà nhà cùng các nghiệp vụ quản lý khác trở nên đơn giản hơn bao gi|=hết.",
+      "page_idx": 35
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "THANK YOU!!!",
+      "page_idx": 36
+    }
+  ]
+}
+
