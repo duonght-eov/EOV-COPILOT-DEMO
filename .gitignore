@@ -1,0 +1,47 @@
+# --- Python Basics ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# --- Environment Variables (QUAN TRỌNG: Bảo mật) ---
+.env
+.env.local
+.env.*.local
+
+# --- AI/ML Models & Cache (QUAN TRỌNG: Tránh commit file nặng) ---
+# Thư mục cache model bạn đã mount trong docker-compose
+models_cache/
+cache/
+data/
+
+# Các định dạng file model nặng (nếu lỡ tải tay vào project)
+*.bin
+*.pt
+*.pth
+*.onnx
+*.safetensors
+*.h5
+*.tflite
+
+# --- Logs & Databases ---
+*.log
+logs/
+*.sqlite3
+*.db
+
+# --- IDE & Editor Config ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- OS Specifics ---
+.DS_Store
+Thumbs.db

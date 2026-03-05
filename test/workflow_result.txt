@@ -1,0 +1,1833 @@
+=== KẾT QUẢ TEST WORKFLOW ===
+DOC ID: 67477332-21e4-4db6-afdc-17fd84216b20
+TỔNG SỐ CHUNKS: 49
+============================================================
+
+--- CHUNK #0 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+CÔNG TY CỔ PHẦN XÂY DỰNG COTECCONS COTECCONS CONSTRUCTION JOINT STOCK COMPANY
+
+Số/ No.: 6107/2025/CV-CTD
+
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM Độc lập - Tự do - Hạnh phúc THE SOCIALIST REPUBLIC OF VIETNAM Independence - Freedom - Happiness
+
+TP. Hồ Chí Minh, ngày 30 tháng 10 năm 2025 Ho Chi Minh city, October 30 , 2025
+
+CÔNG BỐ THÔNG TIN ĐỊNH KỲ PERIODIC INFORMATION DISCLOSURE
+
+Kính gửi/ To: - Ủy Ban Chứng Khoán nhà nước/ State Securities Commission of Vietnam -  Sở Giao dịch Chứng khoán Việt Nam/ Sở Giao dịch Chứng khoán thành phố Hồ Chí Minh/ Vietnam Exchange/ Hochiminh Stock Exchange
+
+1. Tên tổ chức/Name of organization: Công ty Cổ phần Xây Dựng Coteccons
+
+- Mã chứng khoán/ Stock code: CTD
+
+- Địa chỉ/Address: 236/6 Điện Biên Phủ, P. Gia Định, TP. HCM
+
+- Điện thoại liên hệ/ Tel.: (84) (28) 35142255 - Fax: (84) (28) 35142277
+
+- E-mail: bodsecretary@coteccons.vn
+
+2. Nội dung thông tin công bố/ Contents of disclosure:
+
+- Báo cáo tài chính riêng Quý 1/2026 và Giải trình chênh lệch trong thuyết minh/ Separate financial statements for Quarter 1/2026 and explanation of variances in the disclosures.
+
+- Báo cáo tài chính hợp nhất Quý 1/2026 và Giải trình chênh lệch trong thuyết minh/ Consolidated financial statements for Quarter 1/2026 and explanation of variances in the disclosures.
+
+3. Thông tin này đã được công bố trên trang thông tin điện tử của công ty vào ngày 30/10 /2025 tại đường dẫn: https://coteccons.vn/investor-relations-vn// This information was published on the company’s website on October 30 , 2025, as in the link https://www.coteccons.vn/en/investor-relations/.
+
+Chúng tôi xin cam kết các thông tin công bố trên đây là đúng sự thật và hoàn toàn chịu trách nhiệm trước pháp luật về nội dung các thông tin đã công bố/ We hereby certify that the information provided is true and correct and we bear the full responsibility to the law.
+
+Tài liệu đính kèm/ Attached documents: - Như mục 2/ As item 2.
+
+CÔNG TY CỔ PHẦN XÂY DỰNG COTECCO NS
+
+Digitally signed by CÔNG TY CỔ PHẦN XÂY DỰNG COTECCONS DN: C=VN, S=THÀNH PHỐ HỒ CHÍ MINH, CN=CÔNG TY CỔ PHẦN XÂY DỰNG COTECCONS, OID.0.9.2342.19200300.100.1.1=MST.003443233 Reason: I am the author of this document Location: your signing location here Date: 2025.10.30 14:55:02+07'00' Foxit Reader Version: 10.1.0
+
+Đại diện tổ chức
+
+Organization representative Người được ủy quyền công bố thông tin Authorized Person for information disclosure
+
+<center>ĐỊNH THỊ HỒNG THẢM</center>
+
+BÁO CÁO TÀI CHÍNH
+
+RIÊNG
+
+Quý 1/2026
+
+Công ty Cổ phần Xây dựng Coteccons
+
+Báo cáo tài chính riêng
+
+------------------------------------------------------------
+
+--- CHUNK #1 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons**
+
+Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+(Quý 1 năm 2026)
+
+MỤC LỤC
+
+Bảng cân đối kế toán riêng Báo cáo kết quả hoạt động kinh doanh riêng Báo cáo lưu chuyển tiền lệ riêng Thuyết minh báo cáo tài chính riêng
+
+Trang
+
+1 - 3
+
+4
+
+5 - 6
+
+7 - 45
+
+Công ty Cổ phần Xây dựng Coteccons
+
+BẢNG CÂN ĐỐI KẾ TOÁN RIÊNG vào ngày 30 tháng 9 năm 2025
+
+VND
+
+------------------------------------------------------------
+
+--- CHUNK #2 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons**
+
+| Mã số | TÀI SẢN | Thuyết minh | 30/9/2025 | 30/6/2025 |
+| --- | --- | --- | --- | --- |
+| 100 | A. TÀI SẢN NGẮN HẠN |  | 21.979.035.579.403 | 20.404.806.881.759 |
+| 110 | I. Tiền và các khoản tương đương tiền | 5 | 734.897.230.946 | 1.585.535.832.930 |
+| 111 | 1. Tiền |  | 55.697.230.946 | 125.535.832.930 |
+| 112 | 2. Các khoản tương đương tiền |  | 679.200.000.000 | 1.460.000.000.000 |
+| 120 | II. Đầu tư tài chính ngắn hạn |  | 1.909.000.000.000 | 1.020.000.000.000 |
+| 123 | 1. Đầu tư nắm giữ đến ngày đáo hạn | 6 | 1.909.000.000.000 | 1.020.000.000.000 |
+| 130 | III. Các khoản phải thu ngắn hạn |  | 12.656.176.339.463 | 12.081.072.635.119 |
+| 131 | 1. Phải thu ngắn hạn của khách hàng | 7.1 | 11.840.230.163.464 | 11.309.050.691.546 |
+| 132 | 2. Trả trước cho người bán ngắn hạn | 7.2 | 1.558.577.126.607 | 1.428.786.523.506 |
+| 135 | 3. Phải thu về cho vay ngắn hạn | 8 | 149.957.000.000 | 117.654.455.474 |
+| 136 | 4. Phải thu ngắn hạn khác | 9 | 163.963.741.079 | 258.155.216.263 |
+| 137 | 5. Dự phòng phải thu ngắn hạn khó đòi | 7.3 | (1.056.551.691.687) | (1.032.574.251.670) |
+| 140 | IV. Hàng tồn kho | 10 | 5.057.785.361.346 | 4.272.018.449.657 |
+| 141 | 1. Hàng tồn kho |  | 5.112.421.438.132 | 4.339.547.688.556 |
+| 149 | 2. Dự phòng giảm giá hàng tồn kho |  | (54.636.076.786) | (67.529.238.899) |
+| 150 | V. Tài sản ngắn hạn khác |  | 1.621.176.647.648 | 1.446.179.964.053 |
+| 151 | 1. Chi phí trả trước ngắn hạn | 11 | 18.663.882.260 | 4.282.539.865 |
+| 152 | 2. Thuế GTGT được khấu trừ | 19 | 1.602.497.381.144 | 1.441.882.079.944 |
+| 153 | 3. Thuế và các khoản khác phải thu nhà nước | 19 | 15.384.244 | 15.344.244 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+BẢNG CÂN ĐỐI KẾ TOÁN RIÊNG (tiếp theo) vào ngày 30 tháng 9 năm 2025
+
+VND
+
+------------------------------------------------------------
+
+--- CHUNK #3 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons**
+
+| Mã số | TÀI SẢN | Thuyết minh | 30/9/2025 | 30/6/2025 |
+| --- | --- | --- | --- | --- |
+| 200 | B. TÀI SẢN DÀI HẠN |  | 3.627.301.821.934 | 3.507.169.050.063 |
+| 220 | I. Tài sản cố định |  | 322.010.693.855 | 248.209.854.236 |
+| 221 | 1. Tài sản cố định hữu hình | 12 | 237.615.737.300 | 162.641.701.265 |
+| 222 | Nguyên giá |  | 852.339.937.071 | 765.788.237.071 |
+| 223 | Giá trị khấu hao lũy kế |  | (614.724.199.771) | (603.146.535.806) |
+| 224 | 2. Tài sản cố định thuê<br/>tài chính | 13 | 577.841.921 | 712.088.024 |
+| 225 | Nguyên giá |  | 2.663.034.106 | 2.663.034.106 |
+| 226 | Giá trị khấu hao lũy kế |  | (2.085.192.185) | (1.950.946.082) |
+| 227 | 3. Tài sản cố định vô hình | 14 | 83.817.114.634 | 84.856.064.947 |
+| 228 | Nguyên giá |  | 123.507.138.740 | 123.507.138.740 |
+| 229 | Giá trị khấu hao lũy kế |  | (39.690.024.106) | (38.651.073.793) |
+| 230 | II. Bất động sản đầu tư | 15 | 55.628.480.666 | 56.479.947.290 |
+| 231 | 1. Nguyên giá |  | 103.719.061.468 | 103.719.061.468 |
+| 232 | 2. Giá trị khấu hao lũy kế |  | (48.090.580.802) | (47.239.114.178) |
+| 240 | III. Tài sản dở dang dài hạn |  | 80.457.361.634 | 21.769.449.746 |
+| 242 | 1. Chi phí xây dựng cơ bản<br/>dở dang | 16 | 80.457.361.634 | 21.769.449.746 |
+| 250 | IV. Đầu tư tài chính dài hạn |  | 2.905.320.405.311 | 2.905.815.979.897 |
+| 251 | 1. Đầu tư vào công ty con | 17.1 | 2.950.511.955.016 | 2.951.007.529.602 |
+| 252 | 2. Đầu tư vào công ty liên kết | 17.2 | 177.600.000.000 | 177.600.000.000 |
+| 253 | 3. Đầu tư góp vốn vào đơn vị<br/>khác | 17.3 | 59.960.000.000 | 59.960.000.000 |
+| 254 | 4. Dự phòng đầu tư tài chính<br/>dài hạn | 17 | (282.751.549.7C5) | (282.751.549.705) |
+| 260 | V. Tài sản dài hạn khác |  | 263.884.880.458 | 274.893.818.894 |
+| 261 | 1. Chi phí trả trước dài hạn | 11 | 150.611.913.873 | 149.365.686.079 |
+| 262 | 2. Tài sản thuế thu nhập<br/>hoãn lại | 31.3 | 113.272.966.595 | 125.528.132.815 |
+| 270 | TỔNG CỘNG TÀI SẢN |  | 25.606.337.401.337 | 23.911.975.931.822 |
+
+------------------------------------------------------------
+
+--- CHUNK #4 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons**
+
+Công ty Cổ phần Xây dựng Coteccons
+
+BẢNG CÂN ĐỐI KẾ TOÁN RIÊNG (tiếp theo) vào ngày 30 tháng 9 năm 2025
+
+VND
+
+------------------------------------------------------------
+
+--- CHUNK #5 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons**
+
+| Mã số | NGUỒN VỐN | Thuyết minh | 30/9/2025 | 30/6/2025 |
+| --- | --- | --- | --- | --- |
+| 300 | C. NỢ PHẢI TRÀ |  | 18.092.634.336.596 | 16.521.396.513.000 |
+| 310 | I. Nợ ngắn hạn |  | 18.090.384.555.170 | 16.519.177.908.948 |
+| 311 | 1. Phải trả người bán ngắn hạn | 18.1 | 6.513.068.592.497 | 6.217.377.775.421 |
+| 312 | 2. Người mua trả tiền trước ngắn hạn | 18.2 | 4.651.348.672.647 | 4.047.430.519.339 |
+| 313 | 3. Thuế và các khoản phải nộp Nhà nước | 19 | 20.580.847.816<br/>183.813.012 | 38.195.454.985<br/>304.033.577 |
+| 314 | 4. Phải trả người lao động |  |  |  |
+| 315 | 5. Chi phí phải trả ngắn hạn | 20 | 2.890.230.487.488<br/>943.221.074.334 | 2.714.643.108.390<br/>980.936.761.451 |
+| 319 | 7. Phải trả ngắn hạn khác | 21 | 2.916.549.938.734 | 2.329.491.615.488 |
+| 320 | 8. Vay ngắn hạn | 22 | 89.580.752.533<br/>65.620.376.109 | 125.586.211.525<br/>65.212.428.772 |
+| 321 | 9. Dự phòng phải trả ngắn hạn | 23 |  |  |
+| 322 | 10. Quỹ khen thưởng, phúc lợi | 24 |  |  |
+| 330 | II. Nợ dài hạn |  | 2.249.781.426<br/>2.249.781.426 | 2.218.604.052<br/>2.218.604.052 |
+| 342 | 1. Dự phòng phải trả dài hạn | 22 |  |  |
+| 400 | D. VỐN CHỦ SỞ HỮU |  | 7.513.703.064.741 | 7.390.579.418.822 |
+| 410 | I. Vốn chủ sở hữu | 25.1 | 7.513.703.064.741<br/>1.036.332.610.000 | 7.390.579.418.822 |
+| 411 | 1. Vốn cổ phần |  |  | 1.036.332.610.000 |
+| 411a | - Cổ phiếu phổ thông có quyền biểu quyết |  | 1.036.332.610.000 | 1.036.332.610.000 |
+| 412 | 2. Thặng dư vốn cổ phần |  | 2.714.397.074.105<br/>(264.867.149.303) | 2.714.397.074.105 |
+| 415 | 3. Cổ phiếu quỹ |  | 3.206.314.091.543 | 3.206.314.091.543 |
+| 418 | 4. Quỹ đầu tư phát triển |  |  |  |
+| 421 | 5. Lợi nhuận sau thuế chưa phân phối |  | 821.526.438.896 | 698.402.792.977 |
+| 421a | - LNST chưa phân phối lũy kế đến cuối kỳ trước |  | 698.402.792.977 | 384.099.170.092 |
+| 421b | - LNST chưa phân phối kỳ này |  | 123.123.645.919 | 314.303.622.885 |
+| 440 | TỔNG CỘNG NGUỒN VỐN |  | 25.606.337.401.337 | 23.911.975.931.822 |
+
+------------------------------------------------------------
+
+--- CHUNK #6 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons**
+
+<center>Nguyễn Thụy Phương Minh Người lập</center>
+
+<center>Trần Thị Thanh Vân Kế toán trưởng</center>
+
+<center>Nguyễn Văn Đua Phó Tổng Giám Đốc</center>
+
+Ngày 30 tháng 10 năm 2025
+
+Công ty Cổ phần Xây dựng Coteccons
+
+BÁO CÁO KẾT QUẢ HOẠT ĐỘNG KINH DOANH RIÊNG Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+VND
+
+| Mã số | CHỈ TIÊU | Thuyết minh | Giai đoạn ba tháng kết thúc ngày |
+| --- | --- | --- | --- |
+| 30/9/2025 | 30/9/2024 |
+| 10 | 1. Doanh thu thuần về bán hàng và cung cấp dịch vụ | 27.1 | 6.159.496.827.751 | 3.865.986.189.744 |
+| 11 | 2. Giá vốn hàng bán | 28 | (5.892.044.770.892) | (3.747.144.284.190) |
+| 20 | 3. Lợi nhuận gộp về bán hàng và cung cấp dịch vụ |  | 267.452.056.859 | 118.841.905.554 |
+| 21 | 4. Doanh thu hoạt động tài chính | 27.2 | 42.851.427.207 | 40.425.448.263 |
+| 22 | 5. Chi phí tài chính - Trong đó: Chi phí lãi vay | 29 | (32.938.257.384) (32.723.104.091) | (27.452.030.616) (26.776.728.702) |
+| 26 | 6. Chi phí quản lý doanh nghiệp | 30 | (111.929.658.941) | (55.550.910.499) |
+| 30 | 7. Lợi nhuận thuần từ hoạt động kinh doanh |  | 165.435.567.741 | 76.264.412.702 |
+| 31 | 8. Thu nhập khác | 31 | 167.331.042 | 440.648.592 |
+| 32 | 9. Chi phí khác | 31 | (6.352.248.646) | (15.000.170) |
+| 40 | 10. Lợi nhuận/(lỗ) khác | 31 | (6.184.917.604) | 425.648.422 |
+| 50 | 11. Tổng lợi nhuận kế toán trước thuế |  | 159.250.650.137 | 76.690.061.124 |
+| 51 | 12. Chi phí thuế TNDN hiện hành | 32.1 | (23.871.837.998) | (7.862.159.365) |
+| 52 | 13. Chi phí thuế TNDN hoãn lại | 32.3 | (12.255.166.220) | (7.777.345.036) |
+| 60 | 14. Lợi nhuận sau thuế TNDN |  | 123.123.645.919 | 61.050.556.723 |
+
+Nguyễn Thụy Phương Minh Người lập
+
+Trần Thị Thanh Vân Kế toán trưởng
+
+Nguyễn Văn Đua Phó Tổng Giám Đốc
+
+Công ty Cổ phần Xây dựng Coteccons
+
+BÁO CÁO LƯU CHUYỂN TIỀN TỆ RIÊNG Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+VND
+
+------------------------------------------------------------
+
+--- CHUNK #7 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons**
+
+| Mã số | CHỈ TIÊU | Thuyết minh | Giai đoạn, ba tháng kết thúc ngày |
+| --- | --- | --- | --- |
+| 30/9/2025 | 30/9/2024 |
+| 01 | I. LƯU CHUYỂN TIỀN TỪ HOẠT ĐỘNG KINH DOANH |  |  |  |
+| 02 | Tổng lợi nhuận kế toán trước thuế |  | 159.250.650.137 | 76.690.061.124 |
+| 03 | Điều chỉnh cho các khoản: |  |  |  |
+| 04 | Khấu hao và hao mòn | 12, 13, 14, 15 | 13.602.327.005 (20.559.157.332) | 16.151.648.252 (21.006.094.818) |
+| 05 | Các khoản dự phòng/(hoàn nhập) (Lãi)/lỗ chênh lệch tỷ giá hối đoái do đánh giá lại các khoản mục tiền tệ có gốc ngoại tệ |  | (147.765.540) (42.693.292.468) | 135.984.035 (70.936.971.806) |
+| 06 | Lãi hoạt động đầu tư | 28 | 32.723.104.091 | 26.776.728.702 |
+| 08 | Lợi nhuận từ hoạt động kinh doanh trước thay đổi vốn lưu động |  | 142.175.865.893 (823.693.838.546) | 27.811.355.489 (134.942.420.248) |
+| 09 | (Tăng)/giảm các khoản phải thu (Tăng)/giảm hàng tồn kho |  | (772.873.749.576) | (210.171.289.276) |
+| 10 | Tăng/(giảm) các khoản phải trả (Tăng)/(giảm) chi phí trả trước |  | 939.680.995.294 (15.627.570.189) | 18.392.037.402 (8.889.560.620) |
+| 11 | Lãi vay đã trả |  | (32.025.668.612) | (36.494.182.054) |
+| 12 | Thuế thu nhập doanh nghiệp đã nộp | 19 | (39.663.206.530) | (53.104.625.467) |
+| 15 | Tiền thu khác từ hoạt động kinh doanh |  | 646.006.337 | - |
+| 16 | Tiền chi khác từ hoạt động kinh doanh |  | (256.425.667) | (887.275.000) |
+| 20 | Lưu chuyển tiền thuần (sử dụng vào)/từ hoạt động kinh doanh |  | (601.636.691.596) | (128.401.119.278) |
+| 21 | II. LƯU CHUYỂN TIỀN TỪ HOẠT ĐỘNG ĐẦU TƯ |  |  |  |
+| 22 | Tiền chi để mua sắm, xây dựng TSCĐ và các tài sản dài hạn khác |  | (54.413.827.712) | (1.750.031.103) |
+| 23 | Tiền thu từ thanh lý, nhượng bán TSCĐ và các tài sản dài hạn khác |  | - | 30.578.153.206 |
+| 24 | Tiền chi cho vay, mua các công cụ nợ của đơn vị khác |  | (1.718.957.000.000) | (1.502.300.000.000) |
+| 25 | Tiền thu hồi vay, bán lại các công cụ nợ của đơn vị khác |  | 797.654.455.474 | 450.000.000.000 |
+| 26 | Tiền thu hồi đầu tư góp vốn vào đơn vị khác |  | 495.574.586 | - |
+| 27 | Tiền thu lãi tiền gửi và cổ tức được chia |  | 138.998.024.843 | 20.625.275.850 |
+| 30 | Lưu chuyển tiền thuần (sử dụng vào)/từ hoạt động đầu tư |  | (836.222.772.809) | (1.002.846.602.047) |
+
+------------------------------------------------------------
+
+--- CHUNK #8 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons**
+
+Công ty Cổ phần Xây dựng Coteccons
+
+BÁO CÁO LƯU CHUYỂN TIỀN TỆ RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+VND
+
+| MÃ SỐ | CHỈ TIÊU | Thuyết minh | Giai đoạn ba tháng kết thúc ngày |
+| --- | --- | --- | --- |
+| 30/9/2025 | 30/9/2024 |
+| 33 | III. LƯU CHUYỂN TIỀN TỪ HOẠT ĐỘNG TÀI CHÍNH |  |  |  |
+| 34 | Tiền thu từ đi vay |  | 1.882.388.826.001 | 1.196.402.413.308 |
+| 40 | Tiền trả nợ gốc vay |  | (1.295.330.502.755) | (402.632.496.546) |
+| 50 | Lưu chuyển tiền thuần (sử dụng vào)/từ hoạt động tài chính |  | 587.058.323.246 | 793.769.916.762 |
+| 60 | Lưu chuyển tiền và tương đương tiền thuần trong kỳ |  | (850.801.141.159) | (337.477.804.563) |
+| 61 | Tiền và tương đương tiền đầu kỳ |  | 1.585.535.832.930 | 1.204.759.160.718 |
+| 70 | Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ |  | 162.539.175 | (65.514.891) |
+|  | Tiền và tương đương tiền cuối kỳ | 5 | 734.897.230.946 | 867.215.841.264 |
+
+<center>Nguyễn Thụy Phương Minh Người lập</center>
+
+<center>Trần Thị Thanh Vân Kế toán trưởng</center>
+
+<center>Nguyễn Văn Đua Phó Tổng Giám Đốc</center>
+
+Ngày 30 tháng 10 năm 2025
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+1. THÔNG TIN CÔNG TY
+
+Công ty Cổ phần Xây dựng Coteccons (“Công ty”) là một công ty cổ phần được thành lập theo Luật Doanh nghiệp của Việt Nam theo Giấy Chứng nhận Đăng ký Kinh doanh (“Giấy CNĐKKD”) số 4103002611 do Sở Kế hoạch và Đầu tư (“Sở KH và ĐT”) Thành phố Hồ Chí Minh cấp vào ngày 24 tháng 8 năm 2004, sau đó điều chỉnh thành Giấy Chứng nhận Đăng ký Doanh nghiệp (“Giấy CNĐKDN”) số 0303443233 vào ngày 23 tháng 8 năm 2010 và các Giấy CNĐKKD và Giấy CNĐKDN điều chỉnh sau đó.
+
+Công ty được chấp thuận niêm yết cổ phiếu tại Sở Giao dịch Chứng khoán Thành phố Hồ Chí Minh với mã giao dịch “CTD” theo Quyết định số 155/QĐ-SGDHCM do Sở Giao dịch Chứng khoán Thành phố Hồ Chí Minh cấp ngày 9 tháng 12 năm 2009.
+
+------------------------------------------------------------
+
+--- CHUNK #9 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 1. THÔNG TIN CÔNG TY**
+
+Hoạt động chính trong năm hiện tại của Công ty là cung cấp dịch vụ thiết kế và xây dựng, lắp đặt thiết bị, trang trí nội thất và cho thuê văn phòng.
+
+Công ty có trụ sở chính tại Số 236/6 Đường Điện Biên Phủ, Phường Gia Định, Thành phố Hồ Chí Minh, Việt Nam.
+
+Số lượng nhân viên của Công ty tại ngày 30 tháng 9 năm 2025 là 1.975 người (ngày 30 tháng 06 năm 2025: 1.785 người).
+
+Cơ cấu tổ chức
+
+Công ty có 16 công ty con và 1 chi nhánh tại nước ngoài, trong đó:
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+1. THÔNG TIN CÔNG TY (tiếp theo)
+
+Cơ cấu tổ chức (tiếp theo)
+
+Tại ngày 30 tháng 9 năm 2025:
+
+------------------------------------------------------------
+
+--- CHUNK #10 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > Cơ cấu tổ chức**
+
+| TT | Tên công ty/chi nhánh ("Tên viết tắt") | Tỷ lệ biểu quyết (%) | Tỷ lệ lợi ích (%) | Trụ sở chính | Hoạt động chính |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Công ty TNHH Đầu tư Xây dựng Unicons ("Unicons") | 100,00 | 100,00 | 236/6 Đường Điện Biên Phủ, Phường Gia Định, Thành phố Hồ Chí Minh, Việt Nam | ► Cung cấp dịch vụ xây dựng và dịch vụ lắp đặt thiết bị |
+| 2 | Công ty TNHH Covestcons ("Covestcons") | 100,00 | 100,00 | 236/6 Đường Điện Biên Phủ, Phường Gia Định, Thành phố Hồ Chí Minh, Việt Nam | ► Tư vấn, môi giới, đấu giá bất động sản, đấu giá quyền sử dụng đất; kinh doanh bất động sản, quyền sử dụng đất, thuộc chủ sở hữu, chủ sử dụng hoặc đi thuê |
+| 3 | Công ty Cổ phần CTD FutureImpact ("FutureImpact") | 100,00 | 99,54 | 236/6 Đường Điện Biên Phủ, Phường Gia Định, Thành phố Hồ Chí Minh, Việt Nam | ► Sửa chữa, lắp đặt, cho thuê và bán máy móc thiết bị và phụ tùng máy |
+| 4 | Công TNHH Solaresco-1 ("Solaresco-1") | 100,00 | 99,54 | Số 47, Đường Lê Văn Thịnh, Khu phố 5, Phường Bình Trưng, Thành phố Hồ Chí Minh, Việt Nam | ► Cho thuê máy móc, thiết bị đun nước nóng dùng năng lượng mặt trời máy móc thiết bị tiết kiệm năng lượng |
+| 5 | Công ty TNHH Coteccons Nest ("CTD Nest") | 100,00 | 100,00 | Số 236/6 Đường Điện Biên Phủ, Phường Gia Định, Thành phố Hồ Chí Minh, Việt Nam | ► Kinh doanh bất động sản, quyền sử dụng đất thuộc chủ sở hữu, chủ sử dụng hoặc đi thuê |
+| 6 | Công ty TNHH CTD Materials ("CTD Materials") | 100,00 | 100,00 | Số 236/6 Đường Điện Biên Phủ, Phường Gia Định, Thành phố Hồ Chí Minh, Việt Nam | ► Bán buôn vật liệu, thiết bị lắp đặt khác trong xây dựng |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+1. THÔNG TIN CÔNG TY (tiếp theo)
+
+Cơ cấu tổ chức (tiếp theo)
+
+------------------------------------------------------------
+
+--- CHUNK #11 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > Công ty Cổ phần Xây dựng Coteccons > 1. THÔNG TIN CÔNG TY (tiếp theo)**
+
+| TT | Tên công ty/chi nhánh ("Tên viết tắt") | Tỷ lệ biểu quyết (%) | Tỷ lệ lợi ích (%) | Trụ sở chính | Hoạt động chính |
+| --- | --- | --- | --- | --- | --- |
+| 7 | Công ty TNHH Sản Chơi Mới ("SCM") | 100,00 | 100,00 | Số 236/6 Đường Điện Biên Phủ, Phường Gia Định, Thành phố Hồ Chí Minh, Việt Nam | ► Kinh doanh bất động sản, quyền sử dụng đất thuộc chủ sở hữu, chủ sử dụng hoặc đi thuê |
+| 8 | Coteccons Construction Inc. ("CTD US") | 100,00 | 100,00 | 8 The Green Ste D street, City of Dover, Country of Kent | ► Cung cấp dịch vụ xây dựng |
+| 9 | Công ty TNHH Sinh Nam Metal (Việt Nam) ("Sinh Nam") | 100,00 | 100,00 | Số 16 Đại lộ Hữu Nghị, Khu công nghiệp Việt Nam- Singapore, Phường Bình Hòa, TP Hồ Chí Minh, Việt Nam | ► Cung cấp dịch vụ thiết kế, thi công, lắp đặt các sản phẩm từ nhôm kính và kim loại |
+| 10 | Công ty TNHH Sinh Nam Metal (Myanmar) ("Sinh Nam Myanmar") | 100,00 | 100,00 | Đường Upper Pansodan, Phòng 301, Tòa Nhà MI, Kandawgyi Yeikmon Housing, Thị Trấn Mingalar Taung Nyunt, Yangon Myanmar 11221. | ► Cung cấp dịch vụ thiết kế, thi công, lắp đặt các sản phẩm từ nhôm kính và kim loại |
+| 11 | Công ty TNHH Cơ và Điện UG Việt Nam ("UGVN") | 100,00 | 100,00 | Lầu 8, Tòa nà Coteccons, 236/6 Điện Biên Phủ, Phường Gia Định, TP Hồ Chí Minh, Việt Nam. | ► Cung cấp dịch vụ thi công công trình xây dựng dân dụng và công nghiệp; dịch vụ tư vấn quản lý dự án xây dựng; dịch vụ thiết kế và lắp đặt phần Cơ Điện công trình xây dựng và các hệ thống xây dựng khác. |
+| 12 | Coteccons Construction LLC ("CTD Saudi") | 100,00 | 100,00 | Ground Floor, Levels 1 &amp; 2, Building S4, Roshn Business Front, Airport Road, Riyadh, Kingdom of Saudi Arabia | ► Xây dựng các loại công trình nhà ở |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+1. THÔNG TIN CÔNG TY (tiếp theo)
+
+Cơ cấu tổ chức (tiếp theo)
+
+------------------------------------------------------------
+
+--- CHUNK #12 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > Công ty Cổ phần Xây dựng Coteccons > 1. THÔNG TIN CÔNG TY (tiếp theo)**
+
+| TT | Tên công ty/chi nhánh ("Tên viết tắt") | Tỷ lệ biểu quyết (%) | Tỷ lệ lợi ích (%) | Trụ sở chính | Hoạt động chính |
+| --- | --- | --- | --- | --- | --- |
+| 13 | Coteccons Construction KZ Ltd. ("CTD KZ") | 100,00 | 100,00 | 55/17 Mangilk El Ave., C3.2., Z05T3D8, Astana, Republic of Kazakhstan | ► Cung cấp dịch vụ xây dựng |
+| 14 | Coteccons Construction (Cambodia) Co. Ltd. ("CTD Cambodia") | 100,00 | 100,00 | House/Building No. H548, Street No. 371, Ta Lei, Dangkao, Dangkao, Phnom Penh, Kingdom of Cambodia | ► Cung cấp dịch vụ xây dựng công trình |
+| 15 | Coteccons India Construction Private Limited ("CTD India") | 99,00 | 99,00 | OlympiaCyberspace, 1st,3rd, office, No211/22, alandur rd, Guindy Industrial Estate, Chennai City Corporation, Chennai 600032, Tamil Nadu, Republic of India | ► Cung cấp dịch vụ xây dựng công trình |
+| 16 | Công ty TNHH VN Solutions | 100,00 | 100,00 | Z06 Đường số 13, Phường Tân Thuận, TP Hồ Chí Minh | ► Sản xuất phản mềm, Lập trình máy vi tính |
+| 17 | Chi nhánh Coteccons Construction tại Đài Loan ("CTD Taiwan") | 100,00 | 100,00 | 11F, Số 335 đường Ruiguang, Quận Neihu, Thành phố Đài Bắc, Đài Loan | ► Cung cấp dịch vụ xây dựng |
+
+Ngoài ra, Công ty có các khoản đầu tư vào công ty liên kết, đầu tư góp vốn dài hạn vào đơn vị khác được trình bày tại Thuyết minh số 17.
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+2. CƠ SỞ TRÌNH BÀY
+
+2.1 Mục đích lập báo cáo tài chính riêng
+
+Công ty có các công ty con như được trình bày tại Thuyết minh số 1 và Thuyết minh số 17.1. Công ty đã lập báo cáo tài chính riêng này nhằm đáp ứng các yêu cầu về công bố thông tin, cụ thể là theo quy định tại Thông tư số TT96/2020/TT-BTC - Hướng dẫn về việc công bố thông tin trên thị trường chứng khoán. Cũng theo quy định tại các văn bản này, Công ty đã lập báo cáo tài chính hợp nhất của Công ty và các công ty con ("Tập đoàn") cho kỳ kế toán kết thúc ngày 30 tháng 6 năm 2025 vào ngày 30 tháng 7 năm 2025.
+
+------------------------------------------------------------
+
+--- CHUNK #13 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 2.1 Mục đích lập báo cáo tài chính riêng**
+
+Người sử dụng báo cáo tài chính riêng nên đọc báo cáo này cùng với báo cáo tài chính hợp nhất nói trên để có được các thông tin đầy đủ về tình hình tài chính hợp nhất, kết quả hoạt động kinh doanh hợp nhất và tình hình lưu chuyển tiền tệ hợp nhất của Tập đoàn.
+
+2.2 Chuẩn mực và Chế độ kế toán áp dụng
+
+Báo cáo tài chính riêng của Công ty được trình bày bằng đồng Việt Nam ("VND") phù hợp với Chế độ kế toán doanh nghiệp Việt Nam và các Chuẩn mực kế toán Việt Nam do Bộ Tài chính ban hành theo:
+
+► Quyết định số 149/2001/QĐ-BTC ngày 31 tháng 12 năm 2001 về việc ban hành bốn Chuẩn mực kế toán Việt Nam (Đợt 1);
+
+► Quyết định số 165/2002/QĐ-BTC ngày 31 tháng 12 năm 2002 về việc ban hành sáu Chuẩn mực kế toán Việt Nam (Đợt 2);
+
+► Quyết định số 234/2003/QĐ-BTC ngày 30 tháng 12 năm 2003 về việc ban hành sáu Chuẩn mực kế toán Việt Nam (Đợt 3);
+
+► Quyết định số 12/2005/QĐ-BTC ngày 15 tháng 2 năm 2005 về việc ban hành sáu Chuẩn mực kế toán Việt Nam (Đợt 4); và
+
+► Quyết định số 100/2005/QĐ-BTC ngày 28 tháng 12 năm 2005 về việc ban hành bốn Chuẩn mực kế toán Việt Nam (Đợt 5).
+
+Theo đó, báo cáo tài chính riêng được trình bày kèm theo và việc sử dụng các báo cáo này không dành cho các đối tượng không được cung cấp các thông tin về các thủ tục và nguyên tắc và thông lệ kế toán tại Việt Nam và hơn nữa không được chủ định trình bày tình hình tài chính, kết quả hoạt động kinh doanh và tình hình lưu chuyển tiền tệ theo các nguyên tắc và thông lệ kế toán được chấp nhận rộng rãi ở các nước và lãnh thổ khác ngoài Việt Nam.
+
+2.3 Hình thức sổ kế toán áp dụng
+
+Hình thức sổ kế toán được áp dụng của Công ty là Nhật ký chung.
+
+2.4 Kỳ kế toán năm
+
+Kỳ kế toán năm của Công ty áp dụng cho việc lập báo cáo tài chính riêng bắt đầu từ ngày 1 tháng 7 và kết thúc vào ngày 30 tháng 6.
+
+2.5 Đơn vị tiền tệ trong kế toán
+
+Báo cáo tài chính riêng được lập bằng đơn vị tiền tệ trong kế toán của Công ty là VND.
+
+3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU
+
+3.1 Tiền và các khoản tương đương tiền
+
+------------------------------------------------------------
+
+--- CHUNK #14 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.1 Tiền và các khoản tương đương tiền**
+
+Tiền và các khoản tương đương tiền bao gồm tiền mặt tại quỹ, tiền gửi ngân hàng, các khoản đầu tư ngắn hạn có thời hạn gốc không quá ba tháng, có tính thanh khoản cao, có khả năng chuyển đổi dễ dàng thành các lượng tiền xác định và không có nhiều rủi ro trong chuyển đổi thành tiền.
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU (tiếp theo)
+
+3.2 Các khoản phải thu
+
+Các khoản phải thu được trình bày trên báo cáo tài chính riêng theo giá trị ghi sổ các khoản phải thu từ khách hàng và phải thu khác sau khi cần trừ các khoản dự phòng được lập cho các khoản phải thu khó đòi.
+
+Dự phòng nợ phải thu khó đòi thể hiện phần giá trị của các khoản phải thu mà Công ty dự kiến không có khả năng thu hồi tại ngày kết thúc kỳ kế toán năm. Tăng hoặc giảm số dư tài khoản dự phòng được hạch toán vào chi phí quản lý doanh nghiệp trên báo cáo kết quả hoạt động kinh doanh riêng.
+
+3.3 Hàng tồn kho
+
+Hàng tồn kho được ghi nhận theo giá thấp hơn giữa giá thành để đưa mỗi sản phẩm đến vị trí và điều kiện hiện tại, và giá trị thuần có thể thực hiện được.
+
+Giá trị thuần có thể thực hiện được là giá bán ước tính của hàng tồn kho trong điều kiện kinh doanh bình thường trừ chi phí ước tính để hoàn thành và chi phí bán hàng ước tính.
+
+Công ty áp dụng phương pháp kê khai thường xuyên để hạch toán hàng tồn kho với giá trị được xác định như sau:
+
+Hàng hóa và vật liệu xây dựng - chi phí mua theo phương pháp bình quân gia quyền.
+
+Chi phí xây dựng công trình - chi phí nguyên vật liệu và lao động trực tiếp công chỉ dở dang phí chung có liên quan đến công trình.
+
+Dự phòng giảm giá hàng tồn kho
+
+Dự phòng giảm giá hàng tồn kho được trích lập cho phần giá trị dự kiến bị tổn thất do các khoản suy giảm trong giá trị (do giảm giá, hư hỏng, kém phần: chất, lỗi thời v.v.) có thể xảy ra đối với nguyên vật liệu, thành phẩm, hàng hoá tồn kho thuộc quyền sở hữu của Công ty dựa trên bằng chứng hợp lý về sự suy giảm giá trị tại ngày kết thúc kỳ kế toán năm.
+
+------------------------------------------------------------
+
+--- CHUNK #15 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU (tiếp theo) > Dự phòng giảm giá hàng tồn kho**
+
+Số tăng hoặc giảm khoản dự phòng giảm giá hàng tồn kho được hạch toán vào giá vốn hàng bán trên báo cáo kết quả hoạt động kinh doanh riêng.
+
+3.4 Tài sản cố định hữu hình
+
+Tài sản cố định hữu hình được thể hiện theo nguyên giá trừ đi giá trị khấu hao lũy kế.
+
+Nguyên giá tài sản cố định hữu hình bao gồm giá mua và những chi phí có liên quan trực tiếp đến việc đưa tài sản vào hoạt động như dự kiến.
+
+Các chi phí mua sắm, nâng cấp và đổi mới tài sản cố định hữu hình được ghi tăng nguyên giá của tài sản và chi phí bảo trì, sửa chữa được hạch toán vào báo cáo kết quả hoạt động kinh doanh riêng khi phát sinh.
+
+Khi tài sản cố định hữu hình được bán hay thanh lý, các khoản lãi hoặc lỗ phát sinh do thanh lý tài sản (là phần chênh lệch giữa tiền thu thuần từ việc bán tài sản với giá trị còn lại của tài sản) được hạch toán vào báo cáo kết quả hoạt động kinh doanh riêng.
+
+3.5 Tài sản cố định vô hình
+
+Tài sản cố định vô hình được ghi nhận theo nguyên giá trừ đi giá trị hao mòn lũy kế.
+
+Nguyên giá tài sản cố định vô hình bao gồm giá mua và những chi phí có liên quan trực tiếp đến việc đưa tài sản vào sử dụng như dự kiến.
+
+Các chi phí nâng cấp và đổi mới tài sản cố định vô hình được ghi tăng nguyên giá của tài sản và các chi phí khác được hạch toán vào báo cáo kết quả hoạt động kinh doanh riêng khi phát sinh.
+
+Khi tài sản cố định vô hình được bán hay thanh lý, các khoản lãi hoặc lỗ phát sinh do thanh lý tài sản (là phần chênh lệch giữa tiền thu thuần từ việc bán tài sản với giá trị còn lại của tài sản) được hạch toán vào kết quả hoạt động kinh doanh riêng.
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU (tiếp theo)
+
+3.5 Tài sản cố định vô hình (tiếp theo)
+
+Quyền sử dụng đất
+
+------------------------------------------------------------
+
+--- CHUNK #16 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU (tiếp theo) > 3.5 Tài sản cố định vô hình**
+
+Quyền sử dụng cất được ghi nhận như tài sản cố định vô hình khi Công ty được cấp giấy chứng nhận quyền sử dụng đất. Nguyên giá quyền sử dụng đất bao gồm tất cả những chi phí có liên quan trực tiếp đến việc đưa đất vào trang thái sẵn sàng để sử dụng.
+
+3.6 Khấu hao và hao mòn
+
+Khấu hao tài sản cố định hữu hình và hao mòn tài sản cố định vô hình được trích theo phương pháp đường thẳng trong suốt thời gian hữu dụng ước tính của các tài sản như sau:
+
+Nhà cửa, vật kiến trúc
+
+Máy móc, thiết bị
+
+Phương tiện vận tải
+
+Thiết bị, dụng cụ quản lý
+
+Quyền sử dụng đất
+
+Phần mềm
+
+5 - 45 năm
+
+3 - 10 năm
+
+6 - 10 năm
+
+3 - 6 năm
+
+49 năm
+
+2 - 3 năm
+
+3.7 Bất động sản đầu tư
+
+Bất động sản đầu tư được thể hiện theo nguyên giá bao gồm cả các chi phí giao dịch liên quan trừ đi giá trị khấu hao lũy kế. Đối với bất động sản đầu tư nắm giữ chờ tăng giá, Công ty không trích khấu hao mà xác định tổn thất do giảm giá trị.
+
+Các khoản chi phí liên quan đến bất động sản đầu tư phát sinh sau ghi nhận ban đầu được hạch toán vào giá trị còn lại của bất động sản đầu tư khi Công ty có khả năng thu được các lợi ích kinh tế trong tương lai nhiều hơn mức hoạt động được đánh giá ban đầu của bất động sản đầu tư đó.
+
+Khấu hao bất động sản đầu tư được trích theo phương pháp đường thẳng trong suốt thời gian hữu dụng ước tính của các bất động sản như sau:
+
+Tòa nhà văn phòng
+
+30 - 45 năm
+
+Tài sản khác
+
+25 năm
+
+Bất động sản đầu tư không còn được trình bày trong bảng cân đối kế toán riêng sau khi đã bán hoặc sau khi bất động sản đầu tư đã không còn được sử dụng và xét thấy không thu được lợi ích kinh tế trong tương lai từ việc thanh lý bất động sản đầu tư đó. Chênh lệch giữa tiền thu thuần từ việc bán tài sản với giá trị còn lại của bất động sản đầu tư được ghi nhận vào báo cáo kết quả hoạt động kinh doanh riêng trong năm thanh lý.
+
+------------------------------------------------------------
+
+--- CHUNK #17 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU (tiếp theo) > 3.5 Tài sản cố định vô hình**
+
+Việc chuyển từ bất động sản chủ sở hữu sử dụng hoặc hàng tồn kho thành bất động sản đầu tư chỉ khi có sự thay đổi về mục đích sử dụng như trường hợp chủ sở hữu chấm dứt sử dụng tài sản đó và bất đầu cho bên khác thuê hoạt động hoặc khi kết thúc giai đoạn xây dựng. Việc chuyển từ bất động sản đầu tư sang bất động sản chủ sở hữu sử dụng chỉ khi có sự thay đổi về mục đích sử dụng như các trường hợp chủ sở hữu bất đầu sử dụng tài sản này hoặc bất đầu triển khai cho mục đích bán. Việc chuyển từ bất động sản đầu tư sang bất động sản chủ sở hữu sử dụng hoặc hàng tồn kho không làm thay đổi nguyên giá hay giá trị còn lại của bất động sản tại ngày chuyển đổi.
+
+3.8 Chi phí xây dựng cơ bản dở dang
+
+Chi phí xây dựng cơ bản dở dang bao gồm tài sản cố định đang mua sắm và xây dựng mà chưa hoàn thành tại ngày kết thúc kỳ kế toán năm và được ghi nhận theo giá gốc. Chi phí này bao gồm các chi phí về xây dựng, lắp đặt máy móc thiết bị và các chi phí trực tiếp khác. Chi phí xây dựng cơ bản dở dang chỉ được tính khấu hao khi các tài sản này hoàn thành và đưa vào sử dụng.
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU (tiếp theo)
+
+3.9 Chi phí đi vay
+
+Chi phí đi vay bao gồm lãi tiền vay và các chi phí khác phát sỉrh liên quan trực tiếp đến các khoản vay của Tập đoàn.
+
+Chi phí đi vay được hạch toán như chi phí phát sinh trong năm ngoại trừ các khoản chi phí đi vay liên quan trực tiếp đến việc xây dựng hoặc hình thành một tài sản cụ thể cần có một thời gian đủ dài để có thể đưa vào sử dụng theo mục đích định trước hoặc để bán được vốn hóa vào nguyên giá của tài sản đó.
+
+3.10 Thuê tài sản
+
+------------------------------------------------------------
+
+--- CHUNK #18 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.10 Thuê tài sản**
+
+Việc xác định một thỏa thuận có phải là thỏa thuận thuê tài sản hay không dựa trên bản chất của thỏa thuận đó tại thời điểm khởi đầu: liệu việc thực hiện thỏa thuận này có phụ thuộc vào việc sử dụng một tài sản nhất định và thỏa thuận có bao gồm điều khoản về quyền sử dụng tài sản hay không.
+
+Thỏa thuận thuê tài sản được phân loại là thuê tài chính nếu theo hợp đồng thuê tài sản bên cho thuê chuyển giao phần lớn rủi ro và lợi ích gắn liền với quyền sở hữu tài sản cho bên đi thuê. Tất cả các thỏa thuận thuê tài sản khác được phân loại là thuê hoạt động.
+
+Trong trường hợp Công ty là bên đi thuê
+
+Tài sản theo hợp đồng thuê tai chính được vốn hóa trên bảng cân đối kế toán hợp nhất tại thời điểm khởi đầu thuê tài sản theo giá trị thấp hơn giữa giá trị hợp lý của tài sản thuê và giá trị hiện tại của khoản thanh toán tiền thuê tối thiểu. Khoản tiền gốc trong các khoản thanh toán tiền thuê trong tương lai theo hợp đồng thuê tài chính được hạch toán như khoản nợ phải trả. Khoản tiền lãi trong các khoản thanh toán tiền thuê được hạch toán vào báo cáo kết quả hoạt động kinh doanh hợp nhất trong suốt thời gian thuê tài sản theo lãi suất cố định trên số dư còn lại của khoản nợ thuê tài chính phải trả.
+
+Tài sản thuê tài chính đã được vốn hóa được trích khấu hao theo phương pháp khấu hao đường thẳng theo thời gian ngắn hơn giữa thời gian hữu dụng ước tính và thời hạn thuê tài sản, nếu không chắc chắn là bên thuê sẽ được chuyển giao quyền sở hữu tài sản khi hết hạn hợp đồng thuê.
+
+Các khoản tiền thuê theo hợp đồng thuê hoạt động được hạch toán vào báo cáo kết quả hoạt động kinh doanh riêng trong năm theo phương pháp đường thẳng trong suốt thời hạn của hợp đồng thuê.
+
+Trong trường hợp Công ty là bên cho thuê
+
+Tài sản theo hợp đồng cho thuê hoạt động được ghi nhận là bất động sản đầu tư trên bảng cân đối kế toán riêng. Chi phí trực tiếp ban đầu để thương thảo thỏa thuận cho thuê hoạt động được ghi nhận vào báo cáo kết quả hoạt động kinh doanh riêng khi phát sinh.
+
+Thu nhập từ tiền cho thuê được hạch toán vào báo cáo kết quả hoạt động kinh doanh riêng theo phương pháp đường thẳng trong suốt thời gian cho thuê.
+
+3.11 Chi phí trả trước
+
+------------------------------------------------------------
+
+--- CHUNK #19 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.11 Chi phí trả trước**
+
+Chi phí trả trước bao gồm các chi phí trả trước ngắn hạn và dài hạn trên bảng cân đối kế toán riêng và được phân bổ trong khoảng thời gian trả trước của chi phí tương ứng với các lợi ích kinh tế được tạo ra từ các chi phí này.
+
+Chi phí công cụ dụng cụ sử dụng cho các công trình xây dựng được phân bổ từ hai (2) đến ba (3) năm vào báo cáo kết quả hoạt động kinh doanh riêng theo phương pháp đường thẳng.
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU (tiếp theo)
+
+3.12 Các khoản đầu tư
+
+Đầu tư vào công ty con
+
+Khoản đầu tư vào công ty con mà trong đó Công ty nắm quyền kiểm soát được trình bày theo phương pháp giá gốc.
+
+Các khoản phân phối lợi nhuận mà Công ty nhận được từ số lợi nhuận lũy kế của công ty con sau ngày Công ty nắm quyền kiểm soát được ghi nhận vào báo cáo kết quả hoạt động kinh doanh riêng của Công ty. Các khoản phân phối khác được xem như phần thu hồi của các khoản đầu tư và được trừ vào giá trị đầu tư.
+
+Đầu tư vào các công ty liên kết
+
+Các khoản đầu tư vào các công ty liên kết mà trong đó Công ty có ảnh hưởng đáng kể được trình bày theo phương pháp giá gốc.
+
+Các khoản phân phối lợi nhuận từ số lợi nhuận thuần lũy kế của các công ty liên kết sau ngày Công ty có ảnh hưởng đáng kể được ghi nhận vào báo cáo kết quả hoạt động kinh doanh riêng của Công ty. Các khoản phân phối khác được xem như phần thu hồi các khoản đầu tư và được trừ vào giá trị đầu tư.
+
+Đầu tư nắm giữ đến ngày đáo hạn
+
+Các khoản đầu tư nắm giữ đến ngày đáo hạn được ghi nhận trẻo giá gốc. Sau khi nhận ban đầu, các khoản đầu tư này được ghi nhận theo giá trị có thể thu hồi. Các khoản suy giảm giá trị của khoản đầu tư nếu phát sinh được hạch toán vào chi phí tài chính trong báo cáo kết quả hoạt động kinh doanh riêng và giảm trừ trực tiếp giá trị đầu tư.
+
+Đầu tư góp vốn vào đơn vị khác
+
+Đầu tư góp vốn vào đơn vị khác được ghi nhận theo giá gốc
+
+Dự phòng giảm giá trị các khoản đầu tư
+
+------------------------------------------------------------
+
+--- CHUNK #20 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.12 Các khoản đầu tư**
+
+Dự phòng cho việc giảm giá trị của các khoản đầu tư được lập khi có bằng chứng chắc chắn cho thấy có sự suy giảm giá trị của các khoản đầu tư này vào ngày kết thúc kỳ kế toán năm.
+
+Tăng hoặc giảm số dư dự phòng được hạch toán vào chi phí tài chính trong báo cáo kết quả hoạt động kinh doanh riêng.
+
+3.13 Các khoản phải trả và chi phí trích trước
+
+Các khoản phải trả và chi phí trích trước được ghi nhận cho số tiền phải trả trong tương lai liên quan đến hàng hóa và dịch vụ đã nhận được mà không phụ thuộc vào việc Công ty đã nhận được hóa cơm của nhà cung cấp hay chưa.
+
+3.14 Trợ cấp thôi việc phải trả
+
+Trợ cấp thôi việc cho nhân viên được trích trước vào cuối mỗi kỳ báo cáo cho toàn bộ người lao động đã làm việc tại Công ty được hơn 12 tháng tính đến ngày lập bảng cân đối kế toán riêng theo tỷ lệ bằng một nửa mức lương bình quân tháng cho mỗi năm làm việc tính đến ngày 31 tháng 12 năm 2008 theo Luật Lao động và các văn bản hướng dẫn có liên quan. Mức lương bình quân tháng dùng để tính trợ cấp thôi việc sẽ được điều chỉnh vào cuối mỗi niên độ báo cáo theo mức lương bình quân của chín tháng gần nhất tính đến thời điểm lập báo cáo. Tăng hoặc giảm trong khoản trích trước này ngoại trừ phần thanh toán thực tế cho người lao động sẽ được ghi nhận vào báo cáo kết quả hoạt động kinh doanh riêng.
+
+Khoản trợ cấp thôi việc trích trước này được sử dụng để trả trợ cấp thôi việc cho người lao động khi chấm dứt hợp đồng lao động theo Điều 48 của Bộ luật Lao động.
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU (tiếp theo)
+
+3.15 Các khoản dự phòng
+
+Công ty ghi nhận dự phòng khi có nghĩa vụ nợ hiện tại (nghĩa vụ pháp lý hoặc nghĩa vụ liên đới) là kết quả của một sự kiện đã xảy ra trong quá khứ. Việc thanh toán nghĩa vụ nợ này có thể sẽ dẫn đến sự giảm sút về những lợi ích kinh tế và Công ty có thể đưa ra được một ước tính đáng tin cậy về giá trị của nghĩa vụ nợ đó.
+
+------------------------------------------------------------
+
+--- CHUNK #21 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.15 Các khoản dự phòng**
+
+Dự phòng bảo hành công trình được trích lập từ 0,3% đến 1% giá trị công trình dựa trên đặc điểm của từng công trình và kinh nghiệm thực tế.
+
+Hợp đồng có rủi ro lớn
+
+Nếu Công ty có hợp đồng có rủi ro lớn, nghĩa vụ hiện tại theo hợp đồng được đánh giá và ghi nhận như một khoản dự phòng. Tuy nhiên, trước khi tính toán khoản dự phòng cho hợp đồng rủi ro lớn, Tập đoàn ghi nhận các khoản suy giảm giá trị xảy ra đối với tài sản liên quan đến hợp đồng.
+
+Một hợp đồng có rủi ro lớn là một hợp đồng mà theo đó các chi phí không thể tránh khỏi để đáp ứng các nghĩa vụ trên hợp đồng vượt quá lợi ích kinh tế dự kiến nhận được. Chi phí không thể tránh khỏi trong hợp đồng phản ánh chi phí thuần ít nhất, nghĩa là khoản thấp hơn giữa chi phí cho việc hoàn thành hợp đồng và bất kỳ khoản bồi thường hoặc hình phạt nào phát sinh từ việc không thực hiện hợp đồng. Chi phí cho việc hoàn thành hợp đồng bao gồm các chi phí liên quan trực tiếp đến hợp đồng.
+
+3.16 Các nghiệp vụ bằng ngoại tệ
+
+Các nghiệp vụ phát sinh bằng các đơn vị tiền tệ khác với đơn vị tiền tệ kế toán của Công ty (VND) được hạch toán theo tỷ giá giao dịch thực tế vào ngày phát sinh nghiệp vụ theo nguyên tắc sau:
+
+► Nghiệp vụ làm phát sinh các khoản phải thu được hạch toán theo tỷ giá mua của ngân hàng thương mại nơi Công ty chỉ định khách hàng thanh toán
+
+► Nghiệp vụ làm phát sinh các khoản phải trả được hạch toán theo tỷ giá bán của ngân hàng thương mại nơi Công ty dự kiến giao dịch.
+
+► Giao dịch mua sắm tài sản hoặc các khoản chi phí được thanh toán ngay bằng ngoại tệ (không qua các tài khoản phải trả) được hạch toán theo tỷ giá mua của ngân hàng thương mại nơi doanh nghiệp thực hiện thanh toán
+
+Tại ngày kết thúc kỳ kế toán năm, các khoản mục tiền tệ có gốc ngoại tệ được đánh giá lại theo tỷ giá giao dịch thực tế tại ngày của bảng cân đối kế toán riêng theo nguyên tắc sau:
+
+► Các khoản mục tiền tệ được phân loại là tài sản được đánh giá lại theo tỷ giá mua của ngân hàng thương mại nơi Công ty thường xuyên có giao dịch; và
+
+------------------------------------------------------------
+
+--- CHUNK #22 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.16 Các nghiệp vụ bằng ngoại tệ**
+
+► Các khoản mục tiền tệ được phân loại là nợ phải trả được đánh giá lại theo tỷ giá bán của ngân hàng thương mại nơi Công ty thường xuyên có giao dịch.
+
+Tất cả các khoản chênh lệch tỷ giá phát sinh được hạch toán vào báo cáo kết quả hoạt động kinh doanh riêng.
+
+3.17 Cổ phiếu quỹ
+
+Các công cụ vốn chủ sở hữu được Công ty mua lại (cổ phiếu q.ý) được ghi nhận theo nguyên giá và trừ vào vốn chủ sở hữu. Công ty không ghi nhận các khoản lãi (lỗ) khi mua, bán, phát hành hoặc hủy các công cụ vốn chủ sở hữu của mình.
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU (tiếp theo)
+
+3.18 Phân chia lợi nhuận
+
+Lợi nhuận thuần sau thuế thu nhập doanh nghiệp có thể được chia cho các cổ đông sau khi được Đại hội đồng cổ đông phê duyệt và sau khi đã trích lập các quỹ dự phòng theo Điều lệ của Công ty và các quy định của pháp luật Việt Nam.
+
+Công ty trích lập quỹ dự phòng sau đây từ lợi nhuận thuần sau, thuế thu nhập doanh nghiệp của Công ty theo đề nghị của Hội đồng Quản trị và được các cổ đông phê duyệt tại cuộc họp Đại hội đồng cổ đông thường niên:
+
+ Quỹ đầu tư phát triển
+
+Quỹ này được trích lập nhằm phục vụ việc mở rộng hoạt động hoặc đầu tư chiều sâu của Công ty.
+
+ Quỹ khen thưởng, phúc lợi
+
+Quỹ này được trích lập để khen thưởng, khuyến khích vật chất, đem lại lợi ích chung và nâng cao phúc lợi cho công nhân viên và được ghi nhận như là một khoản nợ phải trả trên bảng cân đối kế toán riêng.
+
+3.19 Ghi nhận doanh thu
+
+Doanh thu được ghi nhận khi Công ty có khả năng nhận được các lợi ích kinh tế có thể xác định được một cách chắc chắn. Doanh thu được xác định theo giá trị hợp lý của các khoản đã thu hoặc sẽ thu được sau khi trừ đi các khoản chiết khấu thương mại, giảm giá hàng bán và hàng bán bị trả lại. Các điều kiện ghi nhận cụ thể sau đây cũng phải được đáp ứng khi ghi nhận doanh thu:
+
+Hợp đồng xây dựng
+
+------------------------------------------------------------
+
+--- CHUNK #23 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > Hợp đồng xây dựng**
+
+Trường hợp hợp đồng xây dựng quy định nhà thầu được thanh toán theo giá trị khối lượng thực hiện, khi kết quả thực hiện hợp đồng xây dựng có thể được ước tính một cách đáng tin cậy và được xác nhận bởi khách hàng, thì doanh thu và chi phí liên quan đến hợp đồng được ghi nhận tương ứng với phần công việc đã hoàn thành được khách hàng xác nhận trên hóa đơn.
+
+Trường hợp hợp đồng xây dựng quy định nhà thầu được thanh toán theo tiến độ kế hoạch, khi kết quả thực hiện hợp đồng xây dựng có thể được ước tính một cách đáng tin cậy, thì doanh thu và chi phí liên quan đến hợp đồng được ghi nhận tương ứng với phần công việc đã hoàn thành vào ngày kết thúc kỳ kế toán bằng cách so sánh tỷ lệ của chi phí của hợp đồng phát sinh cho phần công việc đã được hoàn thành đến ngày nay so với tổng chi phí hợp đồng, trừ khi tỷ lệ này không đại diện cho mức độ hoàn thành
+
+Các khoản tăng giảm khi thực hiện hợp đồng, các khoản tiền thưởng và các khoản thanh toán khác chỉ được tính vào doanh thu khi đã được thống nhất với khách hàng
+
+Khi kết quả thực hiện hợp đồng xây dựng không thể được ước tính một cách đáng tin cậy, thì doanh thu chỉ được ghi nhận tương đương với chi phí của hợp đồng đã phát sinh mà việc hoàn trả là tương đối chắc chắn. Chi phí của hợp đồng chỉ được ghi nhận là chi phí trong năm khi các chi phí này đã phát sinh.
+
+Doanh thu bán hàng hóa
+
+Doanh thu bán hàng hóa được ghi nhận khi các rủi ro trọng yếu và các quyền sở hữu hàng hóa đã được chuyển sang người mua, thường là trùng với thời điểm chuyển giao hàng hóa.
+
+Doanh thu cung cấp dịch vụ
+
+Doanh thu cung cấp dịch vụ được ghi nhận khi dịch vụ đã được cung cấp và hoàn thành.
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU (tiếp theo)
+
+3.19 Ghi nhận doanh thu (tiếp theo)
+
+Tiền cho thuê
+
+Thu nhập từ tiền cho thuê tài sản theo hợp đồng thuê hoạt động được hạch toán vào báo cáo kết quả hoạt động kinh doanh riêng theo phương pháp đường thẳng trong suốt thời gian cho thuê.
+
+Tiền lãi
+
+------------------------------------------------------------
+
+--- CHUNK #24 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU (tiếp theo) > 3.19 Ghi nhận doanh thu (tiếp theo) > Tiền lãi**
+
+Tiền lãi được ghi nhận khi tiền lãi phát sinh trên cơ sở dồn tích 'có tính đến lợi tức mà tài sản đem lại) trừ khi khả năng thu hồi tiền lãi không chắc chắn.
+
+Cổ tức
+
+Cổ tức được ghi nhận khi quyền được nhận khoản thanh toán cổ tức của Tập đoàn được xác lập.
+
+3.20 Thuế
+
+Thuế thu nhập hiện hành
+
+Tài sản thuế thu nhập và thuế thu nhập phải nộp cho năm hiện hành và các năm trước được xác định bằng số tiền dự kiến được thu hồi từ hoặc phải nộp cho cơ quan thuế, dựa trên các mức thuế suất và các luật thuế có hiệu lực đến ngày kết thúc kỳ kế toán năm.
+
+Thuế thu nhập hiện hành được ghi nhận vào báo cáo kết quả hoạt động kinh doanh riêng ngoại trừ trường hợp thuế thu nhập phát sinh liên quan đến một khoản mục được ghi thẳng vào vốn chủ sở hữu, trong trường hợp này, thuế thu nhập hiện hành cũng được ghi nhận trực tiếp vào vốn chủ sở hữu.
+
+Công ty chỉ được bù trừ các tài sản thuế thu nhập hiện hành và thuế thu nhập hiện hành phải nộp khi Công ty có quyền hợp pháp được bù trừ giữa tài sản thuế thu nhập hiện hành với thuế thu nhập hiện hành phải nộp và Công ty dự định thanh toán thuế thu nhập hiện hành phải nộp và tài sản thuế thu nhập hiện hành trên cơ sở thuần.
+
+Thuế thu nhập hoãn lại
+
+Thuế thu nhập hoãn lại được xác định cho các khoản chênh lệch tạm thời tại ngày kết thúc kỳ kế toán giữa cơ sở tính thuế thu nhập của các tài sản và nợ phải trả và giá trị ghi sổ của các khoản mục này trong báo cáo tài chính riêng.
+
+Thuế thu nhập hoãn lại phải trả được ghi nhận cho tất cả các khoản chênh lệch tạm thời chịu thuế, ngoại trừ:
+
+- Thuế thu nhập hoãn lại phải trả phát sinh từ ghi nhận ban đầu của một tài sản hay nợ phải trả từ một giao dịch mà giao dịch này không có ảnh hưởng đến lợi nhuận kế toán và lợi nhuận tính thuế thu nhập (hoặc lỗ tính thuế) tại thời điểm phát sinh giao dịch;
+
+- Các chênh lệch tạm thời chịu thuế gắn liền với các khoản đầu tư vào các công ty con, công ty liên kết và các khoản vốn góp liên doanh khi Công ty có khả năng kiểm soát thời gian hoàn nhập khoản chênh lệch tạm thời và chắc chắn khoản chênh lệch tạm thời sẽ không được hoàn nhập trong tương lai có thể dự đoán.
+
+------------------------------------------------------------
+
+--- CHUNK #25 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU (tiếp theo) > 3.20 Thuế > Thuế thu nhập hoãn lại**
+
+Tài sản thuế thu nhập hoãn lại cần được ghi nhận cho tất cả các chênh lệch tạm thời được khấu trừ, giá trị được khấu trừ chuyển sang các năm sau của các khoản lỗ tính thuế và các
+
+khoản ưu đãi thuế chưa sử dụng, khi chắc chắn trong tương lai sẽ có lợi nhuận tính thuế để sử dụng những chênh lệch tạm thời được khấu trừ, các khoản lỗ tính thuế và các ưu đãi thuế chưa sử dụng này, ngoại trừ:
+
+- Tài sản thuế hoãn lại phát sinh từ ghi nhận ban đầu của một tài sản hoặc nợ phải trả từ một giao dịch mà giao dịch này không có ảnh hưởng đến lợi nhuận kế toán và lợi nhuận tính thuế thu nhập (hoặc lỗ tính thuế) tại thời điểm phát sinh giao dịch;
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+3. TÓM TẮT CÁC CHÍNH SÁCH KẾ TOÁN CHỦ YẾU (tiếp theo)
+
+3.20 Thuế (tiếp theo)
+
+Thuế thu nhập hoãn lại (tiếp theo)
+
+► Đối với các chênh lệch tạm thời được khấu trừ phát sinh từ các khoản đầu tư vào các công ty con, công ty liên kết và các khoản vốn góp liên doanh, tài sản thuế thu nhập hoãn lại được ghi nhận khi chắc chắn là chênh lệch tạm thời sẽ được hoàn nhập trong tương lai có thể dự đoán được và có lợi nhuận tính thuế để sử dụng được khoản chênh lệch tạm thời đó.
+
+Giá trị ghi sổ của tài sản thuế thu nhập hoãn lại phải được xem xét lại vào ngày kết thúc kỳ kế toán năm và phải giảm giá trị ghi sổ của tài sản thuế thu nhập hoãn lại đến mức bảo đảm chắc chắn có đủ lợi nhuận tính thuế cho phép lợi ích của một phần hoặc toàn bộ tài sản thuế thu nhập hoãn lại được sử dụng. Các tài sản thuế thu nhập hoãn lại chưa được ghi nhận trước đây được xem xét lại vào ngày kết thúc kỳ kế toán năm và được ghi nhận khi chắc chắn có đủ lợi nhuận tính thuế trong tương lai để có thể sử dụng các tài sản thuế thu nhập hoãn lại chưa ghi nhận này.
+
+------------------------------------------------------------
+
+--- CHUNK #26 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > Thuế thu nhập hoãn lại (tiếp theo)**
+
+Tài sản thuế thu nhập hoãn lại và thuế thu nhập hoãn lại phải trả được xác định theo thuế suất dự tính sẽ áp dụng cho [năm tài chính] khi tài sản được thu hồi hay nợ phải trả được thanh toán, dựa trên các mức thuế suất và luật thuế có hiệu lực vào ngày kết thúc kỳ kế toán năm.
+
+Thuế thu nhập hoãn lại được ghi nhận vào báo cáo kết quả hoạt động kinh doanh riêng ngoại trừ trường hợp thuế thu nhập phát sinh liên quan đến một khoản mục được ghi thẳng vào vốn chủ sở hữu, trong trường hợp này, thuế thu nhập hoãn lại cũng được ghi nhận trực tiếp vào vốn chủ sở hữu.
+
+Công ty chỉ được bù trừ các tài sản thuế thu nhập hoãn lại và thuế thu nhập hoãn lại phải trả khi Công ty có quyền hợp pháp được bù trừ giữa tài sản thuế thu nhập hiện hành với thuế thu nhập hiện hành phải nộp và các tài sản thuế thu nhập hoãn lại và thuế thu nhập hoãn lại phải trả này liên quan tới thuế thu nhập doanh nghiệp được cuản lý bởi cùng một cơ quan thuế đối với cùng một đơn vị chịu thuế hoặc Công ty dự định thanh toán thuế thu nhập hiện hành phải nộp và tài sản thuế thu nhập hiện hành trên cơ sở thuần hoặc thu hồi tài sản đồng thời với việc thanh toán nợ phải trả trong từng kỳ tương lai khi các khoản trọng yếu của thuế thu nhập hoãn lại phải trả hoặc tài sản thuế thu nhập hoãn lại được thanh toán hoặc thu hồi.
+
+3.21 Các bên liên quan
+
+Các bên được coi là bên liên quan của Công ty nếu một bên có khả năng, trực tiếp hoặc gián tiếp, kiểm soát bên kia hoặc gây ảnh hưởng đáng kể tới bên kia trong việc ra các quyết định tài chính và hoạt động, hoặc khi Công ty và bên kia cùng chịu sự kiểm soát chung hoặc ảnh hưởng đáng kể chung. Các bên liên quan có thể là các công ty hoặc các cá nhân, bao gồm cả các thành viên mặt thiết trong gia đình của các cá nhân được coi là liên quan.
+
+3.22 Thông tin theo bộ phận
+
+------------------------------------------------------------
+
+--- CHUNK #27 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+Hoạt động chính của Công ty là cung cấp dịch vụ thiết kế và xây dựng. Đồng thời, hoạt động sản xuất kinh doanh của Công ty chủ yếu được thực hiện trong lãnh thổ Việt Nam. Vì vậy, rủi ro và tỷ suất sinh lời của Công ty không bị tác động chủ yếu bởi những khác biệt về dịch vụ mà Công ty cung cấp hoặc do Công ty hoạt động tại nhiều khu vực địa lý khác nhau. Do đó, Ban Tổng Giám đốc nhận định là Công ty chỉ có một bộ phận theo hoạt động kinh doanh và khu vực địa lý. Theo đó, Công ty không cần phải trình bày thông tin theo bộ phận.
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+4. SỰ KIỆN QUAN TRỌNG
+
+4.1 Thành lập Công ty con Coteccons Construction Singapore Pte. Ltd. ("CTD Sing")
+
+Vào ngày 07 tháng 10 năm 2025, Công ty đã hoàn tất thủ tục đăng ký thành lập công ty con Coteccons Construction Singapore Pte. Ltd. tại Singapore.
+
+5. TIỀN VÀ CÁC KHOẢN TƯƠNG ĐƯƠNG TIỀN
+
+|  | 30/9/2025 | VND 30/6/2025 |
+| --- | --- | --- |
+| Tiền gửi ngân hàng | 55.697.230.946 | 125.535.832.930 |
+| Các khoản tương đương tiền | 679.200.000.000 | 1.460.000.000.000 |
+| TỔNG CỘNG | 734.897.230.946 | 1.585.535.832.930 |
+
+6. ĐẦU TƯ NẮM GIỮ ĐẾN NGÀY ĐÁO HẠN NGẮN HẠN
+
+| <td>30/6/2025 | VND 30/6/2025 |
+| --- | --- |
+| Tiền gửi ngân hàng có kỳ hạn | 1.909.000.000.000 | 1.020.000.000.000 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+7. PHẢI THU CỦA KHÁCH HÀNG VÀ TRẢ TRƯỚC CHO NGƯỜI BÁN
+
+7.1 Phải thu ngắn hạn của khách hàng
+
+------------------------------------------------------------
+
+--- CHUNK #28 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+|  | 30/9/2025 | 30/6/2025 |
+| --- | --- | --- |
+| Phải thu ngắn hạn của khách hàng | 11.840.230.163.464 | 11.309.050.691.546 |
+| Dự phòng phải thu ngắn hạn khó đòi | (1.030.513.728.993) | (1.006.536.288.976) |
+| GIÁ TRỊ THUẬN | 10.809.716.434.471 | 10.302.514.402.570 |
+| Trong đó: |  |  |
+| Phải thu từ các bên liên quan<br/>(Thuyết minh số 32) | 185.762.507.910 | 154.282.729.989 |
+
+Tình hình tăng giảm dự phòng phải thu ngắn hạn khó đòi:
+
+| <td>30/9/2025 | 30/9/2024 |
+| --- | --- |
+| Số đầu kỳ | 1.006.536.288.976 | 1.162.514.210.262 |
+| Trích lập trong kỳ | 52.977.982.389 | 2.046.970.435 |
+| Hoàn nhập trong kỳ | (29.000.542.372) | (10.830.680.271) |
+| Số cuối kỳ | 1.030.513.728.993 | 1.153.730.500.426 |
+
+7.2 Trả trước cho người bán ngắn hạn
+
+| <td>30/9/2025 | 30/6/2025 |
+| --- | --- |
+| Các bên liên quan (Thuyết minh số 32) | 361.844.494.036 | 264.442.370.075 |
+| Các nhà cung cấp khác | 1.196.732.632.571 | 1.164.344.153.431 |
+| TỔNG CỘNG | 1.558.577.126.607 | 1.428.786.523.506 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo)
+
+Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+7. PHẢI THU CỦA KHÁCH HÀNG VÀ TRẢ TRƯỚC CHO NGƯỜI BÁN (tiếp theo)
+
+7.3 Nợ xấu
+
+VND
+
+------------------------------------------------------------
+
+--- CHUNK #29 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+| STT | Tên khách hàng | 30/9/2025 | 30/6/2025 |
+| --- | --- | --- | --- |
+| Giá trị | Dự phòng | Giá trị thuần | Giá trị | Dự phòng | Giá trị thuần |
+| 1 | Công ty TNHH Đầu Tư |  |  |  |  |  |  |
+|  | Bất Động Sản Ngôi |  |  |  |  |  |  |
+|  | Sao Việt | 526.420.119.402 | 526.420.119.402 | - | 483.658.038.123 | 483.658.038.123 | - |
+| 2 | Công ty Cổ phần Đầu |  |  |  |  |  |  |
+|  | tư Minh Việt | 121.951.773.910 | 121.951.773.910 | - | 121.951.773.910 | 121.951.773.910 |  |
+| 4 | Các khách hàng khác | 596.506.335.694 | 382.141.835.681 | 214.364.500.013 | 634.103.737.973 | 400.926.476.943 | 233.177.261.030 |
+|  | TỔNG CỘNG | 1.244.878.229.006 | 1.030.513.728.993 | 214.364.500.013 | 1.239.713.550.006 | 1.006.536.288.976 | 233.177.261.030 |
+
+8. PHẢI THU CHO VAY NGẮN HẠN
+
+VND
+
+30/9/2025
+
+30/6/2025
+
+Các bên liên quan (Thuyết minh số 32)
+
+149.957.000.000 117.654.455.474
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+9. PHẢI THU NGÂN HẠN KHÁC
+
+|  | 30/9/2025 | 30/6/2025 |
+| --- | --- | --- |
+| Phải thu từ các bên liên quan (TM số 32) | 53.991.706.973 | 155.869.876.099 |
+| Lãi phải thu | 51.652.058.594 | 51.798.622.143 |
+| Tạm ứng cho đội thi công và công nhân viên | 27.423.727.998 | 27.946.241.210 |
+| Ký quỹ, ký cước | 20.870.554.195 | 20.562.454.195 |
+| Cổ tức được chia | 5.720.000.000 | - |
+| Phải thu khác | 4.305.693.019 | 1.978.022.616 |
+| TỔNG CỘNG | 163.963.741.079 | 258.155.216.263 |
+| Dự phòng phải thu ngắn hạn khó đòi | (26.037.962.634) | (26.037.962.694) |
+| GIÁ TRỊ THUẦN | 137.925.778.385 | 232.117.253.569 |
+
+10. HÀNG TỒN KHO
+
+------------------------------------------------------------
+
+--- CHUNK #30 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+| <td>30/9/2025 | 30/6/2025 |
+| --- | --- |
+| Chi phí xây dựng công trình dở dang | 5.112.421.438.132 | 4.339.547.688.556 |
+| Dự phòng giảm giá hàng tồn kho (*) | (54.636.076.736) | (67.529.238.899) |
+| GIÁ TRỊ THUẦN | 5.057.785.361.346 | 4.272.018.449.657 |
+
+(*) Chi tiết tình hình tăng giảm dự phòng giảm giá hàng tồn kho
+
+| <td>30/9/2025 | 30/6/2025 |
+| --- | --- |
+| Số đầu kỳ | 67.529.238.899 | 56.007.913.774 |
+| Hoàn nhập trong kỳ | (12.893.162.113) | - |
+| Số cuối kỳ | 54.636.076.786 | 56.007.913.774 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+11. CHI PHÍ TRẢ TRƯỚC
+
+|  | 30/9/2025 | VND<br/>30/6/2025 |
+| --- | --- | --- |
+| Ngắn hạn | 18.663.882.260 | 4.282.539.865 |
+| Công cụ, dụng cụ dùng cho văn phòng | 18.663.882.230 | 4.282.539.865 |
+| Dài hạn | 150.611.913.873 | 149.365.686.079 |
+| Công cụ, dụng cụ phục vụ cho<br/>hoạt động xây dựng | 111.569.171.951 | 108.325.502.805 |
+| Thuê đất dài hạn | 21.486.704.755 | 21.697.964.075 |
+| Công cụ, dụng cụ dùng cho văn phòng | 11.343.982.470 | 8.461.171.159 |
+| Chi phí sửa chữa văn phòng, nhà công vụ | 6.212.054.697 | 10.881.048.040 |
+| TỔNG CỘNG | 169.275.796.133 | 153.648.225.944 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo)
+
+Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+12. TÀI SẢN CỐ ĐỊNH HỮU HÌNH
+
+------------------------------------------------------------
+
+--- CHUNK #31 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+|  | Nhà cửa vật kiến trúc | Máy móc, thiết bị | Phương tiện vận tải | Thiết bị, dụng cụ quản lý | VND<br/>Tổng cộng |
+| --- | --- | --- | --- | --- | --- |
+| Nguyên giá |  |  |  |  |  |
+| Tại ngày 30/6/2025 | 166.396.005.218 | 528.387.472.465 | 25.085.504.407 | 45.919.254.981 | 765.788.237.071 |
+| Mua mới trong kỳ | - | 86.209.720.000 | - | 341.980.000 | 86.551.700.000 |
+| Tại ngày 30/9/2025 | 166.396.005.218 | 614.597.192.465 | 25.085.504.407 | 46.261.234.981 | 852.339.937.071 |
+| Trong đó |  |  |  |  |  |
+| Đã khấu hao hết | 64.070.570.472 | 247.274.594.088 | 20.903.235.595 | 30.446.411.537 | 362.694.811.692 |
+| Giá trị khấu hao luỹ kế |  |  |  |  |  |
+| Tại ngày 30/6/2025 | (107.696.504.387) | (436.390.152.937) | (21.553.841.721) | (37.506.036.761) | (603.146.535.806) |
+| Khấu hao trong kỳ | (895.327.820) | (9.112.211.712) | (175.712.315) | (1.394.412.118) | (11.577.663.965) |
+| Tại ngày 30/9/2025 | (108.591.832.207) | (445.502.364.649) | (21.729.554.036) | (38.900.448.879) | (614.724.199.771) |
+| Giá trị còn lại |  |  |  |  |  |
+| Tại ngày 30/6/2025 | 58.699.500.831 | 91.997.319.528 | 3.531.662.686 | 8.413.218.220 | 162.641.701.265 |
+| Tại ngày 30/9/2025 | 57.804.173.011 | 169.094.027.816 | 3.355.050.371 | 7.360.786.102 | 237.615.737.300 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+13. TÀI SẢN CỐ ĐỊNH THUẾ TÀI CHÍNH
+
+VND Thiết bị, dụng cụ quản lý
+
+Nguyên giá Tại ngày 30/6/2025 và 30/9/2025
+
+2.663.034.106
+
+Giá trị khấu hao luỹ kế Tại ngày 30/6/2025 Khấu hao trong kỳ Tại ngày 30/9/2025
+
+(1.950.946.082) (134.246.103) (2.085.192.185)
+
+Giá trị còn lại
+
+Tại ngày 30/6/2025 Tại ngày 30/9/2025
+
+712.088.024
+
+577.841.921
+
+14. TÀI SẢN CỐ ĐỊNH VÔ HÌNH
+
+VND
+
+------------------------------------------------------------
+
+--- CHUNK #32 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+|  | Quyền sử dụng đất | Phần mềm | Tổng cộng |
+| --- | --- | --- | --- |
+| Nguyên giá |  |  |  |
+| Tại ngày 30/6/2025 | 81.539.243.238 | 41.967.895.502 | 123.507.138.740 |
+| và 30/9/2025 |  |  |  |
+| Trong đó |  |  |  |
+| Đã khấu hao hết | - | 22.145.296.502 | 22.145.296.502 |
+| Giá trị hao mòn luỹ kế |  |  |  |
+| Tại ngày 30/6/2025 | (6.058.322.620) | (32.592.751.173) | (38.651.073.793) |
+| Hao mòn trong kỳ | (86.760.487) | (952.189.826) | (1.038.950.313) |
+| Tại ngày 30/9/2025 | (6.145.083.107) | (33.544.940.999) | (39.690.024.106) |
+| Giá trị còn lại |  |  |  |
+| Tại ngày 30/6/2025 | 75.480.920.618 | 9.375.144.329 | 84.856.064.947 |
+| Tại ngày 30/9/2025 | 75.394.160.131 | 8.422.954.503 | 83.817.114.634 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+15. BẤT ĐỘNG SẢN ĐẦU TƯ
+
+|  | Toà nhà văn phòng | Tài sản khác | VND<br/>Tổng cộng |
+| --- | --- | --- | --- |
+| Nguyên giá |  |  |  |
+| Tại ngày 30/6/2C25 |  |  |  |
+| và 30/9/2025 | 85.098.697.559 | 18.620.363.909 | 103.719.061.468 |
+| Trong đó: |  |  |  |
+| Đã khấu hao hết | 1.035.754.546 | - | 1.035.754.546 |
+| Giá trị khấu hao luỹ kế |  |  |  |
+| Tại ngày 30/6/2025 | (38.760.968.603) | (8.478.145.575) | (47.239.114.178) |
+| Khấu hao trong kỳ | (663.723.347) | (187.743.277) | (851.466.624) |
+| Tại ngày 30/9/2025 | (39.424.691.950) | (8.665.868.852) | (48.090.580.802) |
+| Giá trị còn lại |  |  |  |
+| Tại ngày 30/6/2025 | 46.337.728.956 | 10.142.218.334 | 56.479.947.290 |
+| Tại ngày 30/9/2025 | 45.674.005.609 | 9.954.475.057 | 55.628.480.666 |
+
+------------------------------------------------------------
+
+--- CHUNK #33 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+Giá trị hợp lý của bất động sản đầu tư chưa được đánh giá và xác định một cách chính thức tại ngày 30 tháng 9 năm 2025. Tuy nhiên, dựa trên giá trị thị trường và tình hình cho thuê thực tế, Ban Tổng Giám đốc tin tưởng rằng giá trị hợp lý của tài sản đầu tư lớn hơn giá trị còn lại tại ngày này.
+
+16. CHI PHÍ XÂY DỰNG CƠ BẢN DỞ DANG
+
+| <td>30/9/2025 | 30/6/2025 |
+| --- | --- |
+| Máy móc thiết bị xây dựng | 58.491.511.888 | - |
+| Hệ thống quản trị doanh nghiệp SAP |  |  |
+| S4/HANA | 16.862.936.726 | 16.862.936.726 |
+| Sửa chữa Văn phòng | 722.903.559 | 722.903.559 |
+| Khác | 4.380.004.461 | 4.183.604.461 |
+| TỔNG CỘNG | 80.457.361.634 | 21.769.449.746 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+17. ĐẦU TƯ TÀI CHÍNH DÀI HẠN
+
+------------------------------------------------------------
+
+--- CHUNK #34 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+|  | 30/9/2025 | 30/6/2025 |
+| --- | --- | --- |
+| Giá gốc | Dự phòng | Giá gốc | Dự phòng |
+| Đầu tư vào công ty con, chi nhánh (Thuyết minh số 17.1) | 2.950.511.955.016 | (05.151.549.705) | 2.951.007.529.602 | (105.151.549.705) |
+| Đầu tư vào công ty liên kết (Thuyết minh số 17.2) | 177.600.000.000 | (77.600.000.000) | 177.600.000.000 | (177.600.000.000) |
+| Đầu tư vào đơn vị khác (Thuyết minh số 17.3) | 59.960.000.000 | - | 59.960.000.000 | - |
+| GIÁ TRỊ THUẦN | 3.188.071.955.016 | (282.751.549.705) | 3.188.567.529.602 | (282.751.549.705) |
+| 17.1 Đầu tư vào các công ty con | 30/9/2025 | 30/6/2025 |
+| Tên công ty | Tỷ lệ sở hữu<br/>% | Giá gốc đầu tư<br/>VND | Dự phòng | Tỷ lệ sở hữu<br/>% | Giá gốc đầu tư<br/>VND | Dự phòng |
+| Công ty TNHH Covestcons | 100 | 1.872.000.000.000 | - | 100 | 1.872.000.000.000 | - |
+| Công ty TNHH Đầu tư Xây dựng Unicons | 100 | 638.348.360.000 | - | 100 | 638.348.360.000 | - |
+| Công ty TNHH Sinh Nam Metal (Việt Nam) | 100 | 276.137.834.801 | (82.053.074.943) | 100 | 276.137.834.801 | (82.053,074.943) |
+| Công ty TNHH Cơ và điện UG Việt Nam | 100 | 19.794.334.801 | - | 100 | 19.794.334.801 | - |
+| Coteccons Construction, Inc | 100 | 123.715.000.000 | (23.098.474.762) | 100 | 123.715.000.000 | (23.098. 474.762) |
+| Chi nhánh Coteccons Construction tại Đài Loan | 100 | 20.516.425.414 | - | 100 | 21.012.000.000 | - |
+| TỔNG CỘNG |  | 2.950.511.955.016 | (105.151.549.705) |  | 2.951.007.529.602 | (105.151.549.705) |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo)
+
+Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+17. ĐẦU TƯ TÀI CHÍNH DÀI HẠN (tiếp theo)
+
+17.2 Đầu tư vào các công ty liên kết
+
+------------------------------------------------------------
+
+--- CHUNK #35 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+| Tên công ty | 30/9/2025 | 30/6/2025 |
+| --- | --- | --- |
+| Tỷ lệ<br/>sở hữu<br/>% | Giá gốc đầu tư<br/>VND | Dự phòng<br/>VND | Tỷ lệ<br/>sở hữu<br/>% | Giá gốc đầu tư<br/>VND | Dự phòng<br/>VND |
+| Công ty Cổ phần Đầu tư Hạ Tầng FCC | 42,36 | 159.600.000.000 | (159.600.000.000) | 42,36 | 159.600.000.000 | (159. 600.000.000) |
+| Công ty Cổ phần Thương mại Quảng Trọng | 36,00 | 18.000.000.000 | (18.000.000.000) | 36,00 | 18.000.000.000 | (18. 000.000.000) |
+| TỔNG CỘNG |  | 177.600.000.000 | (177.600.000.000) |  | 177.600.000.000 | (177.600.000) |
+
+17.3 Đầu tư vào đơn vị khác
+
+| Tên công ty | 30/9/2025 | 30/6/2025 |
+| --- | --- | --- |
+| Tỷ lệ sở hữu<br/>% | Giá trị<br/>VND | Tỷ lệ sở hữu<br/>% | Giá trị |
+| Công ty Cổ phần Đầu tư Xây dựng Ricons | 14,43 | 59.960.000.000 | 14,43 | 59.960.000.000 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+18. PHẢI TRẢ NGƯỜI BÁN VÀ NGƯỜI MUA TRẢ TIỀN TRƯỚC
+
+18.1 Phải trả người bán ngắn hạn
+
+|  | 30/9/2025 | 30/6/2025 |
+| --- | --- | --- |
+| Các nhà cung cấp khác<br/>Trong đó | 6.513.068.592.457 | 6.217.377.775.421 |
+| Phải trả các bên liên quan<br/>(Thuyết minh số 32) | 1.040.674.467.127 | 1.168.998.403.247 |
+
+18.2 Người mua trả tiền trước ngắn hạn
+
+| <td>30/9/2025 | 30/6/2025 |
+| --- | --- |
+| Công ty CP Tổng Công ty Hợp tác<br/>Kinh tế Việt Lào | 632.713.814.725 | 620.776.220.734 |
+| Các khách hàng khác | 4.018.634.857.922 | 3.426.654.298.605 |
+| TỔNG CỘNG | 4.651.348.672.647 | 4.047.430.519.339 |
+| Trong đó:<br/>Bên liên quan trả tiền trước<br/>(Thuyết minh số 32) |  | 3.534.058.685 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+------------------------------------------------------------
+
+--- CHUNK #36 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+19. THUẾ VÀ CÁC KHOẢN PHẢI NỘP/(PHẢI THU) NHÀ NƯỚC
+
+|  | 30/6/2025 | Phải nộp/ thu trong kỳ | Số đã cấn trừ | Số đã nộp trong kỳ | VND |
+| --- | --- | --- | --- | --- | --- |
+| Phải thu |  |  |  |  | 1.602.497.381.144 |
+| Thuế giá trị gia tăng | 1.441.882.079.944 | 536.953.356.696 | (376.338.055.496) | - | 15.384.244 |
+| Khác | 15.344.244 | 1.795.356.749 | - | (1.795.316.749) | 1.602.512.765.388 |
+| TỔNG CỘNG | 1.441.897.424.188 | 538.748.713.445 | (376.338.055.496) | (1.795.316.749) | 1.602.512.765.388 |
+| Phải nộp |  |  |  |  | 18.234.783.325 |
+| Thuế thu nhập doanh nghiệp | 34.026.151.857 | 23.871.837.993 | - | (39.663.206.530) | 2.346.064.491 |
+| Thuế thu nhập cá nhân | 4.169.303.128 | 37.226.276.203 | - | (39.049.514.840) | (41.484.501.968) |
+| Thuế giá trị gia tăng | - | 417.822.557.464 | (376.338.055.496) | (120.197.223.338) | 20.580.847.816 |
+| TỔNG CỘNG | 38.195.454.985 | 478.920.671.665 | (376.338.055.496) | (120.197.223.338) | 20.580.847.816 |
+
+20. CHI PHÍ PHẢI TRẢ NGÂN HẠN
+
+|  | 30/9/2025 | VND 30/6/2025 |
+| --- | --- | --- |
+| Chi phí phải trả các công trình xây dựng | 2.810.876.218.511 | 2.570.950.906.553 |
+| Trích trước chi phí lương thưởng | 67.017.752.958 | 124.606.568.109 |
+| Chi phí lãi vay | 2.689.655.700 | 1.992.220.221 |
+| Khác | 9.646.860.319 | 17.093.413.507 |
+| TỔNG CỘNG | 2.890.230.487.488 | 2.714.643.108.390 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+21. PHẢI TRẢ KHÁC NGẮN HẠN
+
+------------------------------------------------------------
+
+--- CHUNK #37 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+|  | 30/9/2025 | VND<br/>30/6/2025 |
+| --- | --- | --- |
+| Phải trả bao thanh toán (*) | 922.796.856.910 | 956.298.544.217 |
+| Phải trả các đối xây dựng và công nhân viên | 10.269.929.354 | 6.956.509.945 |
+| Cổ tức phải trả | 606.658.825 | 606.658.825 |
+| Nhận ký quỹ | 2.735.571.909 | 2.735.571.909 |
+| Phải trả khác | 6.812.057.336 | 14.339.476.555 |
+| TỔNG CỘNG | 943.221.074.334 | 980.936.761.451 |
+| Trong đó: |  |  |
+| Phải trả các Bên liên quan<br/>(Thuyết minh số 32) | 421.952.340 | 421.952.340 |
+
+(*) Đây là các khoản tiền tạm ứng bao thanh toán nhận được từ các Ngân hàng Thương mại. Toàn bộ nghĩa vụ hoàn trả cho ngân hàng và các chi phí liên quan được cam kết trả bởi chủ đầu sự dự án được tài trợ bao thanh toán. Các khoản tạm ứng bao thanh toán trên sẽ được cần trừ với các khoản phải thu khách hàng tại các ngày đến hạn thanh toán.
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+22. VAY VÀ NỢ THUÊ TÀI CHÍNH
+
+VND
+
+|  | 30/6/2025 | Tăng trong kỳ | Giảm trong kỳ | 30/9/2025 |
+| --- | --- | --- | --- | --- |
+| Ngắn hạn |  |  |  |  |
+| Vay ngân hàng (1huyết minh số 22.1) | 2.329.491.615.488 | 1.882.388.826.001 | (1.295.330.502.755) | 2.916.549.938.734 |
+| TỔNG CỘNG | 2.329.491.615.488 | 1.882.388.826.001 | (1.295.330.502.755) | 2.916.549.938.734 |
+
+22.1 Vay ngắn hạn từ ngân hàng
+
+Chi tiết các khoản vay ngắn hạn từ ngân hàng được trình bày như bên dưới:
+
+| Ngân hàng | 30/9/2025<br/>VND |
+| --- | --- |
+| Ngân hàng TMCP Quân đội Việt Nam | 927.935.671.005 |
+| Ngân hàng TMCP Kỹ Thương Việt Nam | 682.669.675.695 |
+| Ngân hàng TMCP Công Thương | 655.464.729.657 |
+| Ngân hàng TMCP Ngoại Thương Việt Nam | 410.292.724.570 |
+| Ngân hàng TNHH MTV HSBC (Việt Nam) | 229.157.882.706 |
+| Ngân hàng TMCP BIDV | 11.029.255.101 |
+| TỔNG CỘNG | 2.916.549.930.734 |
+
+Các khoản vay này không có tài sản đảm bảo, có thời hạn vay từ 3 - 6 tháng, và lãi suất áp dụng theo từng lần giải ngân.
+
+Công ty Cổ phần Xây dựng Coteccons
+
+------------------------------------------------------------
+
+--- CHUNK #38 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+23. DỰ PHÒNG PHẢI TRẢ
+
+|  | 30/9/2025 | VND<br/>30/6/2025 |
+| --- | --- | --- |
+| Ngắn hạn | 89.580.752.533 | 125.586.211.525 |
+| Dự phòng công trình rủi ro lớn | 48.955.816.808 | 82.496.642.568 |
+| Dự phòng chi phí bảo hành công trình xây dựng | 40.624.935.725 | 43.089.568.957 |
+| Dài hạn | 2.249.781.426 | 2.218.604.052 |
+| Dự phòng trợ cấp thôi việc | 2.249.781.426 | 2.218.604.052 |
+| TỔNG CỘNG | 91.830.533.959 | 127.804.815.577 |
+
+24. QUỸ KHEN THƯỜNG, PHÚC LỢI
+
+| <td>30/9/2025 | VND<br/>30/9/2024 |
+| --- | --- |
+| Số đầu kỳ | 65.212.428.772 | 68.011.650.421 |
+| Hoàn quỹ | 646.906.337 | - |
+| Sử dụng quỹ | (238.959.000) | (400.000.000) |
+| Số cuối kỳ | 65.620.376.139 | 67.611.650.421 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo)
+
+Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+25. VỐN CHỦ SỞ HỮU
+
+25.1 Tình hình tăng giảm nguồn vốn chủ sở hữu
+
+VND
+
+------------------------------------------------------------
+
+--- CHUNK #39 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+|  | Vốn cổ phần | Thặng dư vốn cổ phần | Cổ phiếu quỹ | Quỹ đầu tư phát triển | Lợi nhuận sau thuế chưa phân phối | Tổng cộng |
+| --- | --- | --- | --- | --- | --- | --- |
+| Cho kỳ kế toán ba tháng kết thúc ngày 30 tháng 9 năm 2024 |
+| Vào ngày 30/6/2024 | 1.036.332.610.000 | 2.879.707.744.105 | (445.191.149.803) | 3.206.314.091.543 | 484.029.184.092 | 7.161.192.479.937 |
+| Lợi nhuận thuần trong kỳ | - | - | - | - | 61.050.556.723 | 61.050.556.723 |
+| Vào ngày 30/9/2024 | 1.036.332.610.000 | 2.879.707.744.105 | (445.191.149.803) | 3.206.314.091.543 | 545.079.740.815 | 7.222.243.036.660 |
+| Cho kỳ kế toán ba tháng kết thúc ngày 30 tháng 9 năm 2025 |
+| Vào ngày 30/6/2025 | 1.036.332.610.000 | 2.714.397.074.105 | (264.867.149.803) | 3.206.314.091.543 | 698.402.792.977 | 7.390.579.418.822 |
+| Lợi nhuận thuần trong kỳ | - | - | - | - | 123.123.645.919 | 123.123.645.919 |
+| Vào ngày 30/9/2025 | 1.036.332.610.000 | 2.714.397.074.105 | (264.867.149.803) | 3.206.314.091.543 | 821.526.438.896 | 7.513.703.064.741 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+25. VỐN CHỦ SỞ HỮU (tiếp theo)
+
+25.2 Các giao dịch về vốn với các cổ đông và phân phối cổ tức
+
+Vốn cổ phần đã góp Số đầu kỳ Tăng vốn Số cuối kỳ
+
+25.3 Cổ phiếu
+
+Số lượng cổ phiếu được phép phát hành
+
+Số lượng cổ phiếu đã được phát hành và góp vốn đầy đủ Cổ phiếu phổ thông
+
+Số lượng cổ phiếu quỹ Cổ phiếu phổ thông
+
+Số lượng cổ phiếu đang lưu hành Cổ phiếu phổ thông
+
+VND Cho giai đoạn ba tháng kết thúc ngày
+
+30/9/2025 30/9/2024
+
+1.036.332.610.000 1.036.332.610.000
+
+- -
+
+1.036.332.610.000 1.036.332.610.000
+
+Số lượng cổ phần
+
+30/6/2025 30/6/2025
+
+103.633.261 103.633.261
+
+103.633.261 103.633.261 103.633.261 103.633.261
+
+2.203.247 2.203.247 2.203.247 2.203.247
+
+101.430.014 101.430.014 101.430.014 101.430.014
+
+------------------------------------------------------------
+
+--- CHUNK #40 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+26. DOANH THU
+
+26.1 Doanh thu bán hàng và cung cấp dịch vụ
+
+|  |  | VND |
+| --- | --- | --- |
+|  | Giai đoạn ba tháng kết thúc ngày |  |
+|  | 30/9/2025 | 30/9/2024 |
+| Doanh thu hoạt động xây dựng | 6.153.728.454.383 | 3.860.180.741.336 |
+| Doanh thu từ hoạt động cho thuê văn phòng | 5.768.373.368 | 5.805.448.408 |
+| TỔNG CỘNG | 6.159.496.827.751 | 3.865.986.189.744 |
+
+26.2 Doanh thu hoạt động tài chính
+
+|  |  | VND |
+| --- | --- | --- |
+|  | Giai đoạn ba tháng kết thúc ngày |  |
+|  | 30/9/2025 | 30/9/2024 |
+| Lãi tiền gửi ngân hàng | 27.284.576.600 | 23.716.570.442 |
+| Lãi từ tiền chậm trả | 8.064.704.125 | 14.152.405.723 |
+| Lãi từ cho vay | 1.624.011.743 | 2.489.842.435 |
+| Cổ tức được chia | 5.720.000.000 | - |
+| Lãi từ chênh lệch tỷ giá | 158.134.739 | 66.629.663 |
+| TỔNG CỘNG | 42.851.427.207 | 40.425.448.263 |
+
+27. GIÁ VỐN HÀNG BÁN VÀ DỊCH VỤ CUNG CẤP
+
+| <td> | VND |
+| --- | --- |
+|  | Giai đoạn ba tháng kết thúc ngày |  |
+|  | 30/9/2025 | 30/9/2024 |
+| Giá vốn hoạt động xây dựng | 5.889.919.964.308 | 3.744.654.927.621 |
+| Giá vốn từ hoạt động cho thuê văn phòng | 2.124.806.584 | 2.489.356.569 |
+| TỔNG CỘNG | 5.892.044.770.892 | 3.747.144.284.190 |
+
+28. CHI PHÍ TÀI CHÍNH
+
+| <td> | VND |
+| --- | --- |
+|  | Giai đoạn ba tháng kết thúc ngày |  |
+|  | 30/9/2025 | 30/9/2024 |
+| Lãi vay | 32.723.104.091 | 26.776.728.702 |
+| Chi phí phát hành trái phiếu phân bổ | - | 522.916.668 |
+| Chênh lệch tỷ giá | 215.153.293 | 152.385.246 |
+| TỔNG CỘNG | 32.938.257.384 | 27.452.030.616 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+29. CHI PHÍ QUẢN LÝ DOANH NGHIỆP
+
+VND
+
+------------------------------------------------------------
+
+--- CHUNK #41 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+|  | Giai đoạn ba tháng kết thúc ngày |  |
+| --- | --- | --- |
+|  | 30/9/2025 | 30/9/2024 |
+| Chi phí nhân viên | 53.735.361.610 | 40.882.078.243 |
+| Chi phí dịch vụ thuê ngoài | 18.691.770.256 | 15.401.205.698 |
+| Chi phí khấu hao và hao mòn | 2.129.839.523 | 2.536.832.466 |
+| Chi phí/ (Hoàn nhập) dự phòng nợ phải thu khó đòi | 23.977.440.017 | (8.783.709.836) |
+| Chi phí khác | 13.395.247.535 | 5.514.503.928 |
+| TỔNG CỘNG | 111.929.658.941 | 55.550.910.499 |
+
+30. THU NHẬP KHÁC VÀ CHI PHÍ KHÁC
+
+VND
+
+|  | Giai đoạn ba tháng kết thúc ngày |  |
+| --- | --- | --- |
+|  | 30/9/2025 | 30/9/2024 |
+| Thu nhập khác | 167.331.042 | 440.648.592 |
+| Thu từ tiền phạt | - | 131.872.763 |
+| Khác | 167.331.042 | 308.775.829 |
+| Chi phí khác | (6.352.248.646) | (15.000.170) |
+| Phạt, bồi thường | (3.896.766.423) | (15.000.000) |
+| Khác | (2.455.482.213) | (170) |
+| Lợi nhuận/(Lỗ) khác | (6.184.917.604) | 425.648.422 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+31. THUẾ THU NHẬP DOANH NGHIỆP
+
+Thuế thu nhập doanh nghiệp ("TNDN") áp dụng cho Công ty là 20% thu nhập chịu thuế.
+
+Các báo cáo thuế của Công ty sẽ chịu sự kiểm tra của cơ quan thuế. Do việc áp dụng luật và các quy định về thuế đối với các loại nghiệp vụ khác nhau có thể được giải thích theo nhiều cách khác nhau, số thuế được trình bày trên báo cáo tài chính riêng có thể sẽ bị thay đổi theo quyết định cuối cùng của cơ quan thuế.
+
+31.1 Chi phí thuế TNDN hiện hành
+
+|  |  | VND |
+| --- | --- | --- |
+|  | Giai đoạn ba tháng kết thúc ngày |  |
+|  | 30/9/2025 | 30/9/2024 |
+| Chi phí thuế TNDN<br/>hiện hành | 19.208.631.468 | 7.843.452.365 |
+| Điều chỉnh chi phí thuế<br/>trích thừa kỳ trước | 4.663.206.530 | 18.707.000 |
+|  | 23.871.837.998 | 7.862.159.365 |
+| Chi phí/ (Thu nhập) thuế TNDN<br/>hoãn lại | 12.255.166.220 | 7.777.345.036 |
+| TỔNG CỘNG | 36.127.004.218 | 15.639.504.401 |
+
+------------------------------------------------------------
+
+--- CHUNK #42 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+Dưới đây là đối chiếu giữa chi phí thuế TNDN và kết quả của lợi nhuận kế toán trước thuế nhân với thuế suất thuế TNDN:
+
+| <td> | VND |
+| --- | --- |
+|  | Giai đoạn ba tháng kết thúc ngày |  |
+|  | 30/9/2025 | 30/9/2024 |
+| Lợi nhuận kế toán trước thuế | 159.250.650.137 | 76.690.061.124 |
+| Thuế TNDN theo thuế suất 20% áp dụng cho Công ty | 31.850.130.027 | 15.338.012.225 |
+| Các khoản điều chỉnh:<br/>Điều chỉnh thuế TNDN trích thiếu trong những năm trước | 4.663.206.530 | - |
+| Thu nhập không tính thuế | (1.177.474.808) | - |
+| Chi phí không được khấu trừ thuế | 791.142.469 | 301.492.176 |
+| Chi phí thuế TNDN | 36.127.004.213 | 15.639.504.401 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+31.2 Thuế TNDN hiện hành
+
+Thuế TNDN hiện hành phải trả được xác định dựa trên thu nhập chịu thuế của năm hiện tại. Thu nhập chịu thuế của Công ty khác với lợi nhuận được báo cáo trong báo cáo kết quả hoạt động kinh doanh riêng vì thu nhập chịu thuế không bao gồm các khoản mục thu nhập chịu thuế hay chi phí được khấu trừ cho mục đích tính thuế trong các kỳ khác và cũng không bao gồm các khoản mục không phải chịu thuế hay không được khấu trừ cho mục đích tính thuế. Thuế TNDN hiện hành phải trả của Công ty được tính theo thuế suất đã ban hành đến ngày kết thúc kỳ kế toán năm.
+
+31.3 Thuế TNDN hoãn lại
+
+Công ty đã ghi nhận một số tài sản thuế thu nhập hoãn lại và thuế thu nhập hoãn lại phải trả với các biến động trong kỳ này và kỳ trước như sau:
+
+------------------------------------------------------------
+
+--- CHUNK #43 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+|  | Bảng cân đối kế toán riêng | Giai đoạn ba tháng kết thúc ngày 30/9/2025 |
+| --- | --- | --- |
+| 30/9/2025 | 30/6/2025 | 30/9/2025 | 30/9/2024 |
+| Dự phòng nợ phải thu khó đòi | 60.206.162.923 | 63.185.598.788 | (2.979.435.865) | (4.558.178.703) |
+| Dự phòng tổn thất đầu tư | 31.920.000.000 | 31.920.000.000 | - | - |
+| Dự phòng hợp đồng có rủi ro lớn | 9.791.163.360 | 16.499.328.512 | (6.708.165.152) | (3.168.252.235) |
+| Dự phòng giảm giá hàng tồn kho | 10.927.215.357 | 13.505.847.780 | (2.578.632.423) | - |
+| Dự phòng trợ cấp thòi việc | 449.956.285 | 443.720.810 | 6.235.475 | (77.412.184) |
+| Chênh lệch tỷ giá hối đoái do đánh giá lại các khoản mục tiền tệ có gốc ngoại tệ | (21.531.330) | (26.363.075) | 4.831.745 | 26.498.086 |
+| Tài sản thuế TNDN hoãn lại thuần | 113.272.966.595 | 125.528.132.815 |  |  |
+| Thu nhập/(chi phí) thuế TNDN hoãn lại |  |  | (12.255.166.220) | (7.777.345.036) |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+32. NGHIỆP VỤ VỚI CÁC BÊN LIÊN QUAN
+
+Những giao dịch trọng yếu của Công ty với các bên liên quan trong kỳ này và kỳ trước bao gồm:
+
+Bên liên quan Mối quan hệ
+
+Nội dung nghiệp vụ
+
+Cho giai đoạn ba tháng kết thúc ngày
+
+30/9/2025 30/9/2024
+
+------------------------------------------------------------
+
+--- CHUNK #44 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+| Unicons | Công ty con | Chi phí xây dựng<br/>Chi phí Thuê thiết bị<br/>Doanh thu từ hoạt động xây dựng<br/>Doanh thu cho thuê văn phòng, tiện ích<br/>Doanh thu cung cấp dịch vụ<br/>Doanh thu khác<br/>Chuyển tiền cho vay<br/>Lãi từ cho vay | 262.870.372.005<br/>384.227.537<br/>1.872.790.220<br/>1.339.234.292<br/>2.040.120.024 | 157.527.740.887<br/>433.457.059<br/>1.641.333.068<br/>170.913.865<br/>227.000.000.000<br/>1.679.999.999 |
+| --- | --- | --- | --- | --- |
+| Sinh Nam | Công ty con | Chi phí xây dựng<br/>Doanh thu cho thuê văn phòng, tiện ích<br/>Lãi từ cho vay | 10.846.959.816<br/>465.865.606<br/>1.624.011.743 | 11.671.274.173<br/>240.848.108<br/>679.971.203 |
+| UGVN | Công ty con | Chi phí xây dựng<br/>Doanh thu cho thuê văn phòng, tiện ích | 44.301.959.667<br/>363.980.866 | 31.748.279.360<br/>372.725.086 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+32. NGHIỆP VỤ VỚI CÁC BÊN LIÊN QUAN (tiếp theo)
+
+Những giao dịch trong yếu của Công ty với các bên liên quan trong kỳ này và kỳ trước bạc gồm:
+
+| Bên liên quan | Mối quan hệ | Nội dung nghiệp vụ | Cho giai đoạn ba tháng kết thúc ngày 30/9/2025 | VND 30/9/2024 |
+| --- | --- | --- | --- | --- |
+| CTD Nest | Công ty con | Phải thu theo thỏa thuận cấn trừ công nợ | - | 130.349.723.650 |
+| CTD Materials | Công ty con | Chi phí cung cấp vật tư xây dựng<br/>Doanh thu dịch vụ hỗ trợ<br/>Lãi từ cho vay | 31.206.973.291<br/>810.475.655 | 2.916.296.064<br/>- |
+| Coteccons Construction Inc | Công ty con | Góp vốn thành lập công ty con | - | 123.715.000.000 |
+| Công ty TNHH VN Solutions | Công ty con | Doanh thu cho thuê văn phòng | 60.000.000 | - |
+| CN Coteccons Construction tại Đài Loan | Chi nhánh | Giảm vốn góp | 495.574.586 | - |
+| Kusto Group Pte.Ltd | Bên liên quan | Doanh thu cho thuê văn phòng | 4.331.334 | 6.257.835 |
+| Kusto Management Việt Nam | Bên liên quan | Doanh thu cho thuê văn phòng | 13.244.361 | 1.740.576 |
+| Công ty TNHH Bất Động Sản Ladona | Bên liên quan | Doanh thu xây dựng | 54.885.849.776 | 240.657.310.501 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+------------------------------------------------------------
+
+--- CHUNK #45 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+32. NGHIỆP VỤ VỚI CÁC BÊN LIÊN QUAN (tiếp theo)
+
+Vào ngày kết thúc kỳ kế toán năm, các khoản phải thu và phải trả với các bên liên quan như sau:
+
+------------------------------------------------------------
+
+--- CHUNK #46 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+| Bên liên quan | Mối quan hệ | Nội dung nghiệp vụ | VND<br/>30/9/2025 | 30/6/2025 |
+| --- | --- | --- | --- | --- |
+| Phải thu ngắn hạn khách hàng |  |  |  |  |
+| Unicons | Công ty con | Cho thuê văn phòng, thiết bị | 45.184.944.048 | 41.510.078.764 |
+| Ladona | Bên liên quan | Dịch vụ xây dựng | 123.502.083.102 | 96.553.093.825 |
+| CTD Materials | Công ty con | Dịch vụ tiện ích | 16.485.402.857 | 15.610.089.150 |
+| Sinh Nam | Công ty con | Cho thuê văn phòng | 517.660.978 | 557.855.834 |
+| UGVN | Công ty con | Cho thuê văn phòng | - | 8.654.003 |
+| Kusto Group | Bên liên quan | Cho thuê văn phòng | 90.783 | 42.731.716 |
+| Vsol | Công ty con | Cho thuê văn phòng | 64.800.000 | - |
+| Kusto Management Việt Nam | Bên liên quan | Cho thuê văn phòng | 7.526.142 | 226.697 |
+|  |  |  | 185.762.507.910 | 154.282.729.989 |
+| Người mua trả tiền trước ngắn hạn |  |  |  |  |
+| Ladona | Bên liên quan | Dịch vụ xây dựng | - | 3.534.058.685 |
+| Trả trước cho người bán |  |  |  |  |
+| Unicons | Công ty con | Chi phí xây dựng và cho thuê thiết bị | 337.684.450.156 | 251.364.557.811 |
+| Sinh Nam | Công ty con | Cung cấp dịch vụ và vật liệu xây dựng | 5.333.774.591 | 6.891.198.637 |
+| CTD Materials | Công ty con | Cung cấp vật liệu xây dựng | 16.415.984.289 | 6.186.613.627 |
+| UGVN | Công ty con | Cung cấp dịch vụ xây dựng | 2.410.285.000 | - |
+|  |  |  | 361.844.494.036 | 264.442.370.075 |
+| Phải trả người bán ngắn hạn |  |  |  |  |
+| Unicons | Công ty con | Chi phí xây dựng và cho thuê thiết bị | 852.771.237.249 | 895.755.129.651 |
+| UGVN | Công ty con | Cung cấp dịch vụ và vật liệu xây dựng | 134.797.443.960 | 227.878.073.199 |
+| Sinh Nam | Công ty con | Cung cấp dịch vụ và vật liệu xây dựng | 27.668.093.532 | 28.474.379.759 |
+| CTD Materials | Công ty con | Cung cấp vật liệu xây dựng | 24.848.609.983 | 16.301.738.235 |
+| Ladona | Công ty con | Chi phí tiện ích | 589.082.403 | 589.082.403 |
+|  |  |  | 1.040.674.467.127 | 1.168.998.403.247 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+------------------------------------------------------------
+
+--- CHUNK #47 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+32. NGHIỆP VỤ VỚI CÁC BÊN LIÊN QUAN (tiếp theo)
+
+Vào ngày kết thúc kỳ kế toán, các khoản phải thu và phải trả với các bên liên quan như sau:
+
+VND
+
+| Bên liên quan | Mối quan hệ | Nội dung nghiệp vụ | 30/9/2025 | 30/6/2025 |
+| --- | --- | --- | --- | --- |
+| Phải thu ngắn hạn khác |  | Cổ tức được chia | 50,000,000.000 | 150,000,000.000 |
+| Covestcons | Công ty con | Phải thu từ cần trừ công nợ | 1,879,466.011 | 1,879,466.011 |
+| CTD Nest | Công ty con | Lãi vay | 1,973.742.777 | 3,851.911.903 |
+| Sinh Nam | Công ty con | Chi hộ | 138.498.185 | 138.498.185 |
+| Unicons | Công ty con |  | 53.991.706.973 | 155.869.876.099 |
+| Phải thu về cho vay ngắn hạn |  | Phải thu từ cho vay ngắn hạn | 149.957.000.000 | 117.654.455.474 |
+| Sinh Nam | Công ty con |  | 149.957.000.000 | 117.654.455.474 |
+| Phải trả ngắn hạn khác |  | Ký quỹ thuê văn phòng | 281.026.830 | 281.026.830 |
+| UGVN | Công ty con | Ký quỹ thuê văn phòng | 117.658.800 | 117.658.800 |
+| Sinh Nam | Công ty con | Ký quỹ thuê văn phòng | 18.236.070 | 18.236.070 |
+| Kusto Group | Bên liên quan | Ký quỹ thuê văn phòng | 5.030.640 | 5.030.640 |
+| Kusto Management Việt Nam | Bên liên quan | Ký quỹ thuê văn phòng | 421.952.340 | 421.952.340 |
+
+Công ty Cổ phần Xây dựng Coteccons
+
+THUYẾT MINH BÁO CÁO TÀI CHÍNH RIÊNG (tiếp theo) Cho giai đoạn ba tháng kết thúc ngày 30 tháng 9 năm 2025
+
+33. GIẢI TRÌNH CÁC BIẾN ĐỘNG KINH DOANH QUÝ 1 NĂM 2026
+
+|  | Quý 1/2026<br/>(Từ ngày 1/7/2025 đến ngày 30/9/2025) | Quý 1/2025<br/>(Từ ngày 1/7/2024 đến ngày 30/9/2024) | Chênh lệch | % tăng |
+| --- | --- | --- | --- | --- |
+| Lợi nhuận sau<br/>thuế thu nhập<br/>doanh nghiệp | 123.123.645.919 | 61.050.556.723 | 62.073.089.196 | 101,67% |
+
+Nguyên nhân: Chỉ tiêu Lợi nhuận sau thuế thu nhập doanh nghiệp Quý 1 năm 2026 tăng 101,67% so với Quý 1 năm 2025 chủ yếu là do ảnh hưởng của chỉ tiêu sau:
+
+------------------------------------------------------------
+
+--- CHUNK #48 ---
+META: {"type": "mixed", "source": null, "heading": null, "language": "vi", "page_num": null, "end_offset": null, "start_offset": null}
+[STYLE-DFS CONTEXT DETECTED] ✅
+**Context: Công ty Cổ phần Xây dựng Coteccons > 3.22 Thông tin theo bộ phận**
+
+| <td>Quý 1/2026<br/>(Từ ngày 1/7/2025 đến ngày 30/9/2025) | Quý 1/2025<br/>(Từ ngày 1/7/2024 đến ngày 30/9/2024) | Chênh lệch | % tăng |
+| --- | --- | --- | --- |
+| Lợi nhuận gộp<br/>về bán hàng<br/>và cung cấp<br/>dịch vụ | 267.452.056.859 | 118.841.905.554 | 148.610.151.305 | 125,0% |
+| Trong đó:<br/>Doanh thu bán<br/>hàng và cung<br/>cấp dịch vụ | 6.159.496.827.751 | 3.865.986.189.744 | 2.293.510.638.007 | 59,3% |
+
+Lợi nhuận gộp về bán hàng và cung cấp dịch vụ tăng 148,6 tỷ tương đương tăng 125% so với cùng kỳ năm trước. Lý do chính là doanh thu thuần bán hàng và cung cấp dịch vụ tăng hơn 2.293 tỷ, tương đương tăng 59,3% so với cùng kỳ năm trước. Bên cạnh đó, chính sách trích lập dự phòng đối với các dự án rủi ro mà Ban lãnh đạo đã chủ động thực hiện từ năm trước, đã làm giảm nhẹ được tác động của các biến động về chi phí nhân công, nguyên vật liệu xây dựng và các yếu tố vĩ mô lên chi phí giá vốn trong kỳ.
+
+34. SỰ KIỆN SAU NGÀY KẾT THÚC KỲ KẾ TOÁN
+
+Không có sự kiện nào khác phát sinh sau ngày kết thúc năm tài chính yêu cầu phải được điều chỉnh hay trình bày trong báo cáo tài chính riêng của Công ty.
+
+<center>Nguyễn Thụy Phương Minh Người lập</center>
+
+<center>Trần Thị Thanh Vân Kế toán trưởng</center>
+
+<center>Nguyễn Văn Đua Phó Tổng Giám Đốc</center>
+
+Ngày 30 tháng 10 năm 2025
+
+------------------------------------------------------------
+
