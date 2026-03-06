@@ -5,6 +5,7 @@ import httpx
 import numpy as np
 import re
 from typing import Dict, Any, List, Optional
+import hashlib
 
 from lightrag import LightRAG, QueryParam
 from lightrag.utils import EmbeddingFunc
@@ -15,6 +16,10 @@ from app.services.indexing_engine import query_llm_func, stream_llm_func, stream
 from app.services.consensus_retriever import ConsensusRetriever
 from app.services.reranker import rerank_chunks
 
+
+# Cấu trúc cache câu trả lời: {md5_key: (response_data, expire_ts)}
+_ANSWER_CACHE: Dict[str, tuple] = {}
+_ANSWER_CACHE_TTL = 3600  # Lưu cache trong 60 phút
 
 IMAGE_REF_PATTERN = re.compile(r'\[IMAGE_REF:\s*([^\]]+)\]')
 PAGE_CITE_PATTERN = re.compile(r'\[Page\s+(\d+)\]', re.IGNORECASE)
@@ -159,7 +164,7 @@ def load_prompt(filename: str) -> str:
         logger.error(f"Failed to load prompt '{filename}': {e}")
         return "{context_data}\n\n{question}" # Fallback minimal prompt
 
-RAG_RESPONSE_TEMPLATE = load_prompt("query_prompts.jinja")
+RAG_RESPONSE_TEMPLATE = load_prompt("response_system_prompt.jinja")
 NAIVE_RAG_RESPONSE_TEMPLATE = RAG_RESPONSE_TEMPLATE
 
 
@@ -353,11 +358,18 @@ class QueryEngine:
         - 'mix': Hybrid of local + global (default)
         - 'consensus': Intersection of naive + local (high precision)
         """
+        question_norm = question.strip().lower()
+        cache_key = hashlib.md5(f"{workspace}_{mode}_{question_norm}".encode()).hexdigest()
+
+        if cache_key in _ANSWER_CACHE:
+            cached_data, expire_ts = _ANSWER_CACHE[cache_key]
+            if time.time() < expire_ts:
+                logger.info(f"Answer Cache HIT for question: '{question[:30]}...'")
+                return cached_data
+
         rag = await self._get_or_create_rag(workspace)
 
         logger.info(f"Processing Query [Mode: {mode}, Workspace: {workspace}]: {question}")
-
-
 
         # ===== MODE: CONSENSUS =====
         if mode == "consensus":
@@ -436,13 +448,15 @@ class QueryEngine:
                 )
                 logger.info(f"Consensus: {len(image_refs)} ảnh được hiển thị: {image_refs}")
 
-                return {
+                result = {
                     "answer": answer,
                     "retrieved_chunks": retrieved_chunks,
                     "sources": _format_chunks_as_sources(retrieved_chunks),
                     "mode": "consensus",
                     "images": image_refs
                 }
+                _ANSWER_CACHE[cache_key] = (result, time.time() + _ANSWER_CACHE_TTL)
+                return result
 
             except Exception as e:
                 logger.error(f"Consensus Query Error: {e}")
@@ -476,11 +490,13 @@ class QueryEngine:
         # If context is empty or too short, don't even ask LLM.
         if not context_text or len(context_text.strip()) < 10:
             logger.warning("Empty context retrieved. Returning fallback response.")
-            return {
+            result = {
                 "answer": "Xin lỗi, tôi không tìm thấy thông tin nào liên quan trong tài liệu để trả lời câu hỏi này.",
                 "mode": mode,
                 "context": ""
             }
+            _ANSWER_CACHE[cache_key] = (result, time.time() + _ANSWER_CACHE_TTL)
+            return result
 
         # 3. GENERATION (Strict Prompting)
         # We manually construct the prompt using our STRICT template logic.
@@ -499,13 +515,15 @@ class QueryEngine:
         # Hiển thị ảnh chỉ khi LLM dùng mô tả ảnh trong câu trả lời.
         image_refs = extract_image_refs_from_answer([], answer, context_text)
 
-        return {
+        result = {
             "answer": answer,
             "sources": [],
             "mode": mode,
             "question": question,
             "images": image_refs,
         }
+        _ANSWER_CACHE[cache_key] = (result, time.time() + _ANSWER_CACHE_TTL)
+        return result
 
 
     async def query_stream(self, question: str, mode: str = "consensus", workspace: str = "default"):
@@ -516,6 +534,18 @@ class QueryEngine:
           {"type": "done",  "images": [...], "mode": "...", "sources": [...]}
           {"type": "error", "content": "<msg>"}
         """
+        question_norm = question.strip().lower()
+        cache_key = hashlib.md5(f"{workspace}_{mode}_{question_norm}".encode()).hexdigest()
+
+        if cache_key in _ANSWER_CACHE:
+            cached_data, expire_ts = _ANSWER_CACHE[cache_key]
+            if time.time() < expire_ts:
+                logger.info(f"[StreamQuery] Answer Cache HIT for question: '{question[:30]}...'")
+                # Trả về câu trả lời đã lưu trong 1 token duy nhất (fake streaming rất nhanh)
+                yield {"type": "token", "content": cached_data["answer"]}
+                yield {"type": "done", "images": cached_data["images"], "mode": mode, "sources": cached_data["sources"]}
+                return
+
         rag = await self._get_or_create_rag(workspace)
         logger.info(f"[StreamQuery] Start [{mode}]: {question[:80]}")
 
@@ -616,6 +646,17 @@ class QueryEngine:
         )
         logger.info(f"[StreamQuery] Done: {len(full_answer)} chars, {len(image_refs)} images")
         formatted_sources = _format_chunks_as_sources(retrieved_chunks) if mode == "consensus" else []
+        
+        # Lưu vào cache
+        _ANSWER_CACHE[cache_key] = (
+            {
+                "answer": full_answer,
+                "images": image_refs,
+                "sources": formatted_sources
+            },
+            time.time() + _ANSWER_CACHE_TTL
+        )
+        
         yield {"type": "done", "images": image_refs, "mode": mode, "sources": formatted_sources}
 
 
