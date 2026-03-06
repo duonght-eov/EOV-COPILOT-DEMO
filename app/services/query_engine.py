@@ -314,6 +314,8 @@ class QueryEngine:
             rag = LightRAG(
                 working_dir=rag_work_dir,
                 workspace=workspace,
+                llm_model_max_async=settings.RAG_MAX_ASYNC_JOBS,
+                embedding_func_max_async=settings.RAG_MAX_ASYNC_JOBS,
                 llm_model_func=query_llm_func,
                 embedding_func=EmbeddingFunc(
                     embedding_dim=settings.EMBEDDING_DIM,

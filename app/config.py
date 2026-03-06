@@ -87,7 +87,7 @@ class Settings(BaseSettings):
     RAG_CHUNK_SIZE: int = 1200
     RAG_CHUNK_OVERLAP: int = 100
     RAG_ENABLE_LLM_CACHE: bool = True
-    RAG_MAX_ASYNC_JOBS: int = 4
+    RAG_MAX_ASYNC_JOBS: int = 32
     
     # --- Storage Configuration ---
     STORAGE_TYPE: str = "json"  # "json" | "postgres"

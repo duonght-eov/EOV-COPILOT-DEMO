@@ -805,6 +805,8 @@ class IndexingEngine:
             rag_instance = LightRAG(
                 working_dir=rag_work_dir,
                 workspace=workspace,
+                llm_model_max_async=settings.RAG_MAX_ASYNC_JOBS,
+                embedding_func_max_async=settings.RAG_MAX_ASYNC_JOBS,
                 llm_model_func=llm_completion_func,
                 embedding_func=EmbeddingFunc(
                     embedding_dim=settings.EMBEDDING_DIM,
@@ -866,14 +868,16 @@ class IndexingEngine:
             
             return "\n".join(prev_text), "\n".join(next_text)
 
-        logger.info("Phase 1.5: Inline Enrichment (Context-Aware Natural)...")
+        logger.info("Phase 1.5: Inline Enrichment (Context-Aware Natural) - Parallelized...")
 
-        for i, item in enumerate(full_content_list):
+        semaphore = asyncio.Semaphore(5)  # Giới hạn 5 request VLM chạy đồng thời
+
+        async def process_item(i, item):
             item_type = item.get("type", "unknown")
             
-            # Case 1: Text Block -> Keep as is (Allow broader types)
+            # Case 1: Text Block -> Keep as is
             if item_type not in ["image", "table"]:
-                text_only_content.append(item)
+                return item
             
             # Case 2: Image Block -> Metadata Enrichment (VLM)
             elif item_type == "image":
@@ -883,23 +887,17 @@ class IndexingEngine:
                 # Check for existing enrichment
                 if caption and "[IMAGE_REF:" in caption and "Description:" in caption:
                     logger.info(f"Skipping VLM for {os.path.basename(img_path)} (Already enriched)")
-                    text_only_content.append(item)
-                    continue
+                    return item
                 
-                # 1. Generate Description (VLM) - Always run for all images
+                # 1. Generate Description (VLM)
                 if img_path:
-                    # Resolve absolute path or download from MinIO
                     local_img_path = img_path
-                    
-                    # If relative path and doesn't exist, try to download from MinIO
                     if not os.path.isabs(img_path) and not os.path.exists(img_path):
-                        # Path format: ocr-results/doc_id/images/X.jpg
-                        # MinIO bucket: ocr-results, object: doc_id/images/X.jpg
                         if img_path.startswith("ocr-results/"):
                             object_path = img_path.replace("ocr-results/", "", 1)
                             local_img_path = f"/tmp/{object_path}"
                             
-                            # Download if not cached
+                            # Đoạn tải MinIO được giữ nguyên nhưng nằm ngoài semaphore cho nhẹ gánh
                             if not os.path.exists(local_img_path):
                                 try:
                                     os.makedirs(os.path.dirname(local_img_path), exist_ok=True)
@@ -913,76 +911,74 @@ class IndexingEngine:
                                     logger.error(f"Failed to download image from MinIO: {object_path}: {e}")
                                     local_img_path = None
                     
-                    # Now try VLM with local path
                     if local_img_path and os.path.exists(local_img_path):
                         try:
-                                logger.info(f"[VLM] Processing image: {os.path.basename(local_img_path)}")
-                                
-                                # Get Context
-                                # Get Context (ONLY PREVIOUS)
-                                prev_ctx, _ = get_surrounding_text(i, full_content_list)
-                                context_str = ""
-                                if prev_ctx: context_str += f"[Văn bản trước đó]:\n{prev_ctx}\n"
-                                
-                                if not context_str: context_str = "Không có văn bản ngữ cảnh cụ thể."
+                            prev_ctx, _ = get_surrounding_text(i, full_content_list)
+                            context_str = ""
+                            if prev_ctx: context_str += f"[Văn bản trước đó]:\n{prev_ctx}\n"
+                            if not context_str: context_str = "Không có văn bản ngữ cảnh cụ thể."
 
-                                # Prompt construction using Jinja Template
-                                template = self.vlm_prompts.get("inline_enrichment_narrative")
-                                if template:
-                                    prompt = template.replace("{{ context_str }}", context_str)
-                                    logger.info(f"[VLM Context Preview]:\n{context_str[:300]}...")
-                                else:
-                                    # Fallback
-                                    prompt = (
-                                        f"Ngữ cảnh tài liệu:\n---\n{context_str}\n---\n"
-                                        f"Phân tích hình ảnh chi tiết dựa vào ngữ cảnh này. Trả lời bằng Tiếng Việt."
-                                    )
-                                    logger.warning("Using fallback VLM prompt (template not found)")
-                                
-                                # Use custom system prompt if available
-                                vlm_sys_prompt = self.vlm_prompts.get("vlm_system_prompt")
-                                vlm_kwargs = {}
-                                if vlm_sys_prompt:
-                                    vlm_kwargs["system_prompt"] = vlm_sys_prompt.strip()
+                            template = self.vlm_prompts.get("inline_enrichment_narrative")
+                            if template:
+                                prompt = template.replace("{{ context_str }}", context_str)
+                            else:
+                                prompt = (
+                                    f"Ngữ cảnh tài liệu:\n---\n{context_str}\n---\n"
+                                    f"Phân tích hình ảnh chi tiết dựa vào ngữ cảnh này. Trả lời bằng Tiếng Việt."
+                                )
+                            
+                            vlm_sys_prompt = self.vlm_prompts.get("vlm_system_prompt")
+                            vlm_kwargs = {}
+                            if vlm_sys_prompt:
+                                vlm_kwargs["system_prompt"] = vlm_sys_prompt.strip()
 
+                            # Chỉ bao bọc đoạn gọi call API căng thẳng vào Semaphore
+                            async with semaphore:
+                                logger.info(f"[VLM] Start processing image: {os.path.basename(local_img_path)}")
                                 caption = await asyncio.wait_for(
                                     vlm_model_func(prompt, images=[local_img_path], **vlm_kwargs),
-                                    timeout=480.0  # 8 phút tối đa cho 1 ảnh
+                                    timeout=480.0
                                 )
                                 logger.info(f"[VLM] Generated caption ({len(caption)} chars): {caption[:100]}...")
 
                         except asyncio.TimeoutError:
-                            logger.warning(f"[VLM] Timeout 480s for {os.path.basename(local_img_path)}, skipping image.")
+                            logger.warning(f"[VLM] Timeout 480s for {os.path.basename(local_img_path)}, skipping.")
                             caption = f"Hình ảnh minh họa: {os.path.basename(img_path)}"
                     else:
                         logger.warning(f"[VLM] Skipping - image not found: {img_path}")
                         caption = f"Hình ảnh minh họa: {os.path.basename(img_path) if img_path else 'unknown'}"
 
-                # Lưu caption vào cache theo key = img_path gốc từ OCR
                 if img_path:
                     self._last_caption_cache[img_path] = caption
 
-                # Convert sang text paragraph với IMAGE_REF để retrieval có thể trích xuất ảnh
                 page_label = f"[Page {item.get('page_idx', '')}]" if item.get('page_idx') is not None else ""
                 img_ref = f"[IMAGE_REF:{img_path}]" if img_path else ""
-                text_only_content.append({
+                return {
                     "type": "text",
                     "text": f"{page_label}{img_ref} {caption}".strip(),
                     "page_idx": item.get("page_idx"),
-                })
-
+                }
 
             # Case 3: Table Block
             elif item_type == "table":
-                    table_body = item.get("table_body") or item.get("text") or item.get("html", "")
-                    # Preserve as Table Block
-                    text_only_content.append({
+                table_body = item.get("table_body") or item.get("text") or item.get("html", "")
+                return {
                     "type": "table", 
-                    "text": table_body, # Helper for chunker token counting
-                    "table_caption": "Bảng dữ liệu", # Could use VLM here too if valid
+                    "text": table_body,
+                    "table_caption": "Bảng dữ liệu",
                     "page_idx": item.get("page_idx"),
                     "bbox": item.get("bbox")
-                    })
+                }
+            return None
+
+        # Gửi toàn bộ job của các khối Data cho task manager
+        tasks = [process_item(i, item) for i, item in enumerate(full_content_list)]
+        results = await asyncio.gather(*tasks)
+        
+        # Append kết quả đã xử lý vào mảng chính xác theo thứ tự
+        for res in results:
+            if res is not None:
+                text_only_content.append(res)
         
         return text_only_content
 
