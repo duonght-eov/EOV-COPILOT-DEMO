@@ -149,18 +149,38 @@ class ConsensusRetriever:
         for cid, sc in list(local_map.items())[:5]:
             logger.info(f"   - Local: {cid[:20]}... | Score: {sc:.4f}")
 
-        # 2. Phân loại Chunk
+        # 2. Chuẩn hóa và Đánh trọng số (Weighted & Normalized Scoring)
+        def normalize_map(score_map: Dict[str, float]) -> Dict[str, float]:
+            if not score_map:
+                return {}
+            min_val = min(score_map.values())
+            max_val = max(score_map.values())
+            if max_val == min_val:
+                return {k: 1.0 for k in score_map.keys()}
+            return {k: (v - min_val) / (max_val - min_val) for k, v in score_map.items()}
+
+        naive_norm = normalize_map(naive_map)
+        local_norm = normalize_map(local_map)
+
+        NAIVE_WEIGHT = 0.6
+        LOCAL_WEIGHT = 0.4
+
+        # 3. Phân loại Chunk và tính Tổng điểm
         intersection_ids: Set[str] = set()
         chunk_data_map: Dict[str, float] = {}
 
         all_ids = set(naive_map.keys()) | set(local_map.keys())
         for cid in all_ids:
-            score = naive_map.get(cid, 0.0) + local_map.get(cid, 0.0)
+            # Tính điểm dựa trên điểm chuẩn hóa * trọng số
+            naive_score = naive_norm.get(cid, 0.0) * NAIVE_WEIGHT
+            local_score = local_norm.get(cid, 0.0) * LOCAL_WEIGHT
+            score = naive_score + local_score
+            
             chunk_data_map[cid] = score
             if cid in naive_map and cid in local_map:
                 intersection_ids.add(cid)
 
-        # 3. Chọn lọc kết quả
+        # 4. Chọn lọc kết quả
         intersect_list = sorted(intersection_ids, key=lambda x: chunk_data_map[x], reverse=True)
         final_selected_ids = list(intersect_list)
         logger.info(f"Consensus: Found {len(intersect_list)} intersection chunks.")
@@ -186,7 +206,7 @@ class ConsensusRetriever:
                 filler_sources.append(f"{fid[:8]}...({'+'.join(src_list)})")
             logger.info(f"Consensus: Added {len(fillers)} fillers: {', '.join(filler_sources)}")
 
-        # 4. Fetch Chunk Content (PostgreSQL)
+        # 5. Fetch Chunk Content (PostgreSQL)
         t0 = time.perf_counter()
         final_results = []
         for cid in final_selected_ids:
@@ -198,7 +218,7 @@ class ConsensusRetriever:
         ms = (time.perf_counter() - t0) * 1000
         logger.info(f"[Consensus][TIMING] chunk_fetch={ms:.0f}ms (PostgreSQL x{len(final_selected_ids)} chunks)")
 
-        # 5. Re-rank by Page Index
+        # 6. Re-rank by Page Index
         def get_page_idx(chunk):
             meta = chunk.get('metadata', {})
             if isinstance(meta, dict) and 'page_idx' in meta:
