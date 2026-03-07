@@ -257,3 +257,50 @@ async def upload_and_index(
             os.remove(temp_path)
         except Exception:
             pass
+
+@router.delete("/workspace/{workspace_slug}/purge_data")
+async def purge_workspace_data(workspace_slug: str):
+    """
+    Xóa toàn bộ dữ liệu Vector, Cache, và Đồ thị (Neo4j) của một workspace cụ thể.
+    Được gọi từ API Gateway khi người dùng bấm Delete Workspace.
+    """
+    from app.services.cleanup_service import clean_postgres, clean_neo4j
+    logger.info(f"Received request to purge data for workspace: {workspace_slug}")
+    try:
+        pg_deleted = await clean_postgres(workspace_slug)
+        neo_nodes, neo_rels = await clean_neo4j(workspace_slug)
+        
+        return {
+            "success": True,
+            "message": f"Dọn dẹp hoàn tất cho workspace '{workspace_slug}'",
+            "details": {
+                "postgres_deleted_rows": pg_deleted,
+                "neo4j_deleted_nodes": neo_nodes,
+                "neo4j_deleted_rels": neo_rels
+            }
+        }
+    except Exception as e:
+        logger.error(f"Failed to purge data for workspace {workspace_slug}: {e}")
+        raise HTTPException(status_code=500, detail=f"Lỗi khi dọn dẹp dữ liệu: {str(e)}")
+
+@router.delete("/workspace/{workspace_slug}/document/{filename}")
+async def purge_document_data(workspace_slug: str, filename: str):
+    """
+    Xóa toàn bộ dữ liệu của một tài liệu cụ thể trong workspace.
+    Được gọi từ API Gateway khi người dùng bấm Delete Document.
+    """
+    from app.services.cleanup_service import clean_document
+    logger.info(f"Received request to purge data for document: {filename} in workspace: {workspace_slug}")
+    try:
+        deleted_count = await clean_document(workspace_slug, filename)
+        
+        return {
+            "success": True,
+            "message": f"Đã xóa dữ liệu tài liệu '{filename}'",
+            "details": {
+                "deleted_documents_count": deleted_count
+            }
+        }
+    except Exception as e:
+        logger.error(f"Failed to purge document data: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
