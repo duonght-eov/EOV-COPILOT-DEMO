@@ -1,0 +1,31 @@
+# Python bytecode (rác từ việc chạy code)
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+*.log
+api-gateway.log
+db_test.log
+
+# Database files (Cực kỳ quan trọng để tránh lộ data local)
+data/*.db
+data/*.db.bak
+data/db.txt
+postgresql+asyncpg:
+
+# Dữ liệu người dùng tải lên
+data/uploads/
+
+# Môi trường ảo (nếu bạn có tạo trong folder này)
+venv/
+.venv/
+env/
+embedding-venv/
+
+# File cấu hình nhạy cảm
+.env
+
+# Các file tạm của hệ thống
+.DS_Store
+Thumbs.db
