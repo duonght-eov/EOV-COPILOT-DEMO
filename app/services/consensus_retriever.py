@@ -5,6 +5,8 @@ from typing import List, Dict, Set, Any
 from collections import defaultdict
 import logging
 
+from app.config import settings
+
 logger = logging.getLogger("ConsensusRetriever")
 
 # In-memory keyword cache: {md5(query): (keywords_str, expire_timestamp)}
@@ -25,6 +27,16 @@ def _get_cached_keywords(query: str) -> str | None:
 def _set_cached_keywords(query: str, keywords: str):
     key = hashlib.md5(query.encode()).hexdigest()
     _keyword_cache[key] = (keywords, time.time() + _KEYWORD_CACHE_TTL)
+
+
+def _normalize_map(score_map: Dict[str, float]) -> Dict[str, float]:
+    if not score_map:
+        return {}
+    min_val = min(score_map.values())
+    max_val = max(score_map.values())
+    if max_val == min_val:
+        return {k: 1.0 for k in score_map.keys()}
+    return {k: (v - min_val) / (max_val - min_val) for k, v in score_map.items()}
 
 
 class ConsensusRetriever:
@@ -56,7 +68,7 @@ class ConsensusRetriever:
         if not self.rag.entities_vdb:
             return {}
         try:
-            # 1. Keyword Extraction
+            # 1. Keyword Extraction (with cache)
             search_query = query
             keywords_template = getattr(self.rag, 'keywords_extract_template', None)
             if not keywords_template:
@@ -69,7 +81,6 @@ class ConsensusRetriever:
                 """
 
             if hasattr(self.rag, 'llm_model_func'):
-                # Kiểm tra cache trước
                 cached = _get_cached_keywords(query)
                 if cached:
                     logger.info(f"[Consensus] Keyword cache HIT: '{cached[:50]}'")
@@ -87,7 +98,7 @@ class ConsensusRetriever:
 
                         if keyword_str and len(keyword_str.strip()) > 0:
                             logger.info(f"Consensus: Extracted keywords: {keyword_str}")
-                            _set_cached_keywords(query, keyword_str)  # lưu cache
+                            _set_cached_keywords(query, keyword_str)
                             search_query = keyword_str
                     except Exception as ke:
                         logger.warning(f"Consensus: Keyword extraction failed, using raw query. Error: {ke}")
@@ -98,10 +109,8 @@ class ConsensusRetriever:
             ms = (time.perf_counter() - t0) * 1000
             logger.info(f"[Consensus][TIMING] entity_vector_search={ms:.0f}ms, found={len(entities)}")
             logger.info(f"Local Entity Search found: {len(entities)} entities for query '{search_query[:20]}...'")
-            if entities:
-                logger.info(f"First Entity Raw: {entities[0]}")
 
-            # 3. Entity → Chunk Mapping (Neo4j)
+            # 3. Entity → Chunk Mapping (Neo4j/Graph)
             chunk_scores = defaultdict(float)
             t0 = time.perf_counter()
             count_mapped = 0
@@ -128,83 +137,173 @@ class ConsensusRetriever:
             logger.error(f"Error in Local Search: {e}")
             return {}
 
+    async def _get_relation_chunk_ids(self, query: str, top_k: int = 5) -> Dict[str, float]:
+        """
+        Relationship Search (mới): Trả về {ChunkID: Score}.
+        1. Tìm Top-K Relationship từ relations_vdb gần với query nhất.
+        2. Mỗi Relationship có source_entity + target_entity.
+        3. Tra Graph để lấy source_id của từng entity đầu/cuối.
+        4. Trả về chunk_ids từ cả 3 nguồn: relation.source_id, source_entity chunks, target_entity chunks.
+        """
+        if not settings.CONSENSUS_ENABLE_RELATION_SEARCH:
+            return {}
+
+        relations_vdb = getattr(self.rag, 'relationships_vdb', None)
+        if not relations_vdb:
+            logger.debug("[Consensus][Relation] relations_vdb not available, skipping.")
+            return {}
+
+        try:
+            t0 = time.perf_counter()
+            # 1. Lấy từ khóa đã cache (nếu có) để tăng chất lượng vector search
+            search_query = _get_cached_keywords(query) or query
+            relations = await relations_vdb.query(search_query, top_k=top_k)
+            ms = (time.perf_counter() - t0) * 1000
+            logger.info(f"[Consensus][TIMING] relation_vector_search={ms:.0f}ms, found={len(relations)}")
+
+            if not relations:
+                return {}
+
+            # 2. Thu thập entity keys từ 2 đầu Relationship
+            entity_keys_to_resolve: Dict[str, float] = {}
+            relation_source_chunks: Dict[str, float] = {}
+            delimiter = getattr(self.rag, 'tuple_delimiter', "<|#|>")
+            total_relations = len(relations)
+
+            for idx, rel in enumerate(relations):
+                rel_score = float(rel.get('score') or (total_relations - idx))
+
+                # Một số LightRAG version lưu src_id trực tiếp trong relation record
+                direct_src = rel.get('source_id') or rel.get('src_id')
+                if direct_src:
+                    for cid in direct_src.split(delimiter):
+                        cid = cid.strip()
+                        if cid:
+                            relation_source_chunks[cid] = max(relation_source_chunks.get(cid, 0.0), rel_score)
+
+                # Đầu nguồn
+                src_entity = rel.get('src_id') or rel.get('source') or rel.get('src')
+                if src_entity and isinstance(src_entity, str) and len(src_entity) < 200:
+                    entity_keys_to_resolve[src_entity] = max(
+                        entity_keys_to_resolve.get(src_entity, 0.0), rel_score * 0.8
+                    )
+
+                # Đầu đích
+                tgt_entity = rel.get('tgt_id') or rel.get('target') or rel.get('tgt')
+                if tgt_entity and isinstance(tgt_entity, str) and len(tgt_entity) < 200:
+                    entity_keys_to_resolve[tgt_entity] = max(
+                        entity_keys_to_resolve.get(tgt_entity, 0.0), rel_score * 0.8
+                    )
+
+            # 3. Resolve Entity → Chunk (Neo4j) — batch style
+            chunk_scores = defaultdict(float, relation_source_chunks)
+            t0 = time.perf_counter()
+            count_mapped = 0
+            for entity_key, entity_score in entity_keys_to_resolve.items():
+                try:
+                    node_data = await self.rag.chunk_entity_relation_graph.get_node(entity_key)
+                    if node_data and 'source_id' in node_data:
+                        for cid in node_data['source_id'].split(delimiter):
+                            cid = cid.strip()
+                            if cid:
+                                chunk_scores[cid] += entity_score
+                                count_mapped += 1
+                except Exception:
+                    pass
+
+            ms = (time.perf_counter() - t0) * 1000
+            logger.info(
+                f"[Consensus][TIMING] relation_entity_mapping={ms:.0f}ms "
+                f"(Neo4j x{len(entity_keys_to_resolve)} entities, mapped {count_mapped} chunks)"
+            )
+            return dict(chunk_scores)
+
+        except Exception as e:
+            logger.error(f"[Consensus][Relation] Error in Relationship Search: {e}")
+            return {}
+
     async def consensus_search(self, query: str, top_k_each_method: int = 5, final_k: int = 3) -> List[Dict[str, Any]]:
         """
-        Chiến lược:
-        1. Lấy top_k_each_method (mặc định 5) từ Naive và Local.
-        2. Tìm các Chunk XUẤT HIỆN Ở CẢ 2 bên (Giao thoa). -> LẤY HẾT nhóm này.
-        3. Nếu số lượng nhóm giao thoa < final_k (mặc định 3), lấy thêm các chunk có điểm cao nhất còn lại.
+        Chiến lược 3 nguồn:
+        1. Lấy top_k_each_method từ Naive, Local, và Relationship Search.
+        2. Phân loại chunk theo 3 mức:
+           - Gold  : Có ở cả 3 nguồn (bonus +0.2)
+           - Silver: Có ở 2 trong 3 nguồn
+           - Bronze: Có ở 1 nguồn (chỉ làm filler)
+        3. Ưu tiên Gold > Silver > Bronze cho đến đủ final_k.
         """
         t_start = time.perf_counter()
 
-        # 1. Chạy song song Naive + Local
+        # 1. Chạy song song Naive + Local + Relation
         task_naive = self._get_naive_chunk_ids(query, top_k=top_k_each_method)
         task_local = self._get_local_chunk_ids(query, top_k_entities=top_k_each_method)
-        naive_map, local_map = await asyncio.gather(task_naive, task_local)
+        task_relation = self._get_relation_chunk_ids(query, top_k=settings.CONSENSUS_RELATION_TOP_K)
+        naive_map, local_map, relation_map = await asyncio.gather(task_naive, task_local, task_relation)
 
-        logger.info(f"Consensus DEBUG: Naive found {len(naive_map)} chunks.")
-        for cid, sc in list(naive_map.items())[:5]:
-            logger.info(f"   - Naive: {cid[:20]}... | Score: {sc:.4f}")
-        logger.info(f"Consensus DEBUG: Local found {len(local_map)} chunks.")
-        for cid, sc in list(local_map.items())[:5]:
-            logger.info(f"   - Local: {cid[:20]}... | Score: {sc:.4f}")
+        enable_relation = settings.CONSENSUS_ENABLE_RELATION_SEARCH and bool(relation_map)
+        logger.info(
+            f"Consensus DEBUG: Naive={len(naive_map)}, Local={len(local_map)}, "
+            f"Relation={len(relation_map)} chunks (enabled={enable_relation})"
+        )
 
-        # 2. Chuẩn hóa và Đánh trọng số (Weighted & Normalized Scoring)
-        def normalize_map(score_map: Dict[str, float]) -> Dict[str, float]:
-            if not score_map:
-                return {}
-            min_val = min(score_map.values())
-            max_val = max(score_map.values())
-            if max_val == min_val:
-                return {k: 1.0 for k in score_map.keys()}
-            return {k: (v - min_val) / (max_val - min_val) for k, v in score_map.items()}
+        # 2. Normalize từng nguồn
+        naive_norm = _normalize_map(naive_map)
+        local_norm = _normalize_map(local_map)
+        relation_norm = _normalize_map(relation_map) if enable_relation else {}
 
-        naive_norm = normalize_map(naive_map)
-        local_norm = normalize_map(local_map)
+        W_NAIVE = settings.CONSENSUS_WEIGHT_NAIVE if enable_relation else 0.60
+        W_LOCAL = settings.CONSENSUS_WEIGHT_LOCAL if enable_relation else 0.40
+        W_RELATION = settings.CONSENSUS_WEIGHT_RELATION if enable_relation else 0.0
 
-        NAIVE_WEIGHT = 0.6
-        LOCAL_WEIGHT = 0.4
+        # 3. Tính tổng điểm và phân loại
+        all_ids = set(naive_map.keys()) | set(local_map.keys()) | set(relation_map.keys())
+        chunk_scores: Dict[str, float] = {}
+        gold_ids: Set[str] = set()
+        silver_ids: Set[str] = set()
 
-        # 3. Phân loại Chunk và tính Tổng điểm
-        intersection_ids: Set[str] = set()
-        chunk_data_map: Dict[str, float] = {}
-
-        all_ids = set(naive_map.keys()) | set(local_map.keys())
         for cid in all_ids:
-            # Tính điểm dựa trên điểm chuẩn hóa * trọng số
-            naive_score = naive_norm.get(cid, 0.0) * NAIVE_WEIGHT
-            local_score = local_norm.get(cid, 0.0) * LOCAL_WEIGHT
-            score = naive_score + local_score
-            
-            chunk_data_map[cid] = score
-            if cid in naive_map and cid in local_map:
-                intersection_ids.add(cid)
+            n_score = naive_norm.get(cid, 0.0) * W_NAIVE
+            l_score = local_norm.get(cid, 0.0) * W_LOCAL
+            r_score = relation_norm.get(cid, 0.0) * W_RELATION
+            score = n_score + l_score + r_score
 
-        # 4. Chọn lọc kết quả
-        intersect_list = sorted(intersection_ids, key=lambda x: chunk_data_map[x], reverse=True)
-        final_selected_ids = list(intersect_list)
-        logger.info(f"Consensus: Found {len(intersect_list)} intersection chunks.")
+            # Đếm số nguồn có chunk này
+            sources_count = sum([
+                cid in naive_map,
+                cid in local_map,
+                cid in relation_map and enable_relation
+            ])
 
-        if len(final_selected_ids) < final_k:
-            needed = final_k - len(final_selected_ids)
-            ordered_unique = []
-            for cid in naive_map.keys():
-                if cid not in intersection_ids:
-                    ordered_unique.append(cid)
-            for cid in local_map.keys():
-                if cid not in intersection_ids and cid not in ordered_unique:
-                    ordered_unique.append(cid)
-            ordered_unique.sort(key=lambda x: chunk_data_map[x], reverse=True)
-            fillers = ordered_unique[:needed]
-            final_selected_ids.extend(fillers)
+            if sources_count == 3:
+                score += 0.2  # Gold bonus
+                gold_ids.add(cid)
+            elif sources_count == 2:
+                silver_ids.add(cid)
 
-            filler_sources = []
-            for fid in fillers:
-                src_list = []
-                if fid in naive_map: src_list.append("NAIVE")
-                if fid in local_map: src_list.append("LOCAL")
-                filler_sources.append(f"{fid[:8]}...({'+'.join(src_list)})")
-            logger.info(f"Consensus: Added {len(fillers)} fillers: {', '.join(filler_sources)}")
+            chunk_scores[cid] = score
+
+        # 4. Chọn lọc theo thứ tự Gold → Silver → Bronze
+        gold_sorted = sorted(gold_ids, key=lambda x: chunk_scores[x], reverse=True)
+        silver_sorted = sorted(silver_ids, key=lambda x: chunk_scores[x], reverse=True)
+        bronze_sorted = sorted(
+            all_ids - gold_ids - silver_ids,
+            key=lambda x: chunk_scores[x], reverse=True
+        )
+
+        final_selected_ids: List[str] = []
+        for candidates in [gold_sorted, silver_sorted, bronze_sorted]:
+            for cid in candidates:
+                if cid not in final_selected_ids:
+                    final_selected_ids.append(cid)
+                if len(final_selected_ids) >= final_k:
+                    break
+            if len(final_selected_ids) >= final_k:
+                break
+
+        logger.info(
+            f"Consensus: Gold={len(gold_ids)}, Silver={len(silver_ids)}, "
+            f"Bronze={len(all_ids - gold_ids - silver_ids)} → Selected {len(final_selected_ids)}"
+        )
 
         # 5. Fetch Chunk Content (PostgreSQL)
         t0 = time.perf_counter()
@@ -212,8 +311,9 @@ class ConsensusRetriever:
         for cid in final_selected_ids:
             chunk_data = await self.rag.text_chunks.get_by_id(cid)
             if chunk_data:
-                chunk_data['consensus_source'] = "intersection" if cid in intersection_ids else "unique"
-                chunk_data['total_score'] = chunk_data_map[cid]
+                tier = "gold" if cid in gold_ids else ("silver" if cid in silver_ids else "bronze")
+                chunk_data['consensus_source'] = tier
+                chunk_data['total_score'] = chunk_scores[cid]
                 final_results.append(chunk_data)
         ms = (time.perf_counter() - t0) * 1000
         logger.info(f"[Consensus][TIMING] chunk_fetch={ms:.0f}ms (PostgreSQL x{len(final_selected_ids)} chunks)")
@@ -229,12 +329,10 @@ class ConsensusRetriever:
             return 999999
 
         final_results.sort(key=get_page_idx)
-        logger.info(f"Consensus: Re-ranked {len(final_results)} chunks by page order.")
 
         total_ms = (time.perf_counter() - t_start) * 1000
         logger.info(f"[Consensus][TIMING] total={total_ms:.0f}ms")
-
-        logger.info(f"Consensus: Returning {len(final_results)} chunks to LLM.")
+        logger.info(f"Consensus: Returning {len(final_results)} chunks to Reranker/LLM.")
         for i, res in enumerate(final_results[:3]):
             content_snippet = res.get('content', '')[:200].replace('\n', ' ')
             logger.info(f"   - Chunk {i+1} ({res.get('consensus_source')}): {content_snippet}...")

@@ -94,6 +94,13 @@ class Settings(BaseSettings):
     ENABLE_GRAPH_STORAGE: bool = False
     GRAPH_STORAGE_TYPE: str = "json"  # "json" | "neo4j"
 
+    # --- Consensus Retriever Configuration ---
+    CONSENSUS_ENABLE_RELATION_SEARCH: bool = True
+    CONSENSUS_RELATION_TOP_K: int = 5
+    CONSENSUS_WEIGHT_NAIVE: float = 0.50
+    CONSENSUS_WEIGHT_LOCAL: float = 0.35
+    CONSENSUS_WEIGHT_RELATION: float = 0.15
+
     # --- Startup Pre-warming ---
     # Danh sách workspace slug cần khởi tạo ngay khi service start (cách nhau bởi dấu phẩy)
     PRELOAD_WORKSPACES: str = ""  # ví dụ: "qtxd,workspace2"

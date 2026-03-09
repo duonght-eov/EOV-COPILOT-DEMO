@@ -432,8 +432,14 @@ class QueryEngine:
                 
                 context_text = "\n\n------\n\n".join(contexts)
                 
-                # --- DEBUG: Log Final Context Preview ---
+                # Log tier phân loại của từng chunk
+                tier_summary = " | ".join(
+                    f"[{c.get('consensus_source','?')}] {c.get('total_score', 0):.3f}"
+                    for c in retrieved_chunks
+                )
+                logger.info(f"Consensus Tiers: {tier_summary}")
                 logger.info(f"Final Context sent to LLM ({len(context_text)} chars):\n{context_text[:500]}...\n[...]\n{context_text[-200:]}")
+
 
                 
                 # 4. Generate Answer
@@ -594,6 +600,11 @@ class QueryEngine:
                             c_text = "\n".join(cleaned_parts)
                     contexts.append(c_text)
                 context_text = "\n\n------\n\n".join(contexts)
+                tier_summary = " | ".join(
+                    f"[{c.get('consensus_source','?')}] {c.get('total_score', 0):.3f}"
+                    for c in retrieved_chunks
+                )
+                logger.info(f"[StreamQuery] Consensus Tiers: {tier_summary}")
                 prompt = rag.rag_response_template.format(question=question, context_data=context_text)
 
             else:
