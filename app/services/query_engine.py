@@ -232,10 +232,17 @@ def _format_chunks_as_sources(chunks: List[Dict]) -> List[Dict]:
 
     return sources
 
+# Request-scoped embedding cache: {md5(text): (vector, expire_ts)}
+# TTL ngắn 5 giây — đủ cho 1 request cycle, hết ngay sau đó (không bloat RAM).
+_EMBED_CACHE: Dict[str, tuple] = {}
+_EMBED_CACHE_TTL = 5.0
+
+
 async def query_embedding_func(texts: list[str]) -> np.ndarray:
     """
     Embedding function cho QUERY — dùng singleton persistent HTTP client.
-    Tránh TCP handshake overhead mỗi lần gọi.
+    Tích hợp request-scoped cache: cùng text trong 5 giây → trả vector đã tính,
+    tránh gọi embedding service 3 lần thừa khi asyncio.gather() chạy song song.
     """
     if not texts:
         return np.array([])
@@ -244,19 +251,28 @@ async def query_embedding_func(texts: list[str]) -> np.ndarray:
     client = get_embedding_client()
     base_url = settings.EMBEDDING_SERVICE_URL.rstrip("/")
     url = f"{base_url}/api/v1/embed/text"
+    now = time.time()
 
     for text in texts:
+        # Cache lookup
+        cache_key = hashlib.md5(text.encode()).hexdigest()
+        if cache_key in _EMBED_CACHE:
+            cached_vec, expire_ts = _EMBED_CACHE[cache_key]
+            if now < expire_ts:
+                logger.debug(f"Embedding Cache HIT: '{text[:30]}...'")
+                results.append(cached_vec)
+                continue
+            del _EMBED_CACHE[cache_key]
+
         try:
-            payload = {
-                "text": text,
-                "model": settings.EMBEDDING_MODEL_NAME,
-            }
+            payload = {"text": text, "model": settings.EMBEDDING_MODEL_NAME}
             logger.info(f"Embedding Query: '{text[:30]}...' -> {url}")
             response = await client.post(url, json=payload)
             response.raise_for_status()
             data = response.json()
             vector = data.get("vector") or data.get("embedding")
             if vector:
+                _EMBED_CACHE[cache_key] = (vector, now + _EMBED_CACHE_TTL)
                 results.append(vector)
             else:
                 logger.warning(f"Empty embedding for query: {text[:20]}...")

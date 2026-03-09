@@ -6,6 +6,7 @@ from datetime import datetime
 import asyncio
 import base64
 import re
+from pathlib import Path
 from typing import Dict, Any, List, Optional, Union
 from minio import Minio
 from lightrag import LightRAG
@@ -719,28 +720,34 @@ class IndexingEngine:
 
     def _load_prompts_and_config(self):
         global _prompt_config, _chunker
-        
+
         if _prompt_config is not None:
             self.vlm_prompts = _prompt_config["vlm_prompts"]
             return
 
-        prompt_extractor_path = os.path.join(settings.RAG_WORK_DIR, "prompts", "prompt_extractor.jinja")
-        if not os.path.exists(prompt_extractor_path):
-            prompt_extractor_path = "/home/datpt/projects/EOVCopilot-Demo/services/rag-service/prompts/prompt_extractor.jinja"
+        # Thư mục prompts nằm cùng cấp với package (rag-service/prompts/)
+        _service_root = Path(__file__).parent.parent.parent
+        _prompts_src_dir = _service_root / "prompts"
+
+        def _resolve_prompt_path(filename: str) -> str:
+            """Rà soát theo thứ tự: RAG_WORK_DIR -> source prompts dir."""
+            work_dir_path = Path(settings.RAG_WORK_DIR) / "prompts" / filename
+            if work_dir_path.exists():
+                return str(work_dir_path)
+            src_path = _prompts_src_dir / filename
+            return str(src_path)
+
+        prompt_extractor_path = _resolve_prompt_path("prompt_extractor.jinja")
         custom_prompts = load_jinja_prompts(prompt_extractor_path)
 
-        processor_prompt_path = os.path.join(settings.RAG_WORK_DIR, "prompts", "processor_prompts.jinja")
-        if not os.path.exists(processor_prompt_path):
-            processor_prompt_path = "/home/datpt/projects/EOVCopilot-Demo/services/rag-service/prompts/processor_prompts.jinja"
+        processor_prompt_path = _resolve_prompt_path("processor_prompts.jinja")
         multimodal_prompts = load_jinja_prompts(processor_prompt_path)
         if multimodal_prompts:
             import raganything.prompt
             logger.info(f"Overriding RAGAnything prompts with {len(multimodal_prompts)} templates")
             raganything.prompt.PROMPTS.update(multimodal_prompts)
 
-        vlm_prompt_path = os.path.join(settings.RAG_WORK_DIR, "prompts", "vlm_prompts.jinja")
-        if not os.path.exists(vlm_prompt_path):
-            vlm_prompt_path = "/home/datpt/projects/EOVCopilot-Demo/services/rag-service/prompts/vlm_prompts.jinja"
+        vlm_prompt_path = _resolve_prompt_path("vlm_prompts.jinja")
         vlm_prompts = load_jinja_prompts(vlm_prompt_path)
 
         p_entity_extract = ""
