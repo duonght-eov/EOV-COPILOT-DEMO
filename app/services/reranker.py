@@ -8,7 +8,7 @@ logger = get_logger("RERANKER")
 
 # Singleton — load model 1 lần duy nhất khi khởi động
 _reranker = None
-_reranker_lock = asyncio.Lock()
+_reranker_lock: asyncio.Lock | None = None
 _reranker_device_info: str = "unknown"
 
 
@@ -40,9 +40,12 @@ def _load_reranker():
 
 async def _get_reranker():
     """Lấy singleton reranker, khởi tạo lazy nếu chưa có."""
-    global _reranker
+    global _reranker, _reranker_lock
     if _reranker is not None:
         return _reranker
+    # Tạo lock lazily trong event loop hiện tại, tránh deadlock khi lock được tạo ngoài loop
+    if _reranker_lock is None:
+        _reranker_lock = asyncio.Lock()
     async with _reranker_lock:
         if _reranker is None:
             _reranker = await asyncio.to_thread(_load_reranker)
