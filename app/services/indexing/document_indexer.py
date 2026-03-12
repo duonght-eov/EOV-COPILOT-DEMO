@@ -27,11 +27,11 @@ class IndexingEngine:
         # Load trước prompt ra memory
         self.prompt_config = get_prompt_config()
         self.vlm_prompts = self.prompt_config.get("vlm_prompts", {})
+        self._global_caption_cache: Dict[str, str] = {}
 
     async def preprocess_content_for_chunking(self, full_content_list: List[Dict]) -> List[Dict]:
         """Processes raw content blocks to prepare them for chunking (Enriches images with VLM captions)."""
         text_only_content = []
-        self._last_caption_cache: Dict[str, str] = {}
         
         def get_surrounding_text(curr_idx, all_items, window=2):
             prev_text, next_text = [], []
@@ -71,34 +71,41 @@ class IndexingEngine:
                             if not local_img_path: img_path = None
                     
                     if local_img_path and os.path.exists(local_img_path):
-                        try:
-                            prev_ctx, _ = get_surrounding_text(i, full_content_list)
-                            context_str = f"[Văn bản trước đó]:\n{prev_ctx}\n" if prev_ctx else "Không có văn bản ngữ cảnh cụ thể."
-                            template = self.vlm_prompts.get("inline_enrichment_narrative")
-                            prompt = template.replace("{{ context_str }}", context_str) if template else (
-                                f"Ngữ cảnh tài liệu:\n---\n{context_str}\n---\nPhân tích hình ảnh chi tiết dựa vào ngữ cảnh này. Trả lời bằng Tiếng Việt."
-                            )
-                            
-                            vlm_sys_prompt = self.vlm_prompts.get("vlm_system_prompt")
-                            vlm_kwargs = {"system_prompt": vlm_sys_prompt.strip()} if vlm_sys_prompt else {}
-                            
-                            logger.info(f"Phase 1.5 [VLM]: Bắt đầu mô tả ảnh {os.path.basename(img_path)} (Page {item.get('page_idx', 'unknown')})")
-                            async with semaphore:
-                                caption = await asyncio.wait_for(
-                                    vlm_model_func(prompt, images=[local_img_path], **vlm_kwargs),
-                                    timeout=480.0
+                        # LẤY TÊN GỐC CỦA ẢNH (Bỏ qua định dạng job_id của OCR)
+                        # VD: img_path = "ocr-results/47cf2c8eda154517a5055ce58a86e242/images/1_0.jpg" -> cache_key = "1_0.jpg"
+                        cache_key = os.path.basename(img_path) if img_path else "unknown.jpg"
+                        
+                        if cache_key in self._global_caption_cache:
+                            caption = self._global_caption_cache[cache_key]
+                            logger.info(f"Phase 1.5 [VLM]: >>> Đã có Cache VLM, bỏ qua mô tả lại ảnh: {cache_key} <<<")
+                        else:
+                            try:
+                                prev_ctx, _ = get_surrounding_text(i, full_content_list)
+                                context_str = f"[Văn bản trước đó]:\n{prev_ctx}\n" if prev_ctx else "Không có văn bản ngữ cảnh cụ thể."
+                                template = self.vlm_prompts.get("inline_enrichment_narrative")
+                                prompt = template.replace("{{ context_str }}", context_str) if template else (
+                                    f"Ngữ cảnh tài liệu:\n---\n{context_str}\n---\nPhân tích hình ảnh chi tiết dựa vào ngữ cảnh này. Trả lời bằng Tiếng Việt."
                                 )
-                            logger.info(f"Phase 1.5 [VLM]: Mô tả thành công: {os.path.basename(img_path)}")
-                        except asyncio.TimeoutError:
-                            logger.error(f"Phase 1.5 [VLM]: Timeout khi mô tả ảnh {os.path.basename(img_path)}")
-                            caption = f"Hình ảnh minh họa: {os.path.basename(img_path)}"
-                        except Exception as e:
-                            logger.error(f"Phase 1.5 [VLM]: Lỗi '{e}' khi mô tả ảnh {os.path.basename(img_path)}")
-                            caption = f"Hình ảnh minh họa: {os.path.basename(img_path)}"
+                                
+                                vlm_sys_prompt = self.vlm_prompts.get("vlm_system_prompt")
+                                vlm_kwargs = {"system_prompt": vlm_sys_prompt.strip()} if vlm_sys_prompt else {}
+                                
+                                logger.info(f"Phase 1.5 [VLM]: Bắt đầu chạy VLM mô tả ảnh {cache_key} (Page {item.get('page_idx', 'unknown')})")
+                                async with semaphore:
+                                    caption = await asyncio.wait_for(
+                                        vlm_model_func(prompt, images=[local_img_path], **vlm_kwargs),
+                                        timeout=480.0
+                                    )
+                                logger.info(f"Phase 1.5 [VLM]: Mô tả thành công: {cache_key}")
+                                self._global_caption_cache[cache_key] = caption
+                            except asyncio.TimeoutError:
+                                logger.error(f"Phase 1.5 [VLM]: Timeout khi mô tả ảnh {os.path.basename(img_path)}")
+                                caption = f"Hình ảnh minh họa: {os.path.basename(img_path)}"
+                            except Exception as e:
+                                logger.error(f"Phase 1.5 [VLM]: Lỗi '{e}' khi mô tả ảnh {os.path.basename(img_path)}")
+                                caption = f"Hình ảnh minh họa: {os.path.basename(img_path)}"
                     else:
                         caption = f"Hình ảnh minh họa: {os.path.basename(img_path) if img_path else 'unknown'}"
-                if img_path:
-                    self._last_caption_cache[img_path] = caption
                 page_label = f"[Page {item.get('page_idx', '')}]" if item.get('page_idx') is not None else ""
                 img_ref = f"[IMAGE_REF:{img_path}]" if img_path else ""
                 return {"type": "text", "text": f"{page_label}{img_ref} {caption}".strip(), "page_idx": item.get("page_idx")}
@@ -114,29 +121,6 @@ class IndexingEngine:
         for res in results:
             if res is not None: text_only_content.append(res)
         return text_only_content
-
-    def _extract_multimodal_items(self, full_content_list: List[Dict]) -> List[Dict]:
-        """Bóc tách Image/Table từ full_content_list cho RAGAnything."""
-        items = []
-        try:
-            for b in full_content_list:
-                if b.get("type") not in ["image", "table"]: continue
-                item = b.copy()
-                if "img_path" not in item and "image_path" in item: item["img_path"] = item["image_path"]
-                img_path = item.get("img_path", "")
-                item["_ocr_img_path"] = img_path 
-                if img_path:
-                    if os.path.isabs(img_path) and os.path.exists(img_path): pass
-                    elif img_path.startswith("ocr-results/"):
-                        object_path = img_path.replace("ocr-results/", "", 1)
-                        # Ủy quyền cho Infrastructure MinIO Client
-                        local_path = download_ocr_image(object_path)
-                        item["img_path"] = local_path if local_path else None
-                    else: item["img_path"] = None
-                items.append(item)
-        except Exception as e:
-            logger.error(f"Multimodal extraction error: {e}")
-        return items
 
     async def index_document(self, ocr_data: Dict[str, Any], workspace: str = "default", job_id: str = "unknown", original_filename: str = ""):
         """Kịch bản Indexing Hợp nhất (Core Workflow Use-Case)"""

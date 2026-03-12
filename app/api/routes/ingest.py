@@ -182,71 +182,104 @@ async def upload_and_index(
             shutil.copyfileobj(file.file, f)
         logger.info(f"File saved: {temp_path}")
 
-        # 2. Submit sang OCR service
-        logger.info(f"[OCR] Submitting to {OCR_SERVICE_URL} ...")
-        try:
-            ocr_job_id = await _submit_to_ocr(temp_path, file.filename, model=ocr_model)
-        except Exception as e:
-            logger.error(f"[OCR] Submit failed: {e}")
+        # [DEDUP] Tính mã MD5 của file để chống Double-Click / Retry sinh ra 2 luồng OCR song song
+        import hashlib
+        def get_file_md5(fp: str) -> str:
+            hash_md5 = hashlib.md5()
+            with open(fp, "rb") as f2:
+                for chunk in iter(lambda: f2.read(4096), b""):
+                    hash_md5.update(chunk)
+            return hash_md5.hexdigest()
+            
+        file_md5 = get_file_md5(temp_path)
+        if not hasattr(router, "_active_md5_jobs"):
+            router._active_md5_jobs = set()
+            
+        if file_md5 in router._active_md5_jobs:
+            logger.warning(f"[DEDUP] Bỏ qua file trùng lặp (MD5={file_md5}). File đang được xử lý bởi tiến trình OCR/Indexing trước đó.")
+            os.remove(temp_path)
             return {
-                "success": False,
+                "success": True,
                 "job_id": job_id,
+                "ocr_job_id": "ignored_duplicate",
                 "workspace": workspace,
                 "filename": file.filename,
                 "indexed": False,
-                "message": f"OCR service không phản hồi: {e}",
+                "message": "File đang được xử lý bởi tiến trình khác (Deduplicate).",
             }
-
-        # 3. Poll đến khi xong
+            
+        router._active_md5_jobs.add(file_md5)
+        
         try:
-            await _poll_ocr_status(ocr_job_id)
-        except (RuntimeError, TimeoutError) as e:
-            logger.error(f"[OCR] Poll failed: {e}")
+            # 2. Submit sang OCR service
+            logger.info(f"[OCR] Submitting to {OCR_SERVICE_URL} ...")
+            try:
+                ocr_job_id = await _submit_to_ocr(temp_path, file.filename, model=ocr_model)
+            except Exception as e:
+                logger.error(f"[OCR] Submit failed: {e}")
+                return {
+                    "success": False,
+                    "job_id": job_id,
+                    "workspace": workspace,
+                    "filename": file.filename,
+                    "indexed": False,
+                    "message": f"OCR service không phản hồi: {e}",
+                }
+
+            # 3. Poll đến khi xong
+            try:
+                await _poll_ocr_status(ocr_job_id)
+            except (RuntimeError, TimeoutError) as e:
+                logger.error(f"[OCR] Poll failed: {e}")
+                return {
+                    "success": False,
+                    "job_id": job_id,
+                    "ocr_job_id": ocr_job_id,
+                    "workspace": workspace,
+                    "filename": file.filename,
+                    "indexed": False,
+                    "message": str(e),
+                }
+
+            # 4. Download JSON từ MinIO
+            try:
+                ocr_json = await _download_ocr_json(ocr_job_id)
+                logger.info(f"[OCR] JSON downloaded, keys={list(ocr_json.keys())}")
+            except Exception as e:
+                logger.error(f"[OCR] JSON download failed: {e}")
+                return {
+                    "success": False,
+                    "job_id": job_id,
+                    "ocr_job_id": ocr_job_id,
+                    "workspace": workspace,
+                    "filename": file.filename,
+                    "indexed": False,
+                    "message": f"Download OCR JSON thất bại: {e}",
+                }
+
+            # 5. Index vào RAG
+            ocr_json["workspace"] = workspace
+            ocr_json["job_id"] = job_id
+            ocr_json["original_filename"] = file.filename
+            await default_engine.index_document(
+                ocr_json, workspace=workspace, job_id=job_id,
+                original_filename=file.filename
+            )
+            logger.info(f"[RAG] Indexed job={job_id} workspace={workspace}")
+
             return {
-                "success": False,
+                "success": True,
                 "job_id": job_id,
                 "ocr_job_id": ocr_job_id,
                 "workspace": workspace,
                 "filename": file.filename,
-                "indexed": False,
-                "message": str(e),
+                "indexed": True,
+                "message": "OCR + Indexing hoàn tất thành công",
             }
-
-        # 4. Download JSON từ MinIO
-        try:
-            ocr_json = await _download_ocr_json(ocr_job_id)
-            logger.info(f"[OCR] JSON downloaded, keys={list(ocr_json.keys())}")
-        except Exception as e:
-            logger.error(f"[OCR] JSON download failed: {e}")
-            return {
-                "success": False,
-                "job_id": job_id,
-                "ocr_job_id": ocr_job_id,
-                "workspace": workspace,
-                "filename": file.filename,
-                "indexed": False,
-                "message": f"Download OCR JSON thất bại: {e}",
-            }
-
-        # 5. Index vào RAG
-        ocr_json["workspace"] = workspace
-        ocr_json["job_id"] = job_id
-        ocr_json["original_filename"] = file.filename
-        await default_engine.index_document(
-            ocr_json, workspace=workspace, job_id=job_id,
-            original_filename=file.filename
-        )
-        logger.info(f"[RAG] Indexed job={job_id} workspace={workspace}")
-
-        return {
-            "success": True,
-            "job_id": job_id,
-            "ocr_job_id": ocr_job_id,
-            "workspace": workspace,
-            "filename": file.filename,
-            "indexed": True,
-            "message": "OCR + Indexing hoàn tất thành công",
-        }
+        
+        finally:
+            if file_md5 in getattr(router, "_active_md5_jobs", set()):
+                router._active_md5_jobs.remove(file_md5)
 
     except Exception as e:
         logger.error(f"Upload/Index Failed: {str(e)}")
