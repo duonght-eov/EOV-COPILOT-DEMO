@@ -38,7 +38,7 @@ const markdown = markdownIt({
           hljs.highlight(code, { language: lang, ignoreIllegals: true }).value +
           "</pre></div>"
         );
-      } catch (__) {}
+      } catch (__) { }
     }
 
     return (
@@ -73,7 +73,7 @@ markdown.renderer.rules.image = function (tokens, idx) {
   const src = token.attrs[srcIndex][1];
   const alt = token.content || "";
 
-  return `<div class="w-full max-w-[800px]"><img src="${src}" alt="${alt}" class="w-full h-auto" /></div>`;
+  return `<img src="${src}" alt="${alt}" class="max-h-[200px] w-auto rounded-lg cursor-zoom-in hover:opacity-90 transition-opacity markdown-image inline-block my-2" />`;
 };
 
 markdown.use(markdownItKatexPlugin);

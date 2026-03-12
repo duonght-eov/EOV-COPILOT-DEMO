@@ -136,6 +136,13 @@ export function WorkspaceProfileImage({ workspace }) {
 function RenderAssistantChatContent({ message }) {
   const contentRef = useRef("");
   const thoughtChainRef = useRef(null);
+  const [lightbox, setLightbox] = useState(null);
+
+  const handleContainerClick = (e) => {
+    if (e.target.tagName === "IMG" && e.target.classList.contains("markdown-image")) {
+      setLightbox(e.target.src);
+    }
+  };
 
   useEffect(() => {
     const thinking =
@@ -170,8 +177,17 @@ function RenderAssistantChatContent({ message }) {
       )}
       <span
         className="break-words"
+        onClick={handleContainerClick}
         dangerouslySetInnerHTML={{ __html: renderMarkdown(contentRef.current) }}
       />
+      {lightbox && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80" onClick={() => setLightbox(null)}>
+          <button className="absolute top-4 right-4 text-white/70 hover:text-white" onClick={() => setLightbox(null)}>
+            <X size={28} />
+          </button>
+          <img src={lightbox} alt="Xem ảnh" className="max-h-[90vh] max-w-[90vw] rounded-xl object-contain shadow-2xl" onClick={(e) => e.stopPropagation()} />
+        </div>
+      )}
     </div>
   );
 }

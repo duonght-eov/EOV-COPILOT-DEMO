@@ -246,16 +246,35 @@ function ChatAttachments({ attachments = [] }) {
 
 const RenderChatContent = memo(
   ({ role, message, expanded = false }) => {
+    const [lightbox, setLightbox] = useState(null);
+
+    const handleContainerClick = (e) => {
+      if (e.target.tagName === "IMG" && e.target.classList.contains("markdown-image")) {
+        setLightbox(e.target.src);
+      }
+    };
+
     // If the message is not from the assistant, we can render it directly
     // as normal since the user cannot think (lol)
     if (role !== "assistant")
       return (
-        <span
-          className="flex flex-col gap-y-1"
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(renderMarkdown(message)),
-          }}
-        />
+        <>
+          <span
+            className="flex flex-col gap-y-1"
+            onClick={handleContainerClick}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(renderMarkdown(message)),
+            }}
+          />
+          {lightbox && (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80" onClick={() => setLightbox(null)}>
+              <button className="absolute top-4 right-4 text-white/70 hover:text-white" onClick={() => setLightbox(null)}>
+                <X size={28} />
+              </button>
+              <img src={lightbox} alt="Xem ảnh" className="max-h-[90vh] max-w-[90vw] rounded-xl object-contain shadow-2xl" onClick={(e) => e.stopPropagation()} />
+            </div>
+          )}
+        </>
       );
     let thoughtChain = null;
     let msgToRender = message;
@@ -288,10 +307,19 @@ const RenderChatContent = memo(
         )}
         <span
           className="flex flex-col gap-y-1"
+          onClick={handleContainerClick}
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(renderMarkdown(msgToRender)),
           }}
         />
+        {lightbox && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80" onClick={() => setLightbox(null)}>
+            <button className="absolute top-4 right-4 text-white/70 hover:text-white" onClick={() => setLightbox(null)}>
+              <X size={28} />
+            </button>
+            <img src={lightbox} alt="Xem ảnh" className="max-h-[90vh] max-w-[90vw] rounded-xl object-contain shadow-2xl" onClick={(e) => e.stopPropagation()} />
+          </div>
+        )}
       </>
     );
   },
