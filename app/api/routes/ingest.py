@@ -6,21 +6,21 @@ import asyncio
 import shutil
 import httpx
 
-from app.services.indexing_engine import default_engine
+from app.services.indexing.document_indexer import default_engine
 from app.utils.logger import get_logger
 from app.config import settings
 
 router = APIRouter()
 logger = get_logger("API_INGEST")
 
-OCR_SERVICE_URL = os.environ.get("OCR_SERVICE_URL", "http://10.0.0.156:8001")
+OCR_SERVICE_URL = settings.OCR_SERVICE_URL
 OCR_POLL_INTERVAL = 5      # giây
-OCR_POLL_TIMEOUT = 600     # giây tối đa chờ OCR
+OCR_POLL_TIMEOUT = settings.OCR_POLL_TIMEOUT     # giây tối đa chờ OCR
 
 # MinIO endpoint thực tế (dùng để rewrite presigned URL từ OCR service)
 # OCR service generate URL với host "localhost" nhưng MinIO thực tế nằm trên máy khác
-_MINIO_ENDPOINT = os.environ.get("MINIO_ENDPOINT", "10.0.0.156:9000")
-_MINIO_SECURE = os.environ.get("MINIO_SECURE", "false").lower() == "true"
+_MINIO_ENDPOINT = settings.MINIO_ENDPOINT
+_MINIO_SECURE = settings.MINIO_SECURE
 _MINIO_SCHEME = "https" if _MINIO_SECURE else "http"
 _MINIO_PUBLIC_BASE = f"{_MINIO_SCHEME}://{_MINIO_ENDPOINT}"
 
@@ -99,12 +99,12 @@ async def _download_ocr_json(ocr_job_id: str) -> Dict[str, Any]:
 
     minio_client = Minio(
         _MINIO_ENDPOINT,
-        access_key=os.environ.get("MINIO_ACCESS_KEY", ""),
-        secret_key=os.environ.get("MINIO_SECRET_KEY", ""),
+        access_key=settings.MINIO_ACCESS_KEY,
+        secret_key=settings.MINIO_SECRET_KEY,
         secure=_MINIO_SECURE,
     )
 
-    bucket = os.environ.get("MINIO_BUCKET_OCR_RESULTS", "ocr-results")
+    bucket = settings.MINIO_BUCKET_OCR_RESULTS
     object_path = f"{ocr_job_id}/{ocr_job_id}.json"
 
     logger.info(f"[OCR] Downloading from MinIO: {bucket}/{object_path}")
@@ -264,7 +264,7 @@ async def purge_workspace_data(workspace_slug: str):
     Xóa toàn bộ dữ liệu Vector, Cache, và Đồ thị (Neo4j) của một workspace cụ thể.
     Được gọi từ API Gateway khi người dùng bấm Delete Workspace.
     """
-    from app.services.cleanup_service import clean_postgres, clean_neo4j
+    from app.services.management.cleanup_service import clean_postgres, clean_neo4j
     logger.info(f"Received request to purge data for workspace: {workspace_slug}")
     try:
         pg_deleted = await clean_postgres(workspace_slug)
@@ -289,7 +289,7 @@ async def purge_document_data(workspace_slug: str, filename: str):
     Xóa toàn bộ dữ liệu của một tài liệu cụ thể trong workspace.
     Được gọi từ API Gateway khi người dùng bấm Delete Document.
     """
-    from app.services.cleanup_service import clean_document
+    from app.services.management.cleanup_service import clean_document
     logger.info(f"Received request to purge data for document: {filename} in workspace: {workspace_slug}")
     try:
         deleted_count = await clean_document(workspace_slug, filename)

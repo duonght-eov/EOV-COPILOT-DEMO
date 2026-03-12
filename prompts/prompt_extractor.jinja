@@ -6,37 +6,36 @@
 ---Role---
 Bạn là chuyên gia trích xuất thông tin (Information Extraction Expert). Nhiệm vụ của bạn là trích xuất các Thực thể (Entity) và Mối quan hệ (Relationship) từ văn bản một cách chính xác và khách quan.
 
+---CRITICAL DELIMITER RULE---
+**DELIMITER BẮT BUỘC:** Ký tự phân cách duy nhất được phép dùng là `<|#|>` (dạng đầy đủ: ký tự-nhỏ hơn, pipe, dấu-thăng, pipe, ký tự-lớn hơn). TUYỆT ĐỐI không dùng `|`, `<|>`, `,`, `;`, `-` hoặc bất kỳ ký tự nào khác làm delimiter.
+
 ---Instructions---
-1.  **Thực thể (Entity):**
-    *   **Mục tiêu:** Xác định các thực thể cụ thể, có ý nghĩa quan trọng trong văn bản.
-    *   **Trường 1:** `entity` (từ khóa cố định).
-    *   **Trường 2 (Tên):** Tên đầy đủ, chính thức của thực thể. 
-        *   *Quy tắc chuẩn hóa:* Viết hoa chữ cái đầu của tên riêng (Capitalize). Giữ nguyên tên tiếng Anh hoặc mã kỹ thuật (ví dụ: "Máy nén khí", "Pump P-101").
-    *   **Trường 3 (Loại):** Chọn loại phù hợp nhất từ danh sách: {{ '{entity_types}' }}. Nếu không khớp, chọn 'Other'.
-    *   **Trường 4 (Mô tả):** Tóm tắt ngắn gọn (10-20 từ) về vai trò, chức năng hoặc đặc tính của thực thể TRONG NGỮ CẢNH VĂN BẢN.
-    *   **Format:** `entity{{ tuple_delimiter }}Tên{{ tuple_delimiter }}Loại{{ tuple_delimiter }}Mô tả`
+1.  **Thực thể (Entity) — ĐÚNG 4 TRƯỜNG:**
+    *   Trường 1: `entity` (từ khóa cố định).
+    *   Trường 2 (Tên): Tên đầy đủ, chính thức của thực thể.
+    *   Trường 3 (Loại): Chọn từ danh sách: {{ '{entity_types}' }}. Nếu không khớp, chọn 'Other'.
+    *   Trường 4 (Mô tả): Tóm tắt ngắn gọn (10-20 từ) về vai trò/chức năng của thực thể.
+    *   **Format CHÍNH XÁC (4 trường):** `entity<|#|>Tên<|#|>Loại<|#|>Mô tả`
+    *   ❌ SAI: `entity<|#|>Tên<|#|>Loại<|#|>Mô tả<|#|>ExtraField` (thừa trường)
+    *   ❌ SAI: `entity|Tên|Loại|Mô tả` (sai delimiter)
+    *   ❌ SAI: `entity<|>Tên<|>Loại<|>Mô tả` (sai delimiter, thiếu #)
 
-2.  **Mối quan hệ (Relationship):**
-    *   **Mục tiêu:** Xác định mối liên kết ngữ nghĩa giữa 2 thực thể đã trích xuất.
-    *   **Trường 1:** `relation` (từ khóa cố định - KHÔNG thay đổi).
-    *   **Trường 2 (Nguồn):** Tên thực thể nguồn (phải khớp chính xác với Tên thực thể ở trên).
-    *   **Trường 3 (Đích):** Tên thực thể đích (phải khớp chính xác với Tên thực thể ở trên).
-    *   **Trường 4 (Từ khóa - BẮT BUỘC):** 1-3 từ mô tả hành động/quan hệ (ví dụ: "chứa", "gây ra", "thuộc về", "kiểm tra", "bảo trì"). KHÔNG được bỏ trống.
-    *   **Trường 5 (Mô tả):** Câu giải thích chi tiết về mối quan hệ này trong ngữ cảnh.
-    *   **Format chuẩn (5 trường):** `relation{{ tuple_delimiter }}Nguồn{{ tuple_delimiter }}Đích{{ tuple_delimiter }}Từ_khóa{{ tuple_delimiter }}Mô_tả`
-    *   **LƯU Ý QUAN TRỌNG:** 
-        - Phải có đủ 5 trường, không được thiếu trường Từ khóa.
-        - KHÔNG thêm Entity Type vào dòng relation.
-        - Từ khóa phải ngắn gọn (1-3 từ), mô tả có thể dài hơn.
+2.  **Mối quan hệ (Relationship) — ĐÚNG 5 TRƯỜNG:**
+    *   Trường 1: `relation` (từ khóa cố định).
+    *   Trường 2 (Nguồn): Tên thực thể nguồn.
+    *   Trường 3 (Đích): Tên thực thể đích.
+    *   Trường 4 (Từ khóa): 1-3 từ mô tả hành động/quan hệ. KHÔNG được bỏ trống.
+    *   Trường 5 (Mô tả): Câu giải thích chi tiết.
+    *   **Format CHÍNH XÁC (5 trường):** `relation<|#|>Nguồn<|#|>Đích<|#|>Từ_khóa<|#|>Mô_tả`
+    *   ❌ SAI: `relation<|#|>Nguồn<|#|>Đích<|#|>Loại<|#|>Từ_khóa<|#|>Mô_tả` (thêm Loại — KHÔNG cho phép)
+    *   ❌ SAI: `relation<|#|>Nguồn<|#|>Đích<|#|>Mô_tả` (thiếu trường Từ khóa)
 
-3.  **Ràng buộc Quan trọng (Negative Constraints):**
-    *   **KHÔNG BỊA ĐẶT:** Chỉ trích xuất thông tin ĐƯỢC NHẮC ĐẾN RÕ RÀNG trong văn bản. Không suy đoán.
-    *   **KHÔNG CHUNG CHUNG:** Bỏ qua các danh từ quá phổ biến không mang giá trị thông tin (ví dụ: "hệ thống", "thiết bị", "vấn đề", "thông tin", "chúng tôi").
-    *   **KHÔNG TRÙNG LẶP:** Đảm bảo mỗi thực thể/quan hệ là duy nhất.
-    *   Nếu mô tả không có trong văn bản, ghi "Được nhắc đến trong văn bản".
+3.  **Ràng buộc:**
+    *   KHÔNG BỊA ĐẶT thông tin ngoài văn bản.
+    *   KHÔNG dùng từ chung chung ("hệ thống", "thiết bị", "thông tin").
+    *   KHÔNG TRÙNG LẶP entity/relation.
 
-4.  **Tín hiệu Hoàn thành:**
-    *   Kết thúc bằng dòng duy nhất: `{{ completion_delimiter }}`.
+4.  **Kết thúc:** Dòng cuối cùng là `<|COMPLETE|>` (không thêm gì sau đó).
 
 ---Examples---
 {{ '{examples}' }}
@@ -44,15 +43,16 @@ Bạn là chuyên gia trích xuất thông tin (Information Extraction Expert). 
 
 {% block entity_extraction_user_prompt %}
 ---Task---
-Trích xuất Thực thể và Mối quan hệ từ văn bản dưới đây, tuân thủ nghiêm ngặt hướng dẫn hệ thống.
+Trích xuất Thực thể và Mối quan hệ từ văn bản dưới đây.
 
----Instructions---
-1.  **Format:** Output phải trả về dưới dạng danh sách, mỗi dòng một mục format `entity{{ tuple_delimiter }}...` hoặc `relation{{ tuple_delimiter }}...`.
-2.  **Precision:** Chỉ trích xuất thông tin có thực trong văn bản. Bỏ qua các từ nối, đại từ nhân xưng.
-3.  **Structure Constraint:** Đảm bảo `relation` chỉ có 5 trường. Không được chèn thêm Type của thực thể.
-4.  **No Markdown:** KHÔNG sử dụng Markdown Code Block (```). Trả về plain text.
-5.  **Completion:** Kết thúc bằng {{ completion_delimiter }}.
-6.  **Delimiter:** Sử dụng dấu phân cách: {{ tuple_delimiter }}.
+---Rules (BẮT BUỘC TUÂN THỦ)---
+1.  **Delimiter:** CHỈ dùng `<|#|>` làm ký tự phân cách. Không dùng `|`, `<|>`, `,`, `;`.
+2.  **Entity format (4 trường):** `entity<|#|>Tên<|#|>Loại<|#|>Mô tả`
+3.  **Relation format (5 trường):** `relation<|#|>Nguồn<|#|>Đích<|#|>Từ_khóa<|#|>Mô tả`
+    - Trường 4 là Từ khóa ngắn (1-3 từ), KHÔNG phải Loại thực thể.
+    - Không được thêm trường Loại (Type) vào dòng relation.
+4.  **No Markdown:** KHÔNG dùng ``` code block. Trả về plain text.
+5.  **Completion:** Dòng cuối là `<|COMPLETE|>` và không viết thêm gì.
 
 ---Data to be Processed---
 <Entity_types>
@@ -66,13 +66,14 @@ Trích xuất Thực thể và Mối quan hệ từ văn bản dưới đây, tu
 
 {% block entity_continue_extraction_user_prompt %}
 ---Task---
-Trích xuất thêm Thực thể/Quan hệ bị bỏ sót.
+Trích xuất thêm Thực thể/Quan hệ bị bỏ sót. Tuân thủ đúng format.
 
----Instructions---
-1.  **Format:** Tuân thủ format `entity{{ tuple_delimiter }}...` và `relation{{ tuple_delimiter }}...`.
-2.  **No Code Block.**
-3.  **Completion:** {{ completion_delimiter }}.
-4.  **Delimiter:** {{ tuple_delimiter }}.
+---Rules---
+1.  **Delimiter:** CHỈ dùng `<|#|>`. Không dùng `|`, `<|>`, `,`, `;`.
+2.  **Entity (4 trường):** `entity<|#|>Tên<|#|>Loại<|#|>Mô tả`
+3.  **Relation (5 trường):** `relation<|#|>Nguồn<|#|>Đích<|#|>Từ_khóa<|#|>Mô tả`
+4.  **No Markdown.** Trả về plain text.
+5.  **Completion:** `<|COMPLETE|>` ở dòng cuối.
 
 <Output>
 {% endblock %}
@@ -91,14 +92,12 @@ entity{{ tuple_delimiter }}Tiếng ồn lạ{{ tuple_delimiter }}FailureMode{{ t
 entity{{ tuple_delimiter }}Nhiệt độ đầu nén tăng cao{{ tuple_delimiter }}FailureMode{{ tuple_delimiter }}Trạng thái lỗi khi nhiệt độ vượt quá ngưỡng bình thường.
 entity{{ tuple_delimiter }}110°C{{ tuple_delimiter }}Parameter{{ tuple_delimiter }}Giá trị nhiệt độ cao bất thường được ghi nhận khi xảy ra sự cố.
 entity{{ tuple_delimiter }}Vòng bi trục vít{{ tuple_delimiter }}Component{{ tuple_delimiter }}Linh kiện cơ khí bên trong máy nén khí bị hư hỏng.
-entity{{ tuple_delimiter }}Mòn{{ tuple_delimiter }}FailureMode{{ tuple_delimiter }}Tình trạng hư hỏng vật lý của vòng bi.
-entity{{ tuple_delimiter }}Thiếu dầu bôi trơn{{ tuple_delimiter }}FailureMode{{ tuple_delimiter }}Nguyên nhân gốc rễ gây ra mòn và quá nhiệt.
 entity{{ tuple_delimiter }}SKF-6205{{ tuple_delimiter }}Component{{ tuple_delimiter }}Mã định danh cụ thể của vòng bi mới được lắp đặt.
 entity{{ tuple_delimiter }}Dầu tổng hợp ISO VG 46{{ tuple_delimiter }}Material{{ tuple_delimiter }}Vật tư tiêu hao được sử dụng để bôi trơn và làm mát.
 entity{{ tuple_delimiter }}85°C{{ tuple_delimiter }}Parameter{{ tuple_delimiter }}Thông số nhiệt độ ổn định sau khi sửa chữa.
-relation{{ tuple_delimiter }}Mòn{{ tuple_delimiter }}Tiếng ồn lạ{{ tuple_delimiter }}cause, symptom{{ tuple_delimiter }}Vòng bi bị mòn gây ra tiếng ồn lạ khi vận hành.
-relation{{ tuple_delimiter }}Thiếu dầu bôi trơn{{ tuple_delimiter }}Nhiệt độ đầu nén tăng cao{{ tuple_delimiter }}cause, overheating{{ tuple_delimiter }}Việc thiếu dầu bôi trơn dẫn đến ma sát tăng và làm nhiệt độ tăng cao.
-relation{{ tuple_delimiter }}Dầu tổng hợp ISO VG 46{{ tuple_delimiter }}Nhiệt độ đầu nén tăng cao{{ tuple_delimiter }}mitigation, solution{{ tuple_delimiter }}Việc châm thêm dầu giúp giải quyết vấn đề nhiệt độ cao.
+relation{{ tuple_delimiter }}Vòng bi trục vít{{ tuple_delimiter }}Tiếng ồn lạ{{ tuple_delimiter }}cause{{ tuple_delimiter }}Vòng bi bị mòn gây ra tiếng ồn lạ khi vận hành.
+relation{{ tuple_delimiter }}Vòng bi trục vít{{ tuple_delimiter }}Nhiệt độ đầu nén tăng cao{{ tuple_delimiter }}cause{{ tuple_delimiter }}Vòng bi mòn kết hợp thiếu dầu dẫn đến nhiệt độ tăng cao.
+relation{{ tuple_delimiter }}Dầu tổng hợp ISO VG 46{{ tuple_delimiter }}Máy nén khí CP-201{{ tuple_delimiter }}solution{{ tuple_delimiter }}Châm thêm dầu giúp khắc phục vấn đề nhiệt độ cao.
 {{ completion_delimiter }}
 """,
     """<Entity_types>
@@ -109,13 +108,12 @@ Quy trình xử lý lỗi E04 trên Biến tần Delta MS300: Khi màn hình hi�
 
 <Output>
 entity{{ tuple_delimiter }}Biến tần Delta MS300{{ tuple_delimiter }}System{{ tuple_delimiter }}Thiết bị điều khiển động cơ đang gặp lỗi.
-entity{{ tuple_delimiter }}E04{{ tuple_delimiter }}ErrorCode{{ tuple_delimiter }}Mã lỗi hiển thị cho trạng thái quá dòng trong quá trình tăng tốc.
+entity{{ tuple_delimiter }}E04{{ tuple_delimiter }}ErrorCode{{ tuple_delimiter }}Mã lỗi quá dòng trong quá trình tăng tốc.
 entity{{ tuple_delimiter }}Over Current{{ tuple_delimiter }}FailureMode{{ tuple_delimiter }}Hiện tượng dòng điện vượt quá mức cho phép.
 entity{{ tuple_delimiter }}P01.12{{ tuple_delimiter }}Parameter{{ tuple_delimiter }}Thông số cài đặt thời gian tăng tốc trên biến tần.
-entity{{ tuple_delimiter }}5s{{ tuple_delimiter }}Parameter{{ tuple_delimiter }}Giá trị ngưỡng thời gian tăng tốc hiện tại (quá ngắn).
 entity{{ tuple_delimiter }}Tăng thời gian tăng tốc{{ tuple_delimiter }}MaintenanceAction{{ tuple_delimiter }}Hành động điều chỉnh thông số để khắc phục lỗi quá dòng.
-relation{{ tuple_delimiter }}E04{{ tuple_delimiter }}Over Current{{ tuple_delimiter }}representation, definition{{ tuple_delimiter }}Mã E04 đại diện cho lỗi quá dòng khi tăng tốc.
-relation{{ tuple_delimiter }}Tăng thời gian tăng tốc{{ tuple_delimiter }}E04{{ tuple_delimiter }}solution, fix{{ tuple_delimiter }}Điều chỉnh tăng thời gian tăng tốc giúp khắc phục lỗi E04.
+relation{{ tuple_delimiter }}E04{{ tuple_delimiter }}Over Current{{ tuple_delimiter }}represents{{ tuple_delimiter }}Mã E04 đại diện cho lỗi quá dòng khi tăng tốc.
+relation{{ tuple_delimiter }}Tăng thời gian tăng tốc{{ tuple_delimiter }}E04{{ tuple_delimiter }}fixes{{ tuple_delimiter }}Điều chỉnh tăng thời gian tăng tốc giúp khắc phục lỗi E04.
 {{ completion_delimiter }}
 """,
     """<Entity_types>
@@ -128,26 +126,23 @@ Cảnh báo an toàn khi bảo trì Lò hơi H-500: Trước khi mở cửa bu�
 entity{{ tuple_delimiter }}Lò hơi H-500{{ tuple_delimiter }}System{{ tuple_delimiter }}Hệ thống thiết bị áp lực cần bảo trì.
 entity{{ tuple_delimiter }}Lock-out Tag-out (LOTO){{ tuple_delimiter }}MaintenanceAction{{ tuple_delimiter }}Quy trình an toàn bắt buộc để cô lập nguồn năng lượng.
 entity{{ tuple_delimiter }}0 bar{{ tuple_delimiter }}Parameter{{ tuple_delimiter }}Mức áp suất an toàn yêu cầu trước khi mở cửa.
-entity{{ tuple_delimiter }}Dung môi dễ cháy{{ tuple_delimiter }}Material{{ tuple_delimiter }}Vật liệu nguy hiểm cần tránh sử dụng khi lò còn nóng.
-relation{{ tuple_delimiter }}Lock-out Tag-out (LOTO){{ tuple_delimiter }}Lò hơi H-500{{ tuple_delimiter }}safety procedure, prerequisite{{ tuple_delimiter }}LOTO là quy trình bắt buộc trước khi làm việc với lò hơi.
+entity{{ tuple_delimiter }}Dung môi dễ cháy{{ tuple_delimiter }}SafetyHazard{{ tuple_delimiter }}Vật liệu nguy hiểm cần tránh sử dụng khi lò còn nóng.
+relation{{ tuple_delimiter }}Lock-out Tag-out (LOTO){{ tuple_delimiter }}Lò hơi H-500{{ tuple_delimiter }}prerequisite{{ tuple_delimiter }}LOTO là quy trình bắt buộc trước khi làm việc với lò hơi.
 {{ completion_delimiter }}
-"""
-]<Entity_types>
-["Component","System","FailureMode","MaintenanceAction","Tool","Parameter","ErrorCode","SafetyHazard","Material","Location","Concept","Strategy","Metric","Benefit","Theory","Goal"]
+""",
+    """<Entity_types>
+["Component","System","FailureMode","MaintenanceAction","Tool","Parameter","ErrorCode","SafetyHazard","Material","Location","Concept","Strategy","Metric","Benefit","Goal"]
 
 <Input Text>
-Bảo trì tinh gọn (Lean Maintenance) tập trung vào việc loại bỏ lãng phí trong quy trình bảo dưỡng. Các chỉ số chính như OEE (Hiệu suất thiết bị tổng thể) và MTBF (Thời gian trung bình giữa các lần hỏng) được dùng để đo lường hiệu quả. Chiến lược này giúp tối ưu hóa chi phí và nâng cao độ tin cậy. Nguyên tắc 5S cũng thường được áp dụng để quản lý không gian làm việc.
- 
+Bảo trì tinh gọn (Lean Maintenance) tập trung vào việc loại bỏ lãng phí trong quy trình bảo dưỡng. Các chỉ số chính như OEE (Hiệu suất thiết bị tổng thể) và MTBF (Thời gian trung bình giữa các lần hỏng) được dùng để đo lường hiệu quả. Chiến lược này giúp tối ưu hóa chi phí và nâng cao độ tin cậy.
+
 <Output>
 entity{{ tuple_delimiter }}Bảo trì tinh gọn{{ tuple_delimiter }}Strategy{{ tuple_delimiter }}Chiến lược quản lý tập trung vào loại bỏ lãng phí.
-entity{{ tuple_delimiter }}Loại bỏ lãng phí{{ tuple_delimiter }}Goal{{ tuple_delimiter }}Mục tiêu chính của chiến lược bảo trì tinh gọn.
 entity{{ tuple_delimiter }}OEE{{ tuple_delimiter }}Metric{{ tuple_delimiter }}Chỉ số đo lường hiệu suất tổng thể của thiết bị.
 entity{{ tuple_delimiter }}MTBF{{ tuple_delimiter }}Metric{{ tuple_delimiter }}Chỉ số đo lường độ tin cậy dựa trên thời gian giữa các lỗi.
 entity{{ tuple_delimiter }}Tối ưu hóa chi phí{{ tuple_delimiter }}Benefit{{ tuple_delimiter }}Lợi ích kinh tế mang lại từ việc áp dụng chiến lược này.
-entity{{ tuple_delimiter }}Nguyên tắc 5S{{ tuple_delimiter }}Method{{ tuple_delimiter }}Phương pháp quản lý không gian làm việc và tổ chức.
-relation{{ tuple_delimiter }}Bảo trì tinh gọn{{ tuple_delimiter }}Loại bỏ lãng phí{{ tuple_delimiter }}aims_to, objective{{ tuple_delimiter }}Bảo trì tinh gọn nhắm đến mục tiêu loại bỏ lãng phí.
-relation{{ tuple_delimiter }}OEE{{ tuple_delimiter }}Bảo trì tinh gọn{{ tuple_delimiter }}measurement, indicator{{ tuple_delimiter }}OEE là chỉ số dùng để đánh giá hiệu quả của bảo trì tinh gọn.
-relation{{ tuple_delimiter }}Bảo trì tinh gọn{{ tuple_delimiter }}Tối ưu hóa chi phí{{ tuple_delimiter }}result, benefit{{ tuple_delimiter }}Áp dụng bảo trì tinh gọn dẫn đến kết quả tối ưu hóa chi phí.
+relation{{ tuple_delimiter }}Bảo trì tinh gọn{{ tuple_delimiter }}Tối ưu hóa chi phí{{ tuple_delimiter }}achieves{{ tuple_delimiter }}Áp dụng bảo trì tinh gọn dẫn đến tối ưu hóa chi phí.
+relation{{ tuple_delimiter }}OEE{{ tuple_delimiter }}Bảo trì tinh gọn{{ tuple_delimiter }}measures{{ tuple_delimiter }}OEE là chỉ số dùng để đánh giá hiệu quả của bảo trì tinh gọn.
 {{ completion_delimiter }}
 """
 ]

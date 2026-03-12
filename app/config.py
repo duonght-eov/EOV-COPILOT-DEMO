@@ -84,10 +84,15 @@ class Settings(BaseSettings):
 
     # --- RAG Core Configuration ---
     RAG_WORK_DIR: str = "./rag_workspace"
+    PROMPTS_DIR: str = "./prompts"
     RAG_CHUNK_SIZE: int = 1200
     RAG_CHUNK_OVERLAP: int = 100
     RAG_ENABLE_LLM_CACHE: bool = True
     RAG_MAX_ASYNC_JOBS: int = 32
+
+    # --- OCR Service Configuration ---
+    OCR_SERVICE_URL: str = "http://10.0.0.156:8001"
+    OCR_POLL_TIMEOUT: int = 1200
     
     # --- Storage Configuration ---
     STORAGE_TYPE: str = "json"  # "json" | "postgres"

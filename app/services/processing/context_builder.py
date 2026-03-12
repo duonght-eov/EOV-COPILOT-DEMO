@@ -1,7 +1,7 @@
 from typing import List, Dict, Any
 from app.utils.logger import get_logger
 
-logger = get_logger("CONTEXT_BUILDER")
+logger = get_logger("CONTEXT BUILDER")
 
 class ContextBuilder:
     def __init__(self, context_window: int=2, max_context_chars: int = 500):

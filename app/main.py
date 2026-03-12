@@ -63,12 +63,12 @@ async def startup_event():
     from app.utils.http_client import get_embedding_client, get_indexing_client
     get_embedding_client()
     get_indexing_client()
-    logger.info("[Startup] ✅ Persistent HTTP clients initialized")
+    logger.info("[Startup] Persistent HTTP clients initialized")
 
     # 1. Pre-load Reranker model vào GPU
     if settings.RERANKER_ENABLED:
         try:
-            from app.services.reranker import _get_reranker
+            from app.infrastructure.reranker.bge_reranker import _get_reranker
             logger.info("[Startup] Pre-loading Reranker model...")
             await _get_reranker()
             logger.info("[Startup] Reranker ready")
@@ -78,9 +78,9 @@ async def startup_event():
     # 2. Pre-warm Embedding workers bằng 1 dummy request
     try:
         import numpy as np
-        from app.services.query_engine import query_embedding_func
+        from app.infrastructure.embedding.embedding_func import embedding_func
         logger.info("[Startup] Pre-warming Embedding workers...")
-        await query_embedding_func(["warmup"])
+        await embedding_func(["warmup"])
         logger.info("[Startup] Embedding workers ready")
     except Exception as e:
         logger.warning(f"[Startup] Embedding warm-up failed: {e}")
@@ -88,11 +88,11 @@ async def startup_event():
     # 3. Pre-initialize Query Engine cho các workspace đã khai báo
     workspaces = [w.strip() for w in settings.PRELOAD_WORKSPACES.split(",") if w.strip()]
     if workspaces:
-        from app.services.query_engine import default_engine
+        from app.infrastructure.graph.lightrag_factory import RAGFactory
         async def _init_ws(ws: str):
             try:
                 logger.info(f"[Startup] Pre-initializing workspace: {ws}...")
-                await default_engine._get_or_create_rag(ws)
+                await RAGFactory.get_or_create_rag(ws)
                 logger.info(f"[Startup] Workspace '{ws}' ready")
             except Exception as e:
                 logger.warning(f"[Startup] Workspace '{ws}' init failed: {e}")

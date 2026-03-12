@@ -2,7 +2,7 @@ import json
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 from app.schemas.chat import ChatRequest, ChatResponse
-from app.services.query_engine import query_engine
+from app.application.query_pipeline import query_pipeline
 
 router = APIRouter()
 
@@ -10,7 +10,7 @@ router = APIRouter()
 @router.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
     try:
-        result = await query_engine.query(
+        result = await query_pipeline.query(
             question=request.messages,
             mode=request.mode,
             workspace=request.workspace
@@ -40,7 +40,7 @@ async def chat_stream(request: ChatRequest):
     """
     async def event_generator():
         try:
-            async for event in query_engine.query_stream(
+            async for event in query_pipeline.query_stream(
                 question=request.messages,
                 mode=request.mode,
                 workspace=request.workspace,
