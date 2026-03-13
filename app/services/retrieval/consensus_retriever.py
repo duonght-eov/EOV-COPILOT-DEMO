@@ -59,18 +59,17 @@ class ConsensusRetriever:
 
         keywords_template = getattr(self.rag, 'keywords_extract_template', None)
         if not keywords_template:
-            keywords_template = """
-                Dựa vào câu hỏi của người dùng, hãy trích xuất các từ khóa quan trọng (Entities, Concepts) để tìm kiếm trong cơ sở dữ liệu.
-                Chỉ trả về danh sách từ khóa, ngăn cách bằng dấu phẩy. TUYỆT ĐỐI KHÔNG DỊCH sang tiếng Anh.
-
-                Câu hỏi: {query}
-                Từ khóa (Tiếng Việt):
-            """
+            keywords_template = """Bạn là một công cụ trích xuất thực thể. Nhiệm vụ duy nhất của bạn là xuất ra danh sách các danh từ/thực thể/chủ đề cốt lõi từ câu hỏi.
+                                    Yêu cầu:
+                                    - Chỉ output các từ khóa, mỗi từ khóa cách nhau bằng dấu phẩy.
+                                    - KHÔNG giải thích. KHÔNG viết lại câu hỏi hoặc lập luận.
+                                    Câu hỏi: '{query}'
+                                    Từ khóa:"""
 
         try:
             t0 = time.perf_counter()
             prompt = keywords_template.format(query=query)
-            keyword_str = await self.rag.llm_model_func(prompt)
+            keyword_str = await self.rag.llm_model_func(prompt, max_tokens=50)
             ms = (time.perf_counter() - t0) * 1000
             logger.info(f"[Consensus][TIMING] keyword_extraction={ms:.0f}ms")
 

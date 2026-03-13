@@ -83,7 +83,6 @@ class RAGFactory:
             if pc.get("entity_summary"): rag_instance.entity_summary_template = pc["entity_summary"]
             if pc.get("rag_response"): rag_instance.rag_response_template = pc["rag_response"]
             if pc.get("naive_rag_response"): rag_instance.naive_rag_response_template = pc["naive_rag_response"]
-            if pc.get("keywords"): rag_instance.keywords_extract_template = pc["keywords"]
 
             # Inject keywords_extraction vào global PROMPTS (giống phiên bản gốc)
             if pc.get("keywords") and len(pc["keywords"]) > 50:
@@ -176,7 +175,6 @@ class QueryRAGFactory:
             pc = get_prompt_config()
             if pc.get("rag_response"): rag.rag_response_template = pc["rag_response"]
             if pc.get("naive_rag_response"): rag.naive_rag_response_template = pc["naive_rag_response"]
-            if pc.get("keywords"): rag.keywords_extract_template = pc["keywords"]
 
             if pc.get("keywords") and len(pc["keywords"]) > 50:
                 try:
