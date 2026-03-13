@@ -88,17 +88,18 @@ async def startup_event():
     # 3. Pre-initialize Query Engine cho các workspace đã khai báo
     workspaces = [w.strip() for w in settings.PRELOAD_WORKSPACES.split(",") if w.strip()]
     if workspaces:
-        from app.infrastructure.graph.lightrag_factory import RAGFactory
+        from app.infrastructure.graph.lightrag_factory import RAGFactory, QueryRAGFactory
         async def _init_ws(ws: str):
             try:
                 logger.info(f"[Startup] Pre-initializing workspace: {ws}...")
                 await RAGFactory.get_or_create_rag(ws)
-                logger.info(f"[Startup] Workspace '{ws}' ready")
+                await QueryRAGFactory.get_or_create_rag(ws)
+                logger.info(f"[Startup] Workspace '{ws}' ready (indexing + query)")
             except Exception as e:
                 logger.warning(f"[Startup] Workspace '{ws}' init failed: {e}")
         await asyncio.gather(*[_init_ws(ws) for ws in workspaces])
     else:
-        logger.info("[Startup] No PRELOAD_WORKSPACES configured — skipping Query Engine pre-init")
+        logger.info("[Startup] No PRELOAD_WORKSPACES configured — skipping pre-init")
 
     logger.info(">>> RAG SERVICE READY <<<")
 

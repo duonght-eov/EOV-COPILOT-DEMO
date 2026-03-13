@@ -93,13 +93,17 @@ def get_prompt_config() -> Dict[str, str]:
         p_entity_extract += custom_prompts["entity_extraction_user_prompt"]
     if "entity_extraction_examples" in custom_prompts and "{examples}" in p_entity_extract:
         p_entity_extract = p_entity_extract.replace("{examples}", custom_prompts["entity_extraction_examples"])
+    p_keywords = custom_prompts.get("keywords_extraction", "")
+    if "keywords_extraction_examples" in custom_prompts and "{examples}" in p_keywords:
+        p_keywords = p_keywords.replace("{examples}", custom_prompts["keywords_extraction_examples"])
+
     _prompt_config_cache = {
         "vlm_prompts": vlm_prompts,
         "entity_extract": p_entity_extract,
         "entity_summary": custom_prompts.get("summarize_entity_descriptions"),
         "rag_response": custom_prompts.get("rag_response"),
         "naive_rag_response": custom_prompts.get("naive_rag_response"),
-        "keywords": custom_prompts.get("keywords_extraction"),
+        "keywords": p_keywords,
     }
     
     logger.info("Prompt config built and cached successfully.")

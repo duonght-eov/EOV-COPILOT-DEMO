@@ -82,6 +82,10 @@ class Settings(BaseSettings):
     EMBEDDING_DIM: int = 1024
     EMBEDDING_MAX_TOKEN_SIZE: int = 8192
 
+    # --- OCR Service Configuration ---
+    OCR_SERVICE_URL: str = "http://10.0.0.156:8001"
+    OCR_POLL_TIMEOUT: int = 1200
+
     # --- RAG Core Configuration ---
     RAG_WORK_DIR: str = "./rag_workspace"
     PROMPTS_DIR: str = "./prompts"
