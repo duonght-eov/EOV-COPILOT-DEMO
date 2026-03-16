@@ -245,6 +245,28 @@ const Workspace = {
 
     return result;
   },
+  getConnectors: async function (slug) {
+    const connectors = await fetch(`${API_BASE}/workspace/${slug}/connectors`, {
+      method: "GET",
+      headers: baseHeaders(),
+    })
+      .then((res) => res.json())
+      .then((res) => res.connector)
+      .catch(() => null);
+    return connectors;
+  },
+  updateConnectors: async function (slug, data = {}) {
+    const response = await fetch(`${API_BASE}/workspace/${slug}/connectors`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: baseJsonHeaders(),
+    })
+      .then((res) => res.json())
+      .catch((e) => {
+        return { success: false, message: e.message };
+      });
+    return response;
+  },
   wipeVectorDb: async function (slug) {
     return await fetch(`${API_BASE}/workspace/${slug}/reset-vector-db`, {
       method: "DELETE",

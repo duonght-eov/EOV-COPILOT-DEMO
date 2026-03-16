@@ -11,8 +11,15 @@ import ConnectorOption from "./ConnectorOption";
 import WebsiteDepthOptions from "./Connectors/WebsiteDepth";
 import ObsidianOptions from "./Connectors/Obsidian";
 import PaperlessNgxOptions from "./Connectors/PaperlessNgx";
+import EovPredictOptions from "./Connectors/PredictAPI";
 
 export const getDataConnectors = (t) => ({
+  "eov-predict-api": {
+    name: "EOV Predict API",
+    image: ConnectorImages.websiteDepth, // Reusing Link icon
+    description: "Cấp API tĩnh về Cơ sở dữ liệu của Doanh Nghiệp (Tra cứu/Dự báo).",
+    options: <EovPredictOptions />,
+  },
   github: {
     name: t("connectors.github.name"),
     image: ConnectorImages.github,
@@ -65,7 +72,7 @@ export const getDataConnectors = (t) => ({
 
 export default function DataConnectors() {
   const { t } = useTranslation();
-  const [selectedConnector, setSelectedConnector] = useState("github");
+  const [selectedConnector, setSelectedConnector] = useState("eov-predict-api");
   const [searchQuery, setSearchQuery] = useState("");
   const DATA_CONNECTORS = getDataConnectors(t);
 
