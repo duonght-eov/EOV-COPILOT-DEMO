@@ -25,6 +25,12 @@ class Settings(BaseSettings):
     
     # RAGAnything Service
     rag_service_url: str = "http://localhost:8000"
+
+    # Analytics/Predict Service
+    analytics_service_url: str = "http://localhost:8007"
+    
+    # Water Forecast API
+    water_api_url: str = "http://10.0.0.62:8000"
     
     # CORS
     cors_origins: List[str] = ["http://localhost:3000", "http://localhost:5173"]

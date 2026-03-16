@@ -61,6 +61,8 @@ async def list_workspaces(
             "llm_provider": ws.llm_provider,
             "llm_model": ws.llm_model,
             "query_mode": ws.query_mode,
+            "is_predict_enabled": ws.is_predict_enabled,
+            "predict_llm_model": ws.predict_llm_model,
             "created_at": ws.created_at.isoformat() if ws.created_at else None,
             "document_count": doc_count.scalar() or 0
         }
@@ -127,6 +129,8 @@ async def create_workspace(
             "llm_provider": ws.llm_provider,
             "llm_model": ws.llm_model,
             "query_mode": ws.query_mode,
+            "is_predict_enabled": ws.is_predict_enabled,
+            "predict_llm_model": ws.predict_llm_model,
             "created_at": ws.created_at.isoformat() if ws.created_at else None,
             "document_count": 0
         },
@@ -186,6 +190,8 @@ async def get_workspace(
             "llm_provider": ws.llm_provider,
             "llm_model": ws.llm_model,
             "query_mode": ws.query_mode,
+            "is_predict_enabled": ws.is_predict_enabled,
+            "predict_llm_model": ws.predict_llm_model,
             "created_at": ws.created_at.isoformat() if ws.created_at else None,
             "document_count": len(documents),
             "documents": documents  # Add documents array for frontend
@@ -233,11 +239,92 @@ async def update_workspace(
             "llm_provider": ws.llm_provider,
             "llm_model": ws.llm_model,
             "query_mode": ws.query_mode,
+            "is_predict_enabled": ws.is_predict_enabled,
+            "predict_llm_model": ws.predict_llm_model,
             "created_at": ws.created_at.isoformat() if ws.created_at else None,
             "document_count": doc_count.scalar() or 0
         },
         "message": None
     }
+
+
+@router.get("/workspace/{slug}/connectors")
+async def get_workspace_connectors(
+    slug: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Get the active API connector parameters for this workspace."""
+    result = await db.execute(select(Workspace).where(Workspace.slug == slug))
+    ws = result.scalar_one_or_none()
+    
+    if not ws:
+        raise HTTPException(status_code=404, detail="Workspace not found")
+        
+    from app.models.models import WorkspaceConnector
+    conn_result = await db.execute(select(WorkspaceConnector).where(WorkspaceConnector.workspace_id == ws.id))
+    connector = conn_result.scalar_one_or_none()
+    
+    if not connector:
+        # returns empty dict or 404 setup based on frontend, returning empty object is safer
+        return {"connector": None}
+        
+    return {
+        "connector": {
+            "id": connector.id,
+            "base_url": connector.base_url,
+            "auth_type": connector.auth_type,
+            "auth_credentials": connector.auth_credentials,
+            "custom_headers": connector.custom_headers
+        }
+    }
+
+
+@router.post("/workspace/{slug}/connectors")
+async def update_workspace_connectors(
+    slug: str,
+    update_data: WorkspaceUpdate, # We can reuse or properly import the connector update schema, let's just make it dict dynamically
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Upsert the active API connector parameters for this workspace."""
+    body = await request.json()
+    
+    result = await db.execute(select(Workspace).where(Workspace.slug == slug))
+    ws = result.scalar_one_or_none()
+    
+    if not ws:
+        raise HTTPException(status_code=404, detail="Workspace not found")
+
+    # Update predict enabled while we are at it
+    if "is_predict_enabled" in body:
+        ws.is_predict_enabled = body.get("is_predict_enabled", False)
+        
+    from app.models.models import WorkspaceConnector
+    conn_result = await db.execute(select(WorkspaceConnector).where(WorkspaceConnector.workspace_id == ws.id))
+    connector = conn_result.scalar_one_or_none()
+    
+    if connector:
+        # Update
+        if "base_url" in body: connector.base_url = body["base_url"]
+        if "auth_type" in body: connector.auth_type = body["auth_type"]
+        if "auth_credentials" in body: connector.auth_credentials = body["auth_credentials"]
+        db.add(connector)
+    else:
+        # Create
+        if "base_url" in body and body["base_url"]:
+            new_conn = WorkspaceConnector(
+                workspace_id=ws.id,
+                base_url=body["base_url"],
+                auth_type=body.get("auth_type", "bearer"),
+                auth_credentials=body.get("auth_credentials", ""),
+                custom_headers="{}"
+            )
+            db.add(new_conn)
+            
+    await db.commit()
+    return {"success": True, "message": "Connector settings updated"}
 
 
 @router.post("/workspace/{slug}/update-embeddings")

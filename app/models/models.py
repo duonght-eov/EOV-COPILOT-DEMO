@@ -51,6 +51,10 @@ class Workspace(Base):
     embedding_model = Column(String(100), nullable=True)
     query_mode = Column(String(50), default="consensus")  # naive, local, global, mix, consensus
     
+    # Predict/Analytics Configuration
+    is_predict_enabled = Column(Boolean, default=True)
+    predict_llm_model = Column(String(100), nullable=True)
+    
     # Ownership
     owner_id = Column(Integer, ForeignKey("users.id"))
     owner = relationship("User", back_populates="owned_workspaces")
@@ -186,3 +190,39 @@ class SystemSettings(Base):
     key = Column(String(255), unique=True, nullable=False)
     value = Column(Text, nullable=True)
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+
+class WorkspaceConnector(Base):
+    """Nơi lưu cấu hình CSDL/API của khách hàng thuê nền tảng SaaS."""
+    __tablename__ = "workspace_connectors"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    workspace_id = Column(Integer, ForeignKey("workspaces.id", ondelete="CASCADE"), nullable=False, index=True)
+    
+    name = Column(String(255), nullable=False)
+    connector_type = Column(String(50), default="api", nullable=False)  # api, postgresql, mysql...
+    base_url = Column(String(512), nullable=False)
+    auth_type = Column(String(50), default="none")  # none, bearer, api_key, basic
+    auth_credentials = Column(Text, nullable=True)  # API Key / Token mật
+    custom_headers = Column(Text, nullable=True)  # JSON String parameters
+    
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+    workspace = relationship("Workspace", backref="connectors")
+
+
+class ConnectorEndpoint(Base):
+    """Bảng Mapping Endpoint API (để Coder không phải sửa fix cứng Code)."""
+    __tablename__ = "connector_endpoints"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    connector_id = Column(Integer, ForeignKey("workspace_connectors.id", ondelete="CASCADE"), nullable=False, index=True)
+    
+    action_code = Column(String(100), nullable=False, index=True)  # GET_DMAS, GET_SHORT_FORECAST...
+    endpoint_path = Column(String(512), nullable=False)
+    http_method = Column(String(10), default="GET")
+    response_mapping = Column(Text, nullable=True)  # JSON config chỉ định path extract data
+    
+    connector = relationship("WorkspaceConnector", backref="endpoints")

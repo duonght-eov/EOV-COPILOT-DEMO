@@ -84,6 +84,8 @@ class WorkspaceUpdate(BaseModel):
     llm_provider: Optional[str] = None
     llm_model: Optional[str] = None
     query_mode: Optional[str] = None
+    is_predict_enabled: Optional[bool] = None
+    predict_llm_model: Optional[str] = None
 
 
 class WorkspaceResponse(WorkspaceBase):
@@ -93,8 +95,29 @@ class WorkspaceResponse(WorkspaceBase):
     llm_provider: Optional[str] = None
     llm_model: Optional[str] = None
     query_mode: str = "consensus"
+    is_predict_enabled: bool = False
+    predict_llm_model: Optional[str] = None
     created_at: datetime
     document_count: int = 0
+    
+    model_config = ConfigDict(from_attributes=True)
+
+
+class WorkspaceConnectorUpdate(BaseModel):
+    """Update API Connector Configuration for a workspace."""
+    base_url: Optional[str] = None
+    auth_type: Optional[str] = "bearer"
+    auth_credentials: Optional[str] = None
+    custom_headers: Optional[str] = None
+
+class WorkspaceConnectorResponse(BaseModel):
+    id: int
+    workspace_id: int
+    base_url: str
+    auth_type: str
+    auth_credentials: Optional[str] = None
+    custom_headers: Optional[str] = None
+    created_at: datetime 
     
     model_config = ConfigDict(from_attributes=True)
 

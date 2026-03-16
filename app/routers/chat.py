@@ -72,6 +72,82 @@ async def chat_with_workspace(
         
         print(f"[STREAM-CHAT] Starting stream for query: {payload.message}")
         
+        # [EOV INTEGRATION] Check for Predict Workspace
+        from app.config import get_settings
+        settings = get_settings()
+        
+        if workspace.is_predict_enabled:
+            print(f"[PREDICT-ROUTING] Routing query to Analytics Service for workspace {slug}")
+            start_time = time.time()
+            
+            # Fetch Connector Info
+            from app.models.models import WorkspaceConnector
+            from app.database import async_session_maker
+            
+            connector_data = None
+            async with async_session_maker() as session:
+                result_conn = await session.execute(
+                    select(WorkspaceConnector).where(WorkspaceConnector.workspace_id == workspace.id)
+                )
+                connector = result_conn.scalar_one_or_none()
+                if connector:
+                    connector_data = {
+                        "base_url": connector.base_url,
+                        "auth_type": connector.auth_type,
+                        "auth_credentials": connector.auth_credentials,
+                        "custom_headers": connector.custom_headers
+                    }
+                    
+            try:
+                payload_data = {
+                    "message": payload.message,
+                    "connector": connector_data,
+                    "predict_llm_model": getattr(workspace, 'predict_llm_model', None)
+                }
+                async with httpx.AsyncClient(timeout=60.0) as client:
+                    async with client.stream(
+                        "POST", 
+                        f"{settings.analytics_service_url}/predict/chat",
+                        json=payload_data
+                    ) as resp:
+                        async for line in resp.aiter_lines():
+                            if line:
+                                data = json.loads(line)
+                                chunk = data.get("chunk", "")
+                                response_data["full_response"] += chunk
+                                yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponseChunk', 'textResponse': chunk, 'close': False, 'sources': []})}\n\n"
+                
+                # Metrics for Predict
+                metrics = {
+                    "duration": time.time() - start_time,
+                    "outputTps": len(response_data["full_response"]) / 4 / (time.time() - start_time),
+                    "model": "Analytics-Engine",
+                    "timestamp": start_time
+                }
+                
+                # Save to DB (Synchronous)
+                from app.database import async_session_maker
+                async with async_session_maker() as session:
+                    chat = Chat(
+                        session_id=f"predict_{user_id}_{datetime.utcnow().timestamp()}",
+                        prompt=user_message,
+                        response=response_data["full_response"],
+                        workspace_id=workspace_id,
+                        user_id=user_id,
+                        metrics=json.dumps(metrics)
+                    )
+                    session.add(chat)
+                    await session.commit()
+                    await session.refresh(chat)
+                    chat_id = chat.id
+                
+                yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponse', 'textResponse': response_data['full_response'], 'close': True, 'sources': [], 'metrics': metrics, 'chatId': chat_id})}\n\n"
+                return # End of stream for predict
+            except Exception as e:
+                print(f"[PREDICT-ROUTING] Error: {e}")
+                yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'abort', 'textResponse': f'Lỗi kết nối bộ phận phân tích: {str(e)}', 'close': True, 'error': True})}\n\n"
+                return
+
         start_time = time.time()
         
         try:
