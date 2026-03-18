@@ -210,6 +210,7 @@ async def query_llm_func(
                 messages=messages,
                 temperature=0,
                 max_tokens=min(kwargs.get("max_tokens", 256), 256),
+                stop=["<think>", "\n"],
                 extra_body={"think": False},
             ),
             timeout=settings.LLM_TIMEOUT,
