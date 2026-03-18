@@ -85,7 +85,36 @@ async def startup_event():
     except Exception as e:
         logger.warning(f"[Startup] Embedding warm-up failed: {e}")
 
-    # 3. Pre-initialize Query Engine cho các workspace đã khai báo
+    # 3. Pre-initialize LLM clients (tránh lazy-init trên request đầu tiên)
+    try:
+        from app.infrastructure.llm.openai_client import _get_llm_client, _get_response_llm_client
+        logger.info("[Startup] Pre-initializing LLM clients...")
+        _get_llm_client()          # init singleton indexing LLM client
+        _get_response_llm_client() # init singleton response LLM client
+        logger.info("[Startup] LLM clients initialized")
+    except Exception as e:
+        logger.warning(f"[Startup] LLM client pre-init failed: {e}")
+
+    # 4. Pre-warm Response LLM bằng 1 dummy call (khởi tạo HTTP connection pool)
+    try:
+        from app.infrastructure.llm.llm_func import response_llm_func
+        logger.info("[Startup] Pre-warming Response LLM connection pool...")
+        await response_llm_func("hi", system_prompt=None)
+        logger.info("[Startup] Response LLM connection pool ready")
+    except Exception as e:
+        logger.warning(f"[Startup] Response LLM warm-up failed: {e}")
+
+    # 4b. Pre-warm local LLM (keyword extraction) — force load model vào GPU
+    # max_tokens=1: chỉ cần ping để init connection pool, không generate thực sự
+    try:
+        from app.infrastructure.llm.llm_func import query_llm_func
+        logger.info("[Startup] Pre-warming local LLM (keyword extraction model)...")
+        await query_llm_func("warmup", system_prompt=None, max_tokens=1)
+        logger.info("[Startup] Local LLM model loaded into GPU memory")
+    except Exception as e:
+        logger.warning(f"[Startup] Local LLM warm-up failed (non-critical): {e}")
+
+    # 5. Pre-initialize Query Engine cho các workspace đã khai báo (tùy chọn)
     workspaces = [w.strip() for w in settings.PRELOAD_WORKSPACES.split(",") if w.strip()]
     if workspaces:
         from app.infrastructure.graph.lightrag_factory import RAGFactory, QueryRAGFactory
