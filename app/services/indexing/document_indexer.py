@@ -199,15 +199,15 @@ class IndexingEngine:
                 await rag_instance.ainsert(text_json, file_paths=display_name)
                 logger.info(f"   ✓ Inserted {len(text_only_content)} text chunks into workspace '{workspace}' (filename: {display_name})")
 
-            # Phase 3b: Process multimodal content
-            if len(enriched_mm_items) > 0:
-                logger.info(f"Processing {len(enriched_mm_items)} enriched multimodal items...")
-                await rag_anything._process_multimodal_content(
-                    multimodal_items=enriched_mm_items,
-                    file_path=job_id,
-                    doc_id=f"doc_{job_id}"
-                )
-                logger.info("   ✓ Multimodal processing complete")
+            # Phase 3b: Process multimodal content (REDUNDANT - ALREADY PROCESSED IN PHASE 1.5)
+            # if len(enriched_mm_items) > 0:
+            #     logger.info(f"Processing {len(enriched_mm_items)} enriched multimodal items...")
+            #     await rag_anything._process_multimodal_content(
+            #         multimodal_items=enriched_mm_items,
+            #         file_path=job_id,
+            #         doc_id=f"doc_{job_id}"
+            #     )
+            #     logger.info("   ✓ Multimodal processing complete")
 
             logger.info(f"Ingestion Complete for {job_id} in workspace '{workspace}'")
             return {
