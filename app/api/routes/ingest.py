@@ -67,19 +67,29 @@ async def _submit_to_ocr(file_path: str, filename: str, model: str = "auto") -> 
 async def _poll_ocr_status(ocr_job_id: str) -> Dict[str, Any]:
     """Poll OCR service cho đến khi job SUCCESS, trả về status response."""
     elapsed = 0
-    async with httpx.AsyncClient(timeout=30.0) as client:
+    # Timeout=30s cho từng request, Limits(keepalive_expiry=5.0) để tránh lỗi Server disconnected (keep-alive drop)
+    limits = httpx.Limits(keepalive_expiry=5.0)
+    async with httpx.AsyncClient(timeout=30.0, limits=limits) as client:
         while elapsed < OCR_POLL_TIMEOUT:
-            resp = await client.get(f"{OCR_SERVICE_URL}/api/v1/ocr/status/{ocr_job_id}")
-            resp.raise_for_status()
-            data = resp.json()
-            status = data.get("status", "PENDING").upper()
+            try:
+                resp = await client.get(f"{OCR_SERVICE_URL}/api/v1/ocr/status/{ocr_job_id}")
+                resp.raise_for_status()
+                data = resp.json()
+                status = data.get("status", "PENDING").upper()
 
-            logger.info(f"[OCR] Poll {ocr_job_id} → {status} ({elapsed}s)")
+                logger.info(f"[OCR] Poll {ocr_job_id} → {status} ({elapsed}s)")
 
-            if status == "SUCCESS":
-                return data
-            if status == "FAILED":
-                raise RuntimeError(f"OCR job {ocr_job_id} thất bại: {data.get('error')}")
+                if status == "SUCCESS":
+                    return data
+                if status == "FAILED":
+                    raise RuntimeError(f"OCR job {ocr_job_id} thất bại: {data.get('error')}")
+
+            except httpx.RequestError as req_e:
+                # Catch các lỗi mạng tạm thời (ví dụ: Server disconnected without sending a response)
+                logger.warning(f"[OCR] Network error while polling {ocr_job_id}: {req_e} - Retrying...")
+            except Exception as e:
+                # Bắt các exception khác nếu có (HTTPStatusError, v.v) chưa cần bóp chết job ngay
+                logger.warning(f"[OCR] Unexpected error polling {ocr_job_id}: {e} - Retrying...")
 
             await asyncio.sleep(OCR_POLL_INTERVAL)
             elapsed += OCR_POLL_INTERVAL

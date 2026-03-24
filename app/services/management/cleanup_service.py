@@ -62,9 +62,9 @@ async def clean_neo4j(workspace_slug: str):
 async def clean_document(workspace_slug: str, filename: str) -> int:
     logger.info(f"[*] Đang tìm và xoá document '{filename}' cho workspace: {workspace_slug}")
     try:
-        # Load indexing engine and get rag instance
-        from app.services.indexing_engine import default_engine
-        rag = await default_engine._get_or_create_rag(workspace=workspace_slug)
+        # Load RAGFactory to get rag instance
+        from app.infrastructure.graph.lightrag_factory import RAGFactory
+        rag, _ = await RAGFactory.get_or_create_rag(workspace=workspace_slug)
         
         conn = await asyncpg.connect(
             user=settings.POSTGRES_USER,
