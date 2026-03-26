@@ -162,7 +162,7 @@ async def multi_hop_retrieve_labeled(
     Retrieve song song và trả về (all_chunks, labeled_context) cho mọi mode truy vấn.
     """
     from app.services.retrieval.consensus_retriever import ConsensusRetriever
-    from app.infrastructure.reranker.bge_reranker import rerank_chunks
+    from app.infrastructure.reranker.reranker import rerank_chunks
     from lightrag import QueryParam
 
     retriever = ConsensusRetriever(rag_instance) if mode == "consensus" else None

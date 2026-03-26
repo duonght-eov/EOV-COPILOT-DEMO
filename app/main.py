@@ -68,7 +68,7 @@ async def startup_event():
     # 1. Pre-load Reranker model vào GPU
     if settings.RERANKER_ENABLED:
         try:
-            from app.infrastructure.reranker.bge_reranker import _get_reranker
+            from app.infrastructure.reranker.reranker import _get_reranker
             logger.info("[Startup] Pre-loading Reranker model...")
             await _get_reranker()
             logger.info("[Startup] Reranker ready")

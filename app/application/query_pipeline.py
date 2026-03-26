@@ -17,7 +17,7 @@ from app.infrastructure.llm.stream_func import stream_response_llm_func
 
 from app.services.retrieval.consensus_retriever import ConsensusRetriever
 from app.services.retrieval.multi_hop_retriever import detect_and_decompose, multi_hop_retrieve_labeled
-from app.infrastructure.reranker.bge_reranker import rerank_chunks
+from app.infrastructure.reranker.reranker import rerank_chunks
 from app.services.processing.image_resolver import extract_image_refs_from_answer
 from app.services.generation.rag_generator import format_chunks_as_sources, RAG_RESPONSE_TEMPLATE
 
