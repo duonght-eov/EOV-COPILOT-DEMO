@@ -166,7 +166,7 @@ async def llm_completion_func(
         temperature=kwargs.get("temperature", 0),
         max_tokens=kwargs.get("max_tokens", settings.LLM_MAX_TOKENS),
         max_retries=1 if is_extraction else 3,
-        extra_body={"think": False} if is_extraction else None,
+        extra_body={"chat_template_kwargs": {"enable_thinking": False}},
     )
 
     if not content:
@@ -210,8 +210,7 @@ async def query_llm_func(
                 messages=messages,
                 temperature=0,
                 max_tokens=min(kwargs.get("max_tokens", 256), 256),
-                stop=["<think>", "\n"],
-                extra_body={"think": False},
+                extra_body={"chat_template_kwargs": {"enable_thinking": False}},
             ),
             timeout=settings.LLM_TIMEOUT,
         )
@@ -269,6 +268,7 @@ async def response_llm_func(
                 messages=messages,
                 temperature=kwargs.get("temperature", 0),
                 max_tokens=kwargs.get("max_tokens", settings.LLM_MAX_TOKENS),
+                extra_body={"chat_template_kwargs": {"enable_thinking": False}},
             ),
             timeout=timeout,
         )

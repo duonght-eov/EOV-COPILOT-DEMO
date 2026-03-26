@@ -54,7 +54,13 @@ async def _get_reranker():
 
 def _compute_scores(reranker, pairs: List[List[str]]) -> List[float]:
     """Tính relevance scores — synchronous, chạy trong thread riêng."""
-    return reranker.compute_score(pairs, normalize=True)
+    import numpy as np
+    raw = reranker.compute_score(pairs, normalize=True)
+    # Handle scalar vs list
+    if not isinstance(raw, (list, tuple)):
+        raw = [raw]
+    # Replace NaN/Inf with 0.0
+    return [float(np.nan_to_num(s, nan=0.0, posinf=1.0, neginf=0.0)) for s in raw]
 
 
 async def rerank_chunks(query: str, chunks: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -99,3 +105,45 @@ async def rerank_chunks(query: str, chunks: List[Dict[str, Any]]) -> List[Dict[s
     except Exception as e:
         logger.warning(f"[Reranker] Lỗi: {e} – giữ thứ tự gốc")
         return chunks
+
+_reranker_lock = asyncio.Lock()
+
+async def lightrag_rerank_wrapper(query: str, documents: List[str], top_n: int = None) -> List[Dict[str, Any]]:
+    """
+    Wrapper tích hợp trực tiếp cho chế độ mix/local/global của LightRAG.
+    LightRAG yêu cầu output là list dict: [{"index": i, "relevance_score": score}, ...]
+    """
+    if not settings.RERANKER_ENABLED or not documents:
+        return [{"index": i, "relevance_score": 1.0} for i in range(len(documents))]
+
+    # Filter empty documents
+    valid_docs = [d if d and d.strip() else " " for d in documents]
+
+    async with _reranker_lock:  # Chống concurrent access
+        try:
+            reranker = await _get_reranker()
+            pairs = [[query, doc] for doc in valid_docs]
+            
+            t0 = time.perf_counter()
+            scores: List[float] = await asyncio.to_thread(_compute_scores, reranker, pairs)
+            elapsed_ms = (time.perf_counter() - t0) * 1000
+
+            scored = [
+                {"index": idx, "relevance_score": float(score)}
+                for idx, score in enumerate(scores)
+            ]
+            scored.sort(key=lambda x: x["relevance_score"], reverse=True)
+
+            _top_n = top_n if top_n is not None else settings.RERANKER_TOP_N
+            scored = scored[:_top_n]
+
+            logger.info(
+                f"[LightRAG-Reranker] {len(documents)} → {len(scored)} chunks "
+                f"| inference={elapsed_ms:.1f}ms "
+                f"| scores: {[round(x['relevance_score'], 4) for x in scored]}"
+            )
+            return scored
+
+        except Exception as e:
+            logger.warning(f"[LightRAG-Reranker] Lỗi: {e} – bỏ qua rerank")
+            return [{"index": i, "relevance_score": 1.0} for i in range(len(documents))]

@@ -156,23 +156,30 @@ async def multi_hop_retrieve_labeled(
     sub_queries: List[str],
     rag_instance,
     top_k_each: int = 3,
+    mode: str = "consensus",
 ) -> Tuple[List[Dict], str]:
     """
-    Retrieve song song và trả về (all_chunks, labeled_context).
-    Tiện dụng để dùng trực tiếp trong query_pipeline.
+    Retrieve song song và trả về (all_chunks, labeled_context) cho mọi mode truy vấn.
     """
     from app.services.retrieval.consensus_retriever import ConsensusRetriever
     from app.infrastructure.reranker.bge_reranker import rerank_chunks
+    from lightrag import QueryParam
 
-    retriever = ConsensusRetriever(rag_instance)
+    retriever = ConsensusRetriever(rag_instance) if mode == "consensus" else None
 
     async def _retrieve_one(sub_q: str) -> List[Dict]:
         try:
-            chunks = await retriever.consensus_search(
-                query=sub_q,
-                top_k_each_method=top_k_each,
-                final_k=top_k_each,
-            )
+            if mode == "consensus":
+                chunks = await retriever.consensus_search(
+                    query=sub_q,
+                    top_k_each_method=top_k_each,
+                    final_k=top_k_each,
+                )
+            else:
+                effective_mode = "mix" if mode == "hybrid" else mode
+                raw = await rag_instance.aquery_data(sub_q, param=QueryParam(mode=effective_mode, top_k=top_k_each))
+                data = raw.get("data", {}) if isinstance(raw, dict) else {}
+                chunks = data.get("chunks", [])
             if chunks and len(chunks) >= 2:
                 chunks = await rerank_chunks(sub_q, chunks)
             return chunks

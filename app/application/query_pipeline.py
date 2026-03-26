@@ -26,11 +26,11 @@ PAGE_CITE_PATTERN = re.compile(r'\[Page\s+(\d+)\]', re.IGNORECASE)
 
 def _build_context_from_chunks(chunks) -> str:
     """
-    Parse JSON chunks → text thuần có [Page X] prefix.
+    Parse JSON chunks → text thuần có đánh số [1], [2] làm nguồn.
     Giống logic trong query_engine.py phiên bản gốc.
     """
     contexts = []
-    for chunk in chunks:
+    for i, chunk in enumerate(chunks):
         c_text = chunk.get('content_with_weight', chunk.get('content', ''))
         if "{" in c_text and "}" in c_text and '"' in c_text:
             cleaned_parts = []
@@ -51,8 +51,51 @@ def _build_context_from_chunks(chunks) -> str:
             if cleaned_parts:
                 c_text = "\n".join(cleaned_parts)
 
-        contexts.append(c_text)
+        contexts.append(f"[{i+1}] {c_text}")
     return "\n\n------\n\n".join(contexts)
+
+
+def _build_mix_context(data: dict) -> str:
+    """
+    Build context string từ aquery_data() structured data.
+    Giống format LightRAG: Entities → Relationships → Sources
+    """
+    parts = []
+
+    entities = data.get("entities", [])
+    if entities:
+        ent_lines = []
+        for e in entities:
+            name = e.get("entity_name", "")
+            desc = e.get("description", "")
+            if name:
+                ent_lines.append(f"- {name}: {desc}" if desc else f"- {name}")
+        if ent_lines:
+            parts.append("-----Entities-----\n" + "\n".join(ent_lines))
+
+    relations = data.get("relationships", [])
+    if relations:
+        rel_lines = []
+        for r in relations:
+            src = r.get("src_id", "")
+            tgt = r.get("tgt_id", "")
+            desc = r.get("description", "")
+            if src and tgt:
+                rel_lines.append(f"- {src} → {tgt}: {desc}" if desc else f"- {src} → {tgt}")
+        if rel_lines:
+            parts.append("-----Relationships-----\n" + "\n".join(rel_lines))
+
+    chunks = data.get("chunks", [])
+    if chunks:
+        src_lines = []
+        for i, c in enumerate(chunks):
+            content = c.get("content", "")
+            if content:
+                src_lines.append(f"[{i+1}] {content}")
+        if src_lines:
+            parts.append("-----Sources-----\n" + "\n\n".join(src_lines))
+
+    return "\n\n".join(parts)
 
 
 class QueryPipeline:
@@ -73,44 +116,46 @@ class QueryPipeline:
         retrieved_chunks = []
         context_text = ""
 
-        # ── CONSENSUS MODE ───────────────────────────────────────────────
+        # --- Multi-hop detection (Đã tắt - nhảy thẳng vào single-hop) ---
+        try:
+            is_multi_hop, sub_queries = False, [] # await detect_and_decompose(question)
+            if is_multi_hop and len(sub_queries) >= 2:
+                logger.info(f"[MultiHop] Detected {len(sub_queries)} sub-queries for mode {mode}")
+                retrieved_chunks, labeled_context = await multi_hop_retrieve_labeled(
+                    sub_queries=sub_queries,
+                    rag_instance=rag,
+                    top_k_each=3,
+                    mode=mode,
+                )
+                if not retrieved_chunks:
+                    return {"answer": "Không tìm thấy thông tin phù hợp (multi-hop)."}
+
+                from app.services.generation.rag_generator import load_prompt
+                multi_hop_template = load_prompt("multi_hop_synthesis.jinja")
+                _parts = multi_hop_template.split("---", 1)
+                sys_prompt = _parts[0].strip() if len(_parts) > 1 else multi_hop_template
+                user_msg = f"DỮ LIỆU NGỮ CẢNH ĐƯỢC CẤP:\n{labeled_context}\n\nCÂU HỎI:\n{question}"
+
+                answer = await response_llm_func(prompt=user_msg, system_prompt=sys_prompt)
+
+                image_refs = extract_image_refs_from_answer(retrieved_chunks, answer, labeled_context)
+                result = {
+                    "answer": answer,
+                    "retrieved_chunks": retrieved_chunks,
+                    "sources": format_chunks_as_sources(retrieved_chunks),
+                    "mode": f"{mode}+multi_hop",
+                    "images": image_refs,
+                    "sub_queries": sub_queries,
+                }
+                MemoryCache.set_answer(cache_key, result)
+                return result
+        except Exception as e:
+            logger.warning(f"MultiHop phase failed: {e}, falling back to single-hop")
+
+        # ── SINGLE-HOP MODE ───────────────────────────────────────────────
         if mode == "consensus":
             try:
                 retriever = ConsensusRetriever(rag)
-
-                # --- Multi-hop detection ---
-                is_multi_hop, sub_queries = await detect_and_decompose(question)
-
-                if is_multi_hop and len(sub_queries) >= 2:
-                    logger.info(f"[MultiHop] Detected {len(sub_queries)} sub-queries")
-                    retrieved_chunks, labeled_context = await multi_hop_retrieve_labeled(
-                        sub_queries=sub_queries,
-                        rag_instance=rag,
-                        top_k_each=3,
-                    )
-                    if not retrieved_chunks:
-                        return {"answer": "Không tìm thấy thông tin phù hợp (multi-hop)."}
-
-                    from app.services.generation.rag_generator import load_prompt
-                    multi_hop_template = load_prompt("multi_hop_synthesis.jinja")
-                    _parts = multi_hop_template.split("---", 1)
-                    sys_prompt = _parts[0].strip() if len(_parts) > 1 else multi_hop_template
-                    user_msg = f"DỮ LIỆU NGỮ CẢNH ĐƯỢC CẤP:\n{labeled_context}\n\nCÂU HỎI:\n{question}"
-
-                    answer = await response_llm_func(prompt=user_msg, system_prompt=sys_prompt)
-
-                    image_refs = extract_image_refs_from_answer(retrieved_chunks, answer, labeled_context)
-                    result = {
-                        "answer": answer,
-                        "retrieved_chunks": retrieved_chunks,
-                        "sources": format_chunks_as_sources(retrieved_chunks),
-                        "mode": "consensus+multi_hop",
-                        "images": image_refs,
-                        "sub_queries": sub_queries,
-                    }
-                    MemoryCache.set_answer(cache_key, result)
-                    return result
-
                 # --- Single-hop consensus (luồng gốc) ---
                 retrieved_chunks = await retriever.consensus_search(
                     query=question, top_k_each_method=5, final_k=5
@@ -160,23 +205,24 @@ class QueryPipeline:
 
         # ── OTHER MODES (mix / local / global / naive) ───────────────────
         effective_mode = "mix" if mode == "hybrid" else mode
-        query_param = QueryParam(mode=effective_mode, only_need_context=True, top_k=5)
+        mix_chunks = []
+        context_text = ""
         try:
-            context_text = await rag.aquery(question, param=query_param)
+            raw_data = await rag.aquery_data(question, param=QueryParam(mode=effective_mode, top_k=5))
+            data = raw_data.get("data", {}) if isinstance(raw_data, dict) else {}
+            mix_chunks = data.get("chunks", [])
+            # Build context giống LightRAG: entities + relations + sources
+            context_text = _build_mix_context(data)
         except Exception as e:
-            err_str = str(e)
-            if "and end with" in err_str or "Keyword" in err_str or "json" in err_str.lower():
-                logger.warning(f"Keyword extraction failed ({err_str[:80]}), falling back to naive mode")
+            logger.warning(f"aquery_data failed ({str(e)[:80]}), falling back to aquery")
+            try:
+                context_text = await rag.aquery(question, param=QueryParam(mode=effective_mode, only_need_context=True, top_k=5))
+            except Exception as e2:
                 try:
-                    fallback_param = QueryParam(mode="naive", only_need_context=True, top_k=5)
-                    context_text = await rag.aquery(question, param=fallback_param)
-                    effective_mode = "naive (fallback)"
-                except Exception as e2:
-                    logger.error(f"Naive fallback also failed: {e2}")
+                    context_text = await rag.aquery(question, param=QueryParam(mode="naive", only_need_context=True, top_k=5))
+                except Exception as e3:
+                    logger.error(f"All retrieval failed: {e3}")
                     return {"answer": "Đã xảy ra lỗi khi truy xuất dữ liệu.", "mode": mode, "images": []}
-            else:
-                logger.error(f"Retrieval failed: {e}")
-                return {"answer": "Đã xảy ra lỗi khi truy xuất dữ liệu.", "mode": mode, "images": []}
 
         if not context_text or len(context_text.strip()) < 10:
             logger.warning("Empty context retrieved. Returning fallback response.")
@@ -188,18 +234,21 @@ class QueryPipeline:
             MemoryCache.set_answer(cache_key, result)
             return result
 
-        prompt = RAG_RESPONSE_TEMPLATE.format(context_data=context_text, question=question)
+        _parts = RAG_RESPONSE_TEMPLATE.split("---", 1)
+        sys_prompt = _parts[0].strip() if len(_parts) > 1 else RAG_RESPONSE_TEMPLATE
+        user_msg = f"DỮ LIỆU NGỮ CẢNH:\n{context_text}\n\nCÂU HỎI CỦA NGƯỜI DÙNG:\n{question}"
         try:
-            answer = await rag.llm_model_func(prompt, system_prompt=None)
+            answer = await response_llm_func(prompt=user_msg, system_prompt=sys_prompt)
         except Exception as e:
             logger.error(f"LLM Generation failed: {e}")
             answer = "Xin lỗi, đã xảy ra lỗi trong quá trình tổng hợp câu trả lời."
 
         image_refs = extract_image_refs_from_answer([], answer, context_text)
+        sources = format_chunks_as_sources(mix_chunks) if mix_chunks else []
 
         result = {
             "answer": answer,
-            "sources": [],
+            "sources": sources,
             "mode": mode,
             "question": question,
             "images": image_refs,
@@ -207,7 +256,7 @@ class QueryPipeline:
         MemoryCache.set_answer(cache_key, result)
         return result
 
-    async def query_stream(self, question: str, mode: str = "consensus", workspace: str = "default"):
+    async def query_stream(self, question: str, mode: str = "mix", workspace: str = "default"):
         """
         Streaming response pipeline SSE.
         Yields: {"type": "token"|"done"|"error", ...}
@@ -230,77 +279,80 @@ class QueryPipeline:
         t_total = time.perf_counter()
 
         try:
-            if mode == "consensus":
-                t0 = time.perf_counter()
+            # --- Multi-hop detection (Đã tắt - nhảy thẳng vào single-hop) ---
+            t0 = time.perf_counter()
+            is_multi_hop, sub_queries = False, [] # await detect_and_decompose(question)
 
-                # --- Multi-hop detection ---
-                is_multi_hop, sub_queries = await detect_and_decompose(question)
+            if is_multi_hop and len(sub_queries) >= 2:
+                logger.info(f"[StreamQuery][MultiHop] {len(sub_queries)} sub-queries detected for mode {mode}")
+                retrieved_chunks, labeled_context = await multi_hop_retrieve_labeled(
+                    sub_queries=sub_queries,
+                    rag_instance=rag,
+                    top_k_each=3,
+                    mode=mode,
+                )
+                logger.info(
+                    f"[StreamQuery][TIMING] multi_hop_retrieve={1000*(time.perf_counter()-t0):.0f}ms, "
+                    f"chunks={len(retrieved_chunks)}"
+                )
+                if not retrieved_chunks:
+                    yield {"type": "error", "content": "Không tìm thấy thông tin phù hợp."}
+                    return
 
-                if is_multi_hop and len(sub_queries) >= 2:
-                    logger.info(f"[StreamQuery][MultiHop] {len(sub_queries)} sub-queries detected")
-                    retrieved_chunks, labeled_context = await multi_hop_retrieve_labeled(
-                        sub_queries=sub_queries,
-                        rag_instance=rag,
-                        top_k_each=3,
-                    )
-                    logger.info(
-                        f"[StreamQuery][TIMING] multi_hop_retrieve={1000*(time.perf_counter()-t0):.0f}ms, "
-                        f"chunks={len(retrieved_chunks)}"
-                    )
-                    if not retrieved_chunks:
-                        yield {"type": "error", "content": "Không tìm thấy thông tin phù hợp."}
-                        return
+                from app.services.generation.rag_generator import load_prompt
+                multi_hop_template = load_prompt("multi_hop_synthesis.jinja")
+                _parts = multi_hop_template.split("---", 1)
+                sys_prompt = _parts[0].strip() if len(_parts) > 1 else multi_hop_template
+                user_msg = f"DỮ LIỆU NGỮ CẢNH ĐƯỢC CẤP:\n{labeled_context}\n\nCÂU HỎI:\n{question}"
+                context_text = labeled_context
 
-                    from app.services.generation.rag_generator import load_prompt
-                    multi_hop_template = load_prompt("multi_hop_synthesis.jinja")
-                    _parts = multi_hop_template.split("---", 1)
-                    sys_prompt = _parts[0].strip() if len(_parts) > 1 else multi_hop_template
-                    user_msg = f"DỮ LIỆU NGỮ CẢNH ĐƯỢC CẤP:\n{labeled_context}\n\nCÂU HỎI:\n{question}"
-                    context_text = labeled_context
+            elif mode == "consensus":
+                # --- Single-hop consensus ---
+                retriever = ConsensusRetriever(rag)
+                retrieved_chunks = await retriever.consensus_search(
+                    query=question, top_k_each_method=5, final_k=5
+                )
+                logger.info(
+                    f"[StreamQuery][TIMING] consensus_search={1000*(time.perf_counter()-t0):.0f}ms, "
+                    f"chunks={len(retrieved_chunks)}"
+                )
 
-                else:
-                    # --- Single-hop consensus ---
-                    retriever = ConsensusRetriever(rag)
-                    retrieved_chunks = await retriever.consensus_search(
-                        query=question, top_k_each_method=5, final_k=5
-                    )
-                    logger.info(
-                        f"[StreamQuery][TIMING] consensus_search={1000*(time.perf_counter()-t0):.0f}ms, "
-                        f"chunks={len(retrieved_chunks)}"
-                    )
+                if not retrieved_chunks:
+                    yield {"type": "error", "content": "Không tìm thấy thông tin phù hợp."}
+                    return
 
-                    if not retrieved_chunks:
-                        yield {"type": "error", "content": "Không tìm thấy thông tin phù hợp."}
-                        return
+                if len(retrieved_chunks) >= 2:
+                    t0 = time.perf_counter()
+                    retrieved_chunks = await rerank_chunks(question, retrieved_chunks)
+                    logger.info(f"[StreamQuery][TIMING] rerank={1000*(time.perf_counter()-t0):.0f}ms")
 
-                    if len(retrieved_chunks) >= 2:
-                        t0 = time.perf_counter()
-                        retrieved_chunks = await rerank_chunks(question, retrieved_chunks)
-                        logger.info(f"[StreamQuery][TIMING] rerank={1000*(time.perf_counter()-t0):.0f}ms")
+                context_text = _build_context_from_chunks(retrieved_chunks)
 
-                    context_text = _build_context_from_chunks(retrieved_chunks)
-
-                    tier_summary = " | ".join(
-                        f"[{c.get('consensus_source','?')}] {c.get('total_score', 0):.3f}"
-                        for c in retrieved_chunks
-                    )
-                    logger.info(f"[StreamQuery] Consensus Tiers: {tier_summary}")
-                    logger.info(
-                        f"[StreamQuery] Final Context sent to LLM ({len(context_text)} chars):\n"
-                        f"{context_text[:500]}...\n[...]\n{context_text[-200:]}"
-                    )
-                    _parts = RAG_RESPONSE_TEMPLATE.split("---", 1)
-                    sys_prompt = _parts[0].strip() if len(_parts) > 1 else RAG_RESPONSE_TEMPLATE
-                    user_msg = f"DỮ LIỆU NGỮ CẢNH:\n{context_text}\n\nCÂU HỎI CỦA NGƯỜI DÙNG:\n{question}"
+                tier_summary = " | ".join(
+                    f"[{c.get('consensus_source','?')}] {c.get('total_score', 0):.3f}"
+                    for c in retrieved_chunks
+                )
+                logger.info(f"[StreamQuery] Consensus Tiers: {tier_summary}")
+                logger.info(
+                    f"[StreamQuery] Final Context sent to LLM ({len(context_text)} chars):\n"
+                    f"{context_text[:500]}...\n[...]\n{context_text[-200:]}"
+                )
+                _parts = RAG_RESPONSE_TEMPLATE.split("---", 1)
+                sys_prompt = _parts[0].strip() if len(_parts) > 1 else RAG_RESPONSE_TEMPLATE
+                user_msg = f"DỮ LIỆU NGỮ CẢNH:\n{context_text}\n\nCÂU HỎI CỦA NGƯỜI DÙNG:\n{question}"
 
             else:
                 effective_mode = "mix" if mode == "hybrid" else mode
-                query_param = QueryParam(mode=effective_mode, only_need_context=True, top_k=5)
                 try:
-                    context_text = await rag.aquery(question, param=query_param)
+                    raw_data = await rag.aquery_data(question, param=QueryParam(mode=effective_mode, top_k=5))
+                    data = raw_data.get("data", {}) if isinstance(raw_data, dict) else {}
+                    retrieved_chunks = data.get("chunks", [])
+                    context_text = _build_mix_context(data)
                 except Exception:
-                    fallback_param = QueryParam(mode="naive", only_need_context=True, top_k=5)
-                    context_text = await rag.aquery(question, param=fallback_param)
+                    try:
+                        context_text = await rag.aquery(question, param=QueryParam(mode=effective_mode, only_need_context=True, top_k=5))
+                    except Exception:
+                        context_text = ""
 
                 if not context_text or len(context_text.strip()) < 10:
                     yield {"type": "error", "content": "Không tìm thấy thông tin liên quan."}
@@ -340,9 +392,9 @@ class QueryPipeline:
         )
 
         image_refs = extract_image_refs_from_answer(
-            retrieved_chunks if mode == "consensus" else [], full_answer, context_text
+            retrieved_chunks, full_answer, context_text
         )
-        formatted_sources = format_chunks_as_sources(retrieved_chunks) if mode == "consensus" else []
+        formatted_sources = format_chunks_as_sources(retrieved_chunks)
 
         logger.info(f"[StreamQuery] Done: {len(full_answer)} chars, {len(image_refs)} images")
 

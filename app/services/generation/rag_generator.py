@@ -64,11 +64,11 @@ def format_chunks_as_sources(chunks: List[Dict]) -> List[Dict]:
         clean_content = PAGE_CITE_PATTERN.sub("", content).strip()
 
         sources.append({
-            "id": chunk.get("id", str(uuid.uuid4())),
+            "id": chunk.get("id", chunk.get("chunk_id", str(uuid.uuid4()))),
             "title": title,
             "text": clean_content,
-            "chunkSource": "",
-            "score": chunk.get("total_score", chunk.get("score", None)),
+            "chunkSource": chunk.get("file_path", ""),
+            "score": chunk.get("total_score", chunk.get("rerank_score", chunk.get("score", None))),
         })
 
     return sources

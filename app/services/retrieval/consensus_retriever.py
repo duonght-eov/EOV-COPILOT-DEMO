@@ -305,13 +305,28 @@ class ConsensusRetriever:
         bronze_ids = all_ids - gold_ids - silver_ids
 
         final_selected_ids: List[str] = []
-        for tier in (gold_ids, silver_ids, bronze_ids):
-            for cid in sorted(tier, key=lambda x: chunk_scores[x], reverse=True):
-                if cid not in final_selected_ids:
-                    final_selected_ids.append(cid)
-                if len(final_selected_ids) >= final_k:
-                    break
-            if len(final_selected_ids) >= final_k:
+        
+        # Lấy TOÀN BỘ Gold
+        for cid in sorted(gold_ids, key=lambda x: chunk_scores[x], reverse=True):
+            if cid not in final_selected_ids:
+                final_selected_ids.append(cid)
+                
+        # Lấy TOÀN BỘ Silver
+        for cid in sorted(silver_ids, key=lambda x: chunk_scores[x], reverse=True):
+            if cid not in final_selected_ids:
+                final_selected_ids.append(cid)
+
+        # Lấy Bronze: Bắt buộc lấy thêm ít nhất 2 chunk điểm cao nhất, VÀ đảm bảo tổng số lượng phải >= 5
+        sorted_bronze = sorted(bronze_ids, key=lambda x: chunk_scores[x], reverse=True)
+        bronze_added = 0
+        
+        for cid in sorted_bronze:
+            if cid not in final_selected_ids:
+                final_selected_ids.append(cid)
+                bronze_added += 1
+                
+            # Dừng khi đã lấy ĐỦ 2 bronze VÀ tổng số chunk đã ĐỦ 5
+            if bronze_added >= 2 and len(final_selected_ids) >= 5:
                 break
 
         logger.info(

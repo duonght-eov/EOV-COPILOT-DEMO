@@ -158,12 +158,15 @@ class QueryRAGFactory:
                 logger.info("QueryRAGFactory: Connected to Neo4j Graph")
 
             from app.infrastructure.llm.llm_func import query_llm_func as _query_llm_for_rag
+            from app.infrastructure.reranker.bge_reranker import lightrag_rerank_wrapper
+
             rag = LightRAG(
                 working_dir=rag_work_dir,
                 workspace=workspace,
                 llm_model_max_async=settings.RAG_MAX_ASYNC_JOBS,
                 embedding_func_max_async=settings.RAG_MAX_ASYNC_JOBS,
                 llm_model_func=_query_llm_for_rag,
+                rerank_model_func=lightrag_rerank_wrapper,
                 embedding_func=EmbeddingFunc(
                     embedding_dim=settings.EMBEDDING_DIM,
                     max_token_size=settings.EMBEDDING_MAX_TOKEN_SIZE,
