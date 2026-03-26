@@ -16,7 +16,7 @@ import EovPredictOptions from "./Connectors/PredictAPI";
 export const getDataConnectors = (t) => ({
   "eov-predict-api": {
     name: "EOV Predict API",
-    image: ConnectorImages.websiteDepth, // Reusing Link icon
+    image: ConnectorImages.youtube, // Reusing youtube or generic icon
     description: "Cấp API tĩnh về Cơ sở dữ liệu của Doanh Nghiệp (Tra cứu/Dự báo).",
     options: <EovPredictOptions />,
   },

@@ -4,7 +4,7 @@ import UserIcon from "../../../../UserIcon";
 import Actions from "./Actions";
 import renderMarkdown from "@/utils/chat/markdown";
 import { userFromStorage } from "@/utils/request";
-import Citations from "../Citation";
+import Citations, { CitationDetailModal } from "../Citation";
 import { v4 } from "uuid";
 import DOMPurify from "@/utils/chat/purify";
 import { EditMessageForm, useEditMessage } from "./Actions/EditMessage";
@@ -74,6 +74,17 @@ const HistoricalMessage = ({
   metrics = {},
   alignmentCls = "",
 }) => {
+  const [activeCitationIndex, setActiveCitationIndex] = useState(null);
+  const getCitationSource = () => {
+    if (activeCitationIndex === null || !sources[activeCitationIndex]) return null;
+    const s = sources[activeCitationIndex];
+    return {
+      title: s.title,
+      references: 1,
+      chunks: [{ text: s.text, chunkSource: s.chunkSource, score: s.score }],
+    };
+  };
+
   const { t } = useTranslation();
   const { isEditing } = useEditMessage({ chatId, role });
   const { isDeleted, completeDelete, onEndAnimation } = useWatchDeleteMessage({
@@ -151,6 +162,7 @@ const HistoricalMessage = ({
                 role={role}
                 message={message}
                 expanded={isLastMessage}
+                setActiveCitationIndex={setActiveCitationIndex}
               />
               {isRefusalMessage && (
                 <Link
@@ -188,7 +200,13 @@ const HistoricalMessage = ({
           />
         </div>
         {role === "assistant" && <ImageGallery images={images} />}
-        {role === "assistant" && <Citations sources={sources} />}
+        {/* {role === "assistant" && <Citations sources={sources} />} */}
+        {activeCitationIndex !== null && getCitationSource() && (
+          <CitationDetailModal
+            source={getCitationSource()}
+            onClose={() => setActiveCitationIndex(null)}
+          />
+        )}
       </div>
     </div>
   );
@@ -245,12 +263,17 @@ function ChatAttachments({ attachments = [] }) {
 }
 
 const RenderChatContent = memo(
-  ({ role, message, expanded = false }) => {
+  ({ role, message, expanded = false, setActiveCitationIndex }) => {
     const [lightbox, setLightbox] = useState(null);
 
     const handleContainerClick = (e) => {
       if (e.target.tagName === "IMG" && e.target.classList.contains("markdown-image")) {
         setLightbox(e.target.src);
+      }
+      const citationBtn = e.target.closest(".inline-citation");
+      if (citationBtn) {
+        const sourceIndex = parseInt(citationBtn.getAttribute("data-source-index"), 10);
+        if (setActiveCitationIndex) setActiveCitationIndex(sourceIndex - 1);
       }
     };
 
@@ -263,7 +286,7 @@ const RenderChatContent = memo(
             className="flex flex-col gap-y-1"
             onClick={handleContainerClick}
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(renderMarkdown(message)),
+              __html: DOMPurify.sanitize(renderMarkdown(message)).replace(/\[(\d+)\]/g, `<sup class="inline-citation cursor-pointer mx-0.5 p-1 text-blue-400 hover:text-blue-300 bg-blue-400/10 hover:bg-blue-400/20 shadow-sm rounded-md transition-colors whitespace-nowrap" data-source-index="$1" title="Click để xem nguồn trích dẫn"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" class="inline-block align-middle mb-[2px]"><path d="M136.37,187.53a12,12,0 0,1,0,17l-14.12,14.15a60,60,0 1,1-84.88-84.88l14.12-14.12a12,12,0 0,1,17,17l-14.15,14.12a36,36,0 1,0,50.91,50.91l14.12-14.12A12,12,0 0,1,136.37,187.53Zm74.26-142.16a60,60,0 0,0-84.88,0l-14.12,14.12a12,12,0 0,0,17,17l14.12-14.12a36,36,0 0,1,50.91,50.91l-14.12,14.15a12,12,0 0,0,17,17l14.12-14.15A60,60,0 0,0,210.63,45.37Z"></path></svg></sup>`),
             }}
           />
           {lightbox && (
@@ -309,7 +332,7 @@ const RenderChatContent = memo(
           className="flex flex-col gap-y-1"
           onClick={handleContainerClick}
           dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(renderMarkdown(msgToRender)),
+            __html: DOMPurify.sanitize(renderMarkdown(msgToRender)).replace(/\[(\d+)\]/g, `<sup class="inline-citation cursor-pointer mx-0.5 p-1 text-blue-400 hover:text-blue-300 bg-blue-400/10 hover:bg-blue-400/20 shadow-sm rounded-md transition-colors whitespace-nowrap" data-source-index="$1" title="Click để xem nguồn trích dẫn"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" class="inline-block align-middle mb-[2px]"><path d="M136.37,187.53a12,12,0 0,1,0,17l-14.12,14.15a60,60,0 1,1-84.88-84.88l14.12-14.12a12,12,0 0,1,17,17l-14.15,14.12a36,36,0 1,0,50.91,50.91l14.12-14.12A12,12,0 0,1,136.37,187.53Zm74.26-142.16a60,60,0 0,0-84.88,0l-14.12,14.12a12,12,0 0,0,17,17l14.12-14.12a36,36,0 0,1,50.91,50.91l-14.12,14.15a12,12,0 0,0,17,17l14.12-14.15A60,60,0 0,0,210.63,45.37Z"></path></svg></sup>`),
           }}
         />
         {lightbox && (

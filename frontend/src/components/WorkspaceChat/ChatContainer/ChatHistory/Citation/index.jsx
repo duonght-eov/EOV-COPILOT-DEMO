@@ -127,7 +127,7 @@ function omitChunkHeader(text) {
   return text.split("</document_metadata>")[1].trim();
 }
 
-function CitationDetailModal({ source, onClose }) {
+export function CitationDetailModal({ source, onClose }) {
   const { references, title, chunks } = source;
   const { isUrl, text: webpageUrl, href: linkTo } = parseChunkSource(source);
 
