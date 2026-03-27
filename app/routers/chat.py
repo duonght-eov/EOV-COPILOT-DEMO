@@ -55,7 +55,7 @@ async def chat_with_workspace(
         raise HTTPException(status_code=403, detail="Access denied")
     
     # Use workspace query mode if not specified
-    query_mode = payload.mode or workspace.query_mode or "consensus"
+    query_mode = payload.mode or workspace.query_mode or "mix"
     
     # Store response data for saving after stream completes
     response_data = {"full_response": "", "sources": [], "images": []}
@@ -78,7 +78,6 @@ async def chat_with_workspace(
         
         if workspace.is_predict_enabled:
             print(f"[PREDICT-ROUTING] Routing query to Analytics Service for workspace {slug}")
-            start_time = time.time()
             
             # Fetch Connector Info
             from app.models.models import WorkspaceConnector
@@ -117,36 +116,15 @@ async def chat_with_workspace(
                                 response_data["full_response"] += chunk
                                 yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponseChunk', 'textResponse': chunk, 'close': False, 'sources': []})}\n\n"
                 
-                # Metrics for Predict
-                metrics = {
-                    "duration": time.time() - start_time,
-                    "outputTps": len(response_data["full_response"]) / 4 / (time.time() - start_time),
-                    "model": "Analytics-Engine",
-                    "timestamp": start_time
-                }
-                
-                # Save to DB (Synchronous)
-                from app.database import async_session_maker
-                async with async_session_maker() as session:
-                    chat = Chat(
-                        session_id=f"predict_{user_id}_{datetime.utcnow().timestamp()}",
-                        prompt=user_message,
-                        response=response_data["full_response"],
-                        workspace_id=workspace_id,
-                        user_id=user_id,
-                        metrics=json.dumps(metrics)
-                    )
-                    session.add(chat)
-                    await session.commit()
-                    await session.refresh(chat)
-                    chat_id = chat.id
-                
-                yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponse', 'textResponse': response_data['full_response'], 'close': True, 'sources': [], 'metrics': metrics, 'chatId': chat_id})}\n\n"
-                return # End of stream for predict
+                # Chèn đường phân cách nếu Predict có xuất ra văn bản
+                if response_data["full_response"].strip():
+                    separator = "\n\n---\n**Tra cứu Tài liệu (RAG):**\n"
+                    response_data["full_response"] += separator
+                    yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponseChunk', 'textResponse': separator, 'close': False, 'sources': []})}\n\n"
+
             except Exception as e:
-                print(f"[PREDICT-ROUTING] Error: {e}")
-                yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'abort', 'textResponse': f'Lỗi kết nối bộ phận phân tích: {str(e)}', 'close': True, 'error': True})}\n\n"
-                return
+                print(f"[PREDICT-ROUTING] Máy phân tích đang bảo trì hoặc lỗi ({e}). Bỏ qua chuyển ngay sang RAG.")
+                # Lặng lẽ bỏ qua lỗi CSDL Predict để hệ thống có thể dùng RAG bình thường thay vì crash
 
         start_time = time.time()
         
@@ -160,7 +138,6 @@ async def chat_with_workspace(
                 if "chunk" in component:
                     chunk = component["chunk"]
                     response_data["full_response"] += chunk
-                    # Yield SSE formatted data with type for frontend
                     yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponseChunk', 'textResponse': chunk, 'close': False, 'sources': []})}\n\n"
                 
                 if "sources" in component:
@@ -627,7 +604,7 @@ async def stream_chat_in_thread(
         raise HTTPException(status_code=404, detail="Thread not found")
     
     # Use workspace query mode if not specified
-    query_mode = payload.mode or workspace.query_mode or "consensus"
+    query_mode = payload.mode or workspace.query_mode or "mix"
     
     # Store response data for saving after stream completes
     response_data = {"full_response": "", "sources": []}

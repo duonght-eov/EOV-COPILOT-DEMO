@@ -49,7 +49,7 @@ class Workspace(Base):
     llm_provider = Column(String(100), nullable=True)
     llm_model = Column(String(100), nullable=True)
     embedding_model = Column(String(100), nullable=True)
-    query_mode = Column(String(50), default="consensus")  # naive, local, global, mix, consensus
+    query_mode = Column(String(50), default="mix")  # naive, local, global, mix, consensus
     
     # Predict/Analytics Configuration
     is_predict_enabled = Column(Boolean, default=True)

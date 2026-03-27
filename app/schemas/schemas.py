@@ -94,7 +94,7 @@ class WorkspaceResponse(WorkspaceBase):
     slug: str
     llm_provider: Optional[str] = None
     llm_model: Optional[str] = None
-    query_mode: str = "consensus"
+    query_mode: str = "mix"
     is_predict_enabled: bool = False
     predict_llm_model: Optional[str] = None
     created_at: datetime

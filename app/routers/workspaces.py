@@ -316,8 +316,10 @@ async def update_workspace_connectors(
         if "base_url" in body and body["base_url"]:
             new_conn = WorkspaceConnector(
                 workspace_id=ws.id,
+                name="Predict API",
+                connector_type="predict",
                 base_url=body["base_url"],
-                auth_type=body.get("auth_type", "bearer"),
+                auth_type=body.get("auth_type", "none"),
                 auth_credentials=body.get("auth_credentials", ""),
                 custom_headers="{}"
             )
