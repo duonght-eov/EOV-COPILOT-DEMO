@@ -10,7 +10,9 @@ import {
   ThoughtChainComponent,
 } from "../ThoughtContainer";
 
-const IMAGE_BASE = "/api/image";
+import { API_BASE } from "@/utils/constants";
+
+const IMAGE_BASE = `${API_BASE}/v1/image`;
 
 function ImageGallery({ images = [] }) {
   const [lightbox, setLightbox] = useState(null);
@@ -201,7 +203,9 @@ function RenderAssistantChatContent({ message, setActiveCitationIndex }) {
       <span
         className="break-words"
         onClick={handleContainerClick}
-        dangerouslySetInnerHTML={{ __html: renderMarkdown(contentRef.current).replace(/\[(\d+)\]/g, `<sup class="inline-citation cursor-pointer mx-0.5 p-1 text-blue-400 hover:text-blue-300 bg-blue-400/10 hover:bg-blue-400/20 shadow-sm rounded-md transition-colors whitespace-nowrap" data-source-index="$1" title="Click để xem nguồn trích dẫn"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" class="inline-block align-middle mb-[2px]"><path d="M136.37,187.53a12,12,0 0,1,0,17l-14.12,14.15a60,60,0 1,1-84.88-84.88l14.12-14.12a12,12,0 0,1,17,17l-14.15,14.12a36,36,0 1,0,50.91,50.91l14.12-14.12A12,12,0 0,1,136.37,187.53Zm74.26-142.16a60,60,0 0,0-84.88,0l-14.12,14.12a12,12,0 0,0,17,17l14.12-14.12a36,36,0 0,1,50.91,50.91l-14.12,14.15a12,12,0 0,0,17,17l14.12-14.15A60,60,0 0,0,210.63,45.37Z"></path></svg></sup>`) }}
+        dangerouslySetInnerHTML={{ __html: renderMarkdown(contentRef.current)
+          .replace(/\[(\d+)\]/g, `<sup class="inline-citation cursor-pointer mx-0.5 p-1 text-blue-400 hover:text-blue-300 bg-blue-400/10 hover:bg-blue-400/20 shadow-sm rounded-md transition-colors whitespace-nowrap" data-source-index="$1" title="Click để xem nguồn trích dẫn"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256" class="inline-block align-middle mb-[2px]"><path d="M136.37,187.53a12,12,0 0,1,0,17l-14.12,14.15a60,60,0 1,1-84.88-84.88l14.12-14.12a12,12,0 0,1,17,17l-14.15,14.12a36,36,0 1,0,50.91,50.91l14.12-14.12A12,12,0 0,1,136.37,187.53Zm74.26-142.16a60,60,0 0,0-84.88,0l-14.12,14.12a12,12,0 0,0,17,17l14.12-14.12a36,36,0 0,1,50.91,50.91l-14.12,14.15a12,12,0 0,0,17,17l14.12-14.15A60,60,0 0,0,210.63,45.37Z"></path></svg></sup>`)
+        }}
       />
       {lightbox && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80" onClick={() => setLightbox(null)}>

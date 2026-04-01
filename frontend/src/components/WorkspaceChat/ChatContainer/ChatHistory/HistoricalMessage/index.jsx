@@ -21,7 +21,9 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { chatQueryRefusalResponse } from "@/utils/chat";
 
-const IMAGE_BASE = "/api/image";
+import { API_BASE } from "@/utils/constants";
+
+const IMAGE_BASE = `${API_BASE}/v1/image`;
 
 function ImageGallery({ images = [] }) {
   const [lightbox, setLightbox] = useState(null);

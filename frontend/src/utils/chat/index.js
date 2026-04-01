@@ -117,6 +117,7 @@ export default function handleChat(
           content: existingHistory.content + textResponse,
           sources,
           error,
+          images,
           closed: close,
           animate: !close,
           pending: false,
@@ -129,6 +130,7 @@ export default function handleChat(
       _chatHistory.push({
         uuid,
         sources,
+        images,
         error,
         content: textResponse,
         role: "assistant",

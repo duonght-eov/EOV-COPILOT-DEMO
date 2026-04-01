@@ -78,6 +78,14 @@ markdown.renderer.rules.image = function (tokens, idx) {
 
 markdown.use(markdownItKatexPlugin);
 
+const MINIO_BUCKET_PREFIX = "ocr-results/";
+
+function preprocessImageRefs(text = "") {
+  // Không render ảnh inline trong đoạn chat nữa, vì đã có Gallery bên dưới.
+  // Xóa bỏ thẻ IMAGE_REF khỏi text hiển thị cho sạch sẽ.
+  return text.replace(/\[IMAGE_REF:(.*?)\]/g, "");
+}
+
 export default function renderMarkdown(text = "") {
-  return markdown.render(text);
+  return markdown.render(preprocessImageRefs(text));
 }
