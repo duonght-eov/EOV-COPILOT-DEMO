@@ -34,7 +34,7 @@ class RAGServiceClient:
         self,
         query: str,
         workspace_slug: str,
-        mode: str = "consensus",
+        mode: str = "mix",
         stream: bool = False
     ) -> Dict[str, Any]:
         """

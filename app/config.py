@@ -24,10 +24,13 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 60
     
     # RAGAnything Service
-    rag_service_url: str = "http://localhost:8000"
+    rag_service_url: str = "http://localhost:8006"
 
-    # Analytics/Predict Service
+    # Analytics/Predict Service (legacy, giữ để tương thích)
     analytics_service_url: str = "http://localhost:8007"
+
+    # Agentic Service (ReAct Agent)
+    agentic_service_url: str = "http://localhost:8005"
     
     # Water Forecast API
     water_api_url: str = "http://10.0.0.62:8000"

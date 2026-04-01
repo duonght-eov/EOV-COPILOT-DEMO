@@ -72,61 +72,117 @@ async def chat_with_workspace(
         
         print(f"[STREAM-CHAT] Starting stream for query: {payload.message}")
         
-        # [EOV INTEGRATION] Check for Predict Workspace
+        # [EOV INTEGRATION] Nếu Workspace bật Agent Mode → proxy toàn bộ sang Agentic Service
         from app.config import get_settings
         settings = get_settings()
-        
+
         if workspace.is_predict_enabled:
-            print(f"[PREDICT-ROUTING] Routing query to Analytics Service for workspace {slug}")
-            
-            # Fetch Connector Info
-            from app.models.models import WorkspaceConnector
-            from app.database import async_session_maker
-            
-            connector_data = None
-            async with async_session_maker() as session:
-                result_conn = await session.execute(
-                    select(WorkspaceConnector).where(WorkspaceConnector.workspace_id == workspace.id)
-                )
-                connector = result_conn.scalar_one_or_none()
-                if connector:
-                    connector_data = {
-                        "base_url": connector.base_url,
-                        "auth_type": connector.auth_type,
-                        "auth_credentials": connector.auth_credentials,
-                        "custom_headers": connector.custom_headers
-                    }
-                    
+            print(f"[AGENT-ROUTING] Proxying query to Agentic Service for workspace {slug}")
             try:
-                payload_data = {
+                from app.models.models import WorkspaceConnector
+                from app.database import async_session_maker
+
+                connector_data = None
+                async with async_session_maker() as session:
+                    result_conn = await session.execute(
+                        select(WorkspaceConnector).where(WorkspaceConnector.workspace_id == workspace.id)
+                    )
+                    connector = result_conn.scalar_one_or_none()
+                    if connector:
+                        connector_data = {
+                            "base_url": connector.base_url,
+                            "auth_type": connector.auth_type,
+                            "auth_credentials": connector.auth_credentials,
+                        }
+
+                agent_payload = {
                     "message": payload.message,
+                    "session_id": f"{user_id}_{workspace_id}",
+                    "workspace_slug": slug,
                     "connector": connector_data,
-                    "predict_llm_model": getattr(workspace, 'predict_llm_model', None)
                 }
-                async with httpx.AsyncClient(timeout=60.0) as client:
+
+                # Thu thập toàn bộ stream từ Agent Service
+                agent_full_response = ""
+                agent_sources = []
+                agent_images = []
+                start_time = time.time()
+
+                async with httpx.AsyncClient(timeout=180.0) as client:
                     async with client.stream(
-                        "POST", 
-                        f"{settings.analytics_service_url}/predict/chat",
-                        json=payload_data
+                        "POST",
+                        f"{settings.agentic_service_url}/api/v1/agent/chat/stream",
+                        json=agent_payload,
                     ) as resp:
                         async for line in resp.aiter_lines():
-                            if line:
-                                data = json.loads(line)
-                                chunk = data.get("chunk", "")
-                                response_data["full_response"] += chunk
-                                yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponseChunk', 'textResponse': chunk, 'close': False, 'sources': []})}\n\n"
-                
-                # Chèn đường phân cách nếu Predict có xuất ra văn bản
-                if response_data["full_response"].strip():
-                    separator = "\n\n---\n**Tra cứu Tài liệu (RAG):**\n"
-                    response_data["full_response"] += separator
-                    yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponseChunk', 'textResponse': separator, 'close': False, 'sources': []})}\n\n"
+                            if not (line and line.startswith("data: ")):
+                                continue
+                            raw = line[6:]
+                            try:
+                                data = json.loads(raw)
+                                etype = data.get("type", "")
+                                text = data.get("textResponse", "")
+                                sources = data.get("sources", [])
+                                imgs = data.get("images", [])
+
+                                if etype == "textResponseChunk" and not data.get("close"):
+                                    agent_full_response += text
+                                    yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponseChunk', 'textResponse': text, 'close': False, 'sources': []})}\n\n"
+
+                                elif etype == "textResponse" or (etype == "textResponseChunk" and data.get("close")):
+                                    if sources:
+                                        agent_sources = sources
+                                    if imgs:
+                                        agent_images = imgs
+
+                            except json.JSONDecodeError:
+                                pass
+
+                # Lưu chat vào DB
+                end_time = time.time()
+                duration = end_time - start_time
+                metrics = {
+                    "duration": duration,
+                    "outputTps": (len(agent_full_response) / 4) / max(duration, 0.001),
+                    "model": workspace.llm_model or "Agent",
+                    "timestamp": start_time,
+                }
+                chat_id = None
+                async with async_session_maker() as session:
+                    try:
+                        # Mẹo: Gộp images vào sources để lưu db mà không chỉnh schema
+                        db_sources = list(agent_sources) if agent_sources else []
+                        if agent_images:
+                            db_sources.append({"_type": "images", "urls": agent_images})
+
+                        chat = Chat(
+                            session_id=f"session_{user_id}_{datetime.utcnow().timestamp()}",
+                            prompt=user_message,
+                            response=agent_full_response,
+                            sources=json.dumps(db_sources) if db_sources else None,
+                            metrics=json.dumps(metrics),
+                            workspace_id=workspace_id,
+                            user_id=user_id,
+                        )
+                        session.add(chat)
+                        await session.commit()
+                        await session.refresh(chat)
+                        chat_id = chat.id
+                        print(f"[AGENT-ROUTING] Chat saved: id={chat_id}, sources={len(agent_sources)}, images={len(agent_images)}")
+                    except Exception as db_e:
+                        print(f"[AGENT-ROUTING] DB save error: {db_e}")
+
+                # Phát final textResponse kèm images để Frontend render ImageGallery
+                yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponse', 'textResponse': agent_full_response, 'close': True, 'sources': agent_sources, 'images': agent_images, 'metrics': metrics, 'chatId': chat_id}, ensure_ascii=False)}\n\n"
+                return
 
             except Exception as e:
-                print(f"[PREDICT-ROUTING] Máy phân tích đang bảo trì hoặc lỗi ({e}). Bỏ qua chuyển ngay sang RAG.")
-                # Lặng lẽ bỏ qua lỗi CSDL Predict để hệ thống có thể dùng RAG bình thường thay vì crash
+                print(f"[AGENT-ROUTING] Agentic Service lỗi ({e}). Fallback về RAG.")
+                # Fallback an toàn sang RAG nếu Agentic Service chưa chạy / lỗi
+
 
         start_time = time.time()
+
         
         try:
             # Try streaming from RAG service
@@ -190,22 +246,8 @@ async def chat_with_workspace(
                 except Exception as e:
                     print(f"[STREAM-CHAT] Error saving chat: {e}")
 
-            # Final message with sources AND metrics
-            # AnythingLLM frontend doesn't process JSON array "images", so we embed them as markdown
-            final_response_text = response_data['full_response']
-            if "images" in response_data and response_data["images"]:
-                final_response_text += "\n\n**Visual Context:**\n"
-                for idx, img_path in enumerate(response_data["images"]):
-                    # Strip "ocr-results/" prefix if present because RAG's serve_image already assumes bucket "ocr-results"
-                    clean_path = img_path
-                    if clean_path.startswith("ocr-results/"):
-                        clean_path = clean_path[len("ocr-results/"):]
-                        
-                    # Dùng relative URL proxy của Backend Gateway để vòng qua Authen/CORS MinIO
-                    full_img_url = f"/api/workspace/image/{clean_path}"
-                    final_response_text += f"\n![Image {idx+1}]({full_img_url})"
-
-            yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponse', 'textResponse': final_response_text, 'close': True, 'sources': response_data['sources'], 'metrics': metrics, 'chatId': chat_id})}\n\n"
+            # Final message: truyền images array gốc thay vì nhúng vào markdown text
+            yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponse', 'textResponse': response_data['full_response'], 'close': True, 'sources': response_data['sources'], 'images': response_data.get('images', []), 'metrics': metrics, 'chatId': chat_id}, ensure_ascii=False)}\n\n"
             
         except Exception as e:
             print(f"[STREAM-CHAT] Stream error: {e}, trying fallback")
@@ -327,10 +369,22 @@ def convert_to_chat_history(chats):
         except:
             pass
             
+        # Extract images from sources if present (using the metadata trick)
+        raw_sources = json.loads(chat.sources) if chat.sources else []
+        final_sources = []
+        images = []
+        
+        for s in raw_sources:
+            if isinstance(s, dict) and s.get("_type") == "images":
+                images.extend(s.get("urls", []))
+            else:
+                final_sources.append(s)
+
         history.append({
             "role": "assistant",
             "content": content,
-            "sources": json.loads(chat.sources) if chat.sources else [],
+            "sources": final_sources,
+            "images": images,
             "metrics": json.loads(chat.metrics) if getattr(chat, 'metrics', None) else {},
             "chatId": chat.id,
             "sentAt": chat.created_at.timestamp(),
@@ -641,6 +695,8 @@ async def stream_chat_in_thread(
                     response_data["sources"] = component["sources"]
 
                 if "images" in component:
+                    if "images" not in response_data:
+                        response_data["images"] = []
                     response_data["images"] = component["images"]
 
                 if "error" in component:
@@ -664,11 +720,16 @@ async def stream_chat_in_thread(
             from app.database import async_session_maker
             async with async_session_maker() as session:
                 try:
+                    # Mẹo: Gộp images vào sources để lưu db mà không chỉnh schema
+                    db_sources = list(response_data["sources"]) if response_data["sources"] else []
+                    if "images" in response_data and response_data["images"]:
+                        db_sources.append({"_type": "images", "urls": response_data["images"]})
+
                     chat = Chat(
                         session_id=f"thread_{thread_id}_{user_id}_{datetime.utcnow().timestamp()}",
                         prompt=user_message,
                         response=response_data["full_response"],
-                        sources=json.dumps(response_data["sources"]) if response_data["sources"] else None,
+                        sources=json.dumps(db_sources) if db_sources else None,
                         metrics=json.dumps(metrics),
                         workspace_id=workspace_id,
                         user_id=user_id,
@@ -682,22 +743,8 @@ async def stream_chat_in_thread(
                 except Exception as e:
                     print(f"[THREAD-STREAM-CHAT] Error saving chat: {e}")
 
-            # Final message with sources AND metrics
-            # AnythingLLM frontend doesn't process JSON array "images", so we embed them as markdown
-            final_response_text = response_data['full_response']
-            if "images" in response_data and response_data["images"]:
-                final_response_text += "\n\n**Visual Context:**\n"
-                for idx, img_path in enumerate(response_data["images"]):
-                    # Strip "ocr-results/" prefix if present because RAG's serve_image already assumes bucket "ocr-results"
-                    clean_path = img_path
-                    if clean_path.startswith("ocr-results/"):
-                        clean_path = clean_path[len("ocr-results/"):]
-                        
-                    # Dùng relative URL proxy của Backend Gateway để vòng qua Authen/CORS MinIO
-                    full_img_url = f"/api/workspace/image/{clean_path}"
-                    final_response_text += f"\n![Image {idx+1}]({full_img_url})"
-
-            yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponse', 'textResponse': final_response_text, 'close': True, 'sources': response_data['sources'], 'metrics': metrics, 'chatId': chat_id})}\n\n"
+            # Final message: truyền images array gốc thay vì nhúng vào markdown text
+            yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponse', 'textResponse': response_data['full_response'], 'close': True, 'sources': response_data['sources'], 'images': response_data.get('images', []), 'metrics': metrics, 'chatId': chat_id}, ensure_ascii=False)}\n\n"
             
         except Exception as e:
             print(f"[THREAD-STREAM-CHAT] Stream error: {e}, trying fallback")

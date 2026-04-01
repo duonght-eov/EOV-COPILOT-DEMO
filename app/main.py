@@ -134,6 +134,28 @@ app.include_router(branding.router, prefix="/api")
 app.include_router(history.router, prefix="/api")
 
 
+# ---- Proxy ảnh từ RAG Service (MinIO) ----
+import httpx as _httpx
+from fastapi.responses import StreamingResponse as _StreamingResponse
+
+RAG_SERVICE_URL = os.getenv("RAG_SERVICE_URL", "http://localhost:8006")
+
+@app.get("/api/v1/image/{object_path:path}", tags=["Images"])
+async def proxy_image(object_path: str):
+    """Proxy ảnh từ RAG Service → MinIO."""
+    from fastapi.responses import Response
+    target = f"{RAG_SERVICE_URL}/api/v1/image/{object_path}"
+    async with _httpx.AsyncClient(timeout=15.0) as client:
+        resp = await client.get(target)
+        content = resp.content  # đọc xong trước khi đóng client
+    return Response(
+        content=content,
+        status_code=resp.status_code,
+        media_type=resp.headers.get("content-type", "image/jpeg"),
+    )
+
+
+
 @app.get("/")
 async def root():
     """Root endpoint."""
