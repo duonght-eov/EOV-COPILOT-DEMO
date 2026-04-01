@@ -187,11 +187,12 @@ async def query_llm_func(
     prompt: str,
     system_prompt: str = None,
     history_messages: list = [],
+    keyword_extraction: bool = False,
     **kwargs
 ) -> str:
     """
     LLM wrapper dùng cho query-time.
-    - Dùng cho keyword extraction (max 256 tokens, timeout ngắn, fail-fast).
+    - keyword_extraction=True: Gọi LLM với format_json ép buộc, retry nếu thất bại.
     - KHÔNG dùng cho sinh câu trả lời dài — dùng response_llm_func cho việc đó.
     """
     client = _get_llm_client()
@@ -199,25 +200,56 @@ async def query_llm_func(
     if system_prompt:
         messages.append({"role": "system", "content": system_prompt})
     messages.extend(history_messages)
-    messages.append({"role": "user", "content": prompt + " /no_think"})
+
+    # Thêm instruction JSON cứng vào prompt khi extract keywords
+    effective_prompt = prompt
+    if keyword_extraction:
+        effective_prompt = prompt + "\n\nREMINDER: Output ONLY valid JSON starting with { and ending with }. No markdown, no explanation."
+
+    messages.append({"role": "user", "content": effective_prompt + " /no_think"})
 
     try:
         import time as _time
         t0 = _time.perf_counter()
+
+        call_kwargs = {
+            "model": settings.LLM_MODEL_NAME,
+            "messages": messages,
+            "temperature": 0,
+            "max_tokens": min(kwargs.get("max_tokens", 256), 256),
+            "extra_body": {"chat_template_kwargs": {"enable_thinking": False}},
+        }
+        # Ép Ollama trả về JSON object khi cần keyword extraction
+        if keyword_extraction:
+            call_kwargs["response_format"] = {"type": "json_object"}
+
         response = await asyncio.wait_for(
-            client.chat.completions.create(
-                model=settings.LLM_MODEL_NAME,
-                messages=messages,
-                temperature=0,
-                max_tokens=min(kwargs.get("max_tokens", 256), 256),
-                extra_body={"chat_template_kwargs": {"enable_thinking": False}},
-            ),
+            client.chat.completions.create(**call_kwargs),
             timeout=settings.LLM_TIMEOUT,
         )
         elapsed_ms = (_time.perf_counter() - t0) * 1000
         content = response.choices[0].message.content or ""
         content = re.sub(r'<think>.*?</think>', '', content, flags=re.DOTALL).strip()
         content = content.replace("```json", "").replace("```", "").strip()
+
+        # Nếu keyword extraction nhưng content không có JSON, fallback tự parse query
+        if keyword_extraction and not (content.strip().startswith("{") and "keywords" in content.lower()):
+            logger.warning(f"[QueryLLM] Keyword extraction failed, falling back to rule-based parsing")
+            import re as _re
+            # Lấy phần query thô từ dòng cuối prompt (sau "User Query:")
+            lines = prompt.strip().splitlines()
+            raw_query = ""
+            for line in reversed(lines):
+                stripped = line.strip()
+                if stripped and not stripped.startswith("---") and not stripped.startswith("{"):
+                    raw_query = stripped
+                    break
+            words = [w for w in _re.split(r'\s+', raw_query) if len(w) > 2]
+            import json as _json
+            content = _json.dumps({
+                "high_level_keywords": words[:3],
+                "low_level_keywords": words
+            }, ensure_ascii=False)
 
         usage = getattr(response, 'usage', None)
         if usage:

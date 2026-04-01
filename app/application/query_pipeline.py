@@ -24,10 +24,46 @@ from app.services.generation.rag_generator import format_chunks_as_sources, RAG_
 PAGE_CITE_PATTERN = re.compile(r'\[Page\s+(\d+)\]', re.IGNORECASE)
 
 
-def _build_context_from_chunks(chunks) -> str:
+def _clean_vlm_content(text: str) -> str:
+    """
+    Loại bỏ triệt để các mô tả hình ảnh rườm rà (màu sắc, hình khối, mũi tên) từ VLM.
+    Regex mới hỗ trợ cả các trường hợp có nhãn trong ngoặc kép ở giữa.
+    """
+    if "[IMAGE_REF:" not in text:
+        return text
+
+    # Regex mạnh mẽ hơn để quét sạch: (từ chỉ nút/ô) + (nhãn tùy chọn) + (hình khối tùy chọn) + (màu sắc tùy chọn)
+    fluff_patterns = [
+        # Nhận diện: nút "ABC" hình thoi màu xanh / ô hình thoi màu lục / nút bắt đầu màu đỏ
+        r'(?:tại\s+)?(?:nút|ô|hộp|khung|hình|khối|điểm)\s+(?:["\'][\w\s]+?["\']\s+)?(?:hình\s+)?(?:thoi|chữ\s+nhật|tròn|vuông|oval|bình\s+hành|thang|trụ|tròn)\b(?:\s+màu\s+[\w\s]+?(?=[,.]|\s|$))?',
+        # Màu sắc đơn lẻ đi kèm text mô tả layout
+        r'\b(?:màu\s+)?(?:xanh|đỏ|vàng|tím|cam|trắng|đen|xám|lục|lam|ngọc|hồng)(?:\s+(?:lá\s+cây|dương|biển|nhạt|đậm))?\b',
+        # Các chi tiết layout/mũi tên
+        r'mũi\s+tên\s+chỉ\s+hướng(?:\s+sang\s+(?:trái|phải|trên|dưới))?',
+        r'đường\s+kẻ\s+(?:đứt\s+nét|liền\s+mạch|mũi\s+tên)',
+        r'phía\s+(?:trên|dưới|trái|phải)\s+của\s+(?:hình|sơ\s+đồ)',
+        # Loại bỏ các cụm từ mồi do VLM sinh ra
+        r'được\s+lưu\s+trữ\s+tại\s+\[page\s+\d+\]',
+        r'hình\s+ảnh\s+minh\s+họa\s+sơ\s+đồ\s+này'
+    ]
+    
+    cleaned = text
+    # Xoá tag IMAGE_REF khỏi text context gửi LLM (nhưng sẽ giữ ở bản gốc dùng cho Solver)
+    cleaned = re.sub(r'\[IMAGE_REF:.*?\]', '', cleaned)
+    
+    for p in fluff_patterns:
+        cleaned = re.sub(p, ' ', cleaned, flags=re.IGNORECASE)
+    
+    cleaned = re.sub(r'\s*,\s*,', ',', cleaned)
+    cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+    return cleaned
+
+
+def _build_context_from_chunks(chunks, clean: bool = True) -> str:
     """
     Parse JSON chunks → text thuần có đánh số [1], [2] làm nguồn.
-    Giống logic trong query_engine.py phiên bản gốc.
+    clean=True: lọc nhiễu VLM (gửi cho LLM).
+    clean=False: giữ nguyên (dùng cho Image Solver).
     """
     contexts = []
     for i, chunk in enumerate(chunks):
@@ -41,6 +77,8 @@ def _build_context_from_chunks(chunks) -> str:
             for t in text_matches:
                 clean_t = t.replace('\\n', '\n').replace('\\"', '"').replace('\\\\', '\\')
                 if len(clean_t.strip()) > 5:
+                    if clean:
+                        clean_t = _clean_vlm_content(clean_t)
                     cleaned_parts.append(f"[Page {current_page}] {clean_t}")
 
             table_matches = re.findall(r'"table_body"\s*:\s*"((?:[^"\\]|\\.)*)"', c_text)
@@ -166,25 +204,16 @@ class QueryPipeline:
                 if len(retrieved_chunks) >= 2:
                     retrieved_chunks = await rerank_chunks(question, retrieved_chunks)
 
-                context_text = _build_context_from_chunks(retrieved_chunks)
-
-                tier_summary = " | ".join(
-                    f"[{c.get('consensus_source','?')}] {c.get('total_score', 0):.3f}"
-                    for c in retrieved_chunks
-                )
-                logger.info(f"Consensus Tiers: {tier_summary}")
-                logger.info(
-                    f"Final Context sent to LLM ({len(context_text)} chars):\n"
-                    f"{context_text[:500]}...\n[...]\n{context_text[-200:]}"
-                )
+                cleaned_context = _build_context_from_chunks(retrieved_chunks, clean=True)
+                original_context = _build_context_from_chunks(retrieved_chunks, clean=False)
 
                 _parts = RAG_RESPONSE_TEMPLATE.split("---", 1)
                 sys_prompt = _parts[0].strip() if len(_parts) > 1 else RAG_RESPONSE_TEMPLATE
-                user_msg = f"DỮ LIỆU NGỮ CẢNH:\n{context_text}\n\nCÂU HỎI CỦA NGƯỜI DÙNG:\n{question}"
+                user_msg = f"DỮ LIỆU NGỮ CẢNH:\n{cleaned_context}\n\nCÂU HỎI CỦA NGƯỜI DÙNG:\n{question}"
 
                 answer = await response_llm_func(prompt=user_msg, system_prompt=sys_prompt)
 
-                image_refs = extract_image_refs_from_answer(retrieved_chunks, answer, context_text)
+                image_refs = extract_image_refs_from_answer(retrieved_chunks, answer, original_context)
                 logger.info(f"Consensus: {len(image_refs)} ảnh được hiển thị: {image_refs}")
 
                 result = {
@@ -208,21 +237,29 @@ class QueryPipeline:
         mix_chunks = []
         context_text = ""
         try:
-            raw_data = await rag.aquery_data(question, param=QueryParam(mode=effective_mode, top_k=5))
-            data = raw_data.get("data", {}) if isinstance(raw_data, dict) else {}
-            mix_chunks = data.get("chunks", [])
-            # Build context giống LightRAG: entities + relations + sources
-            context_text = _build_mix_context(data)
-        except Exception as e:
-            logger.warning(f"aquery_data failed ({str(e)[:80]}), falling back to aquery")
-            try:
-                context_text = await rag.aquery(question, param=QueryParam(mode=effective_mode, only_need_context=True, top_k=5))
-            except Exception as e2:
+            # Chạy song song: LightRAG cho context + ConsensusRetriever cho sources
+            import asyncio as _asyncio
+            async def _get_context():
                 try:
-                    context_text = await rag.aquery(question, param=QueryParam(mode="naive", only_need_context=True, top_k=5))
-                except Exception as e3:
-                    logger.error(f"All retrieval failed: {e3}")
-                    return {"answer": "Đã xảy ra lỗi khi truy xuất dữ liệu.", "mode": mode, "images": []}
+                    return await rag.aquery(question, param=QueryParam(mode=effective_mode, only_need_context=True, top_k=5))
+                except Exception:
+                    return await rag.aquery(question, param=QueryParam(mode="naive", only_need_context=True, top_k=5))
+
+            async def _get_chunks():
+                retriever = ConsensusRetriever(rag)
+                return await retriever.consensus_search(query=question, top_k_each_method=4, final_k=6)
+
+            context_text, mix_chunks = await _asyncio.gather(_get_context(), _get_chunks(), return_exceptions=True)
+            if isinstance(context_text, BaseException):
+                logger.error(f"Context retrieval failed: {context_text}")
+                return {"answer": "Đã xảy ra lỗi khi truy xuất dữ liệu.", "mode": mode, "images": []}
+            if isinstance(mix_chunks, BaseException):
+                logger.warning(f"Chunk retrieval failed: {mix_chunks}")
+                mix_chunks = []
+            logger.info(f"[query][mix] context={len(context_text)} chars, chunks={len(mix_chunks)}")
+        except Exception as e:
+            logger.error(f"All retrieval failed: {e}")
+            return {"answer": "Đã xảy ra lỗi khi truy xuất dữ liệu.", "mode": mode, "images": []}
 
         if not context_text or len(context_text.strip()) < 10:
             logger.warning("Empty context retrieved. Returning fallback response.")
@@ -234,16 +271,20 @@ class QueryPipeline:
             MemoryCache.set_answer(cache_key, result)
             return result
 
+        # Build context từ chunks để LLM dùng đúng số [1],[2] đồng bộ với sources array
+        cleaned_context = _build_context_from_chunks(mix_chunks, clean=True) if mix_chunks else ""
+        original_context = _build_context_from_chunks(mix_chunks, clean=False) if mix_chunks else ""
+
         _parts = RAG_RESPONSE_TEMPLATE.split("---", 1)
         sys_prompt = _parts[0].strip() if len(_parts) > 1 else RAG_RESPONSE_TEMPLATE
-        user_msg = f"DỮ LIỆU NGỮ CẢNH:\n{context_text}\n\nCÂU HỎI CỦA NGƯỜI DÙNG:\n{question}"
+        user_msg = f"DỮ LIỆU NGỮ CẢNH:\n{cleaned_context}\n\nCÂU HỎI CỦA NGƯỜI DÙNG:\n{question}"
         try:
             answer = await response_llm_func(prompt=user_msg, system_prompt=sys_prompt)
         except Exception as e:
             logger.error(f"LLM Generation failed: {e}")
             answer = "Xin lỗi, đã xảy ra lỗi trong quá trình tổng hợp câu trả lời."
 
-        image_refs = extract_image_refs_from_answer([], answer, context_text)
+        image_refs = extract_image_refs_from_answer([], answer, original_context)
         sources = format_chunks_as_sources(mix_chunks) if mix_chunks else []
 
         result = {
@@ -326,41 +367,51 @@ class QueryPipeline:
                     retrieved_chunks = await rerank_chunks(question, retrieved_chunks)
                     logger.info(f"[StreamQuery][TIMING] rerank={1000*(time.perf_counter()-t0):.0f}ms")
 
-                context_text = _build_context_from_chunks(retrieved_chunks)
-
-                tier_summary = " | ".join(
-                    f"[{c.get('consensus_source','?')}] {c.get('total_score', 0):.3f}"
-                    for c in retrieved_chunks
-                )
-                logger.info(f"[StreamQuery] Consensus Tiers: {tier_summary}")
-                logger.info(
-                    f"[StreamQuery] Final Context sent to LLM ({len(context_text)} chars):\n"
-                    f"{context_text[:500]}...\n[...]\n{context_text[-200:]}"
-                )
+                cleaned_context = _build_context_from_chunks(retrieved_chunks, clean=True)
+                original_context = _build_context_from_chunks(retrieved_chunks, clean=False)
+                
                 _parts = RAG_RESPONSE_TEMPLATE.split("---", 1)
                 sys_prompt = _parts[0].strip() if len(_parts) > 1 else RAG_RESPONSE_TEMPLATE
-                user_msg = f"DỮ LIỆU NGỮ CẢNH:\n{context_text}\n\nCÂU HỎI CỦA NGƯỜI DÙNG:\n{question}"
+                user_msg = f"DỮ LIỆU NGỮ CẢNH:\n{cleaned_context}\n\nCÂU HỎI CỦA NGƯỜI DÙNG:\n{question}"
 
             else:
                 effective_mode = "mix" if mode == "hybrid" else mode
                 try:
-                    raw_data = await rag.aquery_data(question, param=QueryParam(mode=effective_mode, top_k=5))
-                    data = raw_data.get("data", {}) if isinstance(raw_data, dict) else {}
-                    retrieved_chunks = data.get("chunks", [])
-                    context_text = _build_mix_context(data)
-                except Exception:
-                    try:
-                        context_text = await rag.aquery(question, param=QueryParam(mode=effective_mode, only_need_context=True, top_k=5))
-                    except Exception:
+                    import asyncio as _asyncio
+                    async def _get_ctx():
+                        try:
+                            return await rag.aquery(question, param=QueryParam(mode=effective_mode, only_need_context=True, top_k=5))
+                        except Exception:
+                            return ""
+
+                    async def _get_cks():
+                        retriever = ConsensusRetriever(rag)
+                        return await retriever.consensus_search(query=question, top_k_each_method=4, final_k=6)
+
+                    context_text, retrieved_chunks = await _asyncio.gather(_get_ctx(), _get_cks(), return_exceptions=True)
+                    if isinstance(context_text, BaseException) or not context_text:
                         context_text = ""
+                    if isinstance(retrieved_chunks, BaseException):
+                        retrieved_chunks = []
+                    logger.info(f"[StreamQuery][mix] context={len(context_text)} chars, chunks={len(retrieved_chunks)}")
+                except Exception as e:
+                    logger.error(f"[StreamQuery] Retrieval failed: {e}")
+                    context_text = ""
+                    retrieved_chunks = []
 
                 if not context_text or len(context_text.strip()) < 10:
                     yield {"type": "error", "content": "Không tìm thấy thông tin liên quan."}
                     return
 
+                # Build context từ chunks để [1],[2] đồng bộ với sources
+                if retrieved_chunks:
+                    cleaned_context = _build_context_from_chunks(retrieved_chunks, clean=True)
+                    original_context = _build_context_from_chunks(retrieved_chunks, clean=False)
+                    logger.info(f"[StreamQuery][mix] rebuilt context from {len(retrieved_chunks)} chunks")
+
                 _parts = RAG_RESPONSE_TEMPLATE.split("---", 1)
                 sys_prompt = _parts[0].strip() if len(_parts) > 1 else RAG_RESPONSE_TEMPLATE
-                user_msg = f"DỮ LIỆU NGỮ CẢNH:\n{context_text}\n\nCÂU HỎI CỦA NGƯỜI DÙNG:\n{question}"
+                user_msg = f"DỮ LIỆU NGỮ CẢNH:\n{cleaned_context}\n\nCÂU HỎI CỦA NGƯỜI DÙNG:\n{question}"
 
         except Exception as e:
             logger.error(f"[StreamQuery] Retrieval error: {e}")
@@ -392,7 +443,7 @@ class QueryPipeline:
         )
 
         image_refs = extract_image_refs_from_answer(
-            retrieved_chunks, full_answer, context_text
+            retrieved_chunks, full_answer, original_context
         )
         formatted_sources = format_chunks_as_sources(retrieved_chunks)
 

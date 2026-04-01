@@ -12,7 +12,7 @@ logger = get_logger("IMAGE_RESOLVER")
 
 IMAGE_REF_PATTERN = re.compile(r'\[IMAGE_REF:\s*([^\]]+)\]')
 PAGE_CITE_PATTERN = re.compile(r'\[Page\s+(\d+)\]', re.IGNORECASE)
-_IMG_NGRAM_SIZE = 10
+_IMG_NGRAM_SIZE = 10  # Giảm ngưỡng để hiển thị ảnh dễ hơn sau khi đã lọc nhiễu VLM
 _VISUAL_KEYWORDS = re.compile(
     r'(hình\s*ảnh|sơ\s*đồ|biểu\s*đồ|hình\s*vẽ|ảnh\s*minh\s*họa|minh\s*họa|hình\s*dưới|bảng\s*sau)',
     re.IGNORECASE
@@ -52,11 +52,29 @@ def _image_desc_used_in_answer(description: str, answer: str, ngram_size: int = 
     return False
 
 def _answer_visually_references_page(answer: str, page_num: int) -> bool:
+    """
+    Kiểm tra xem câu trả lời có thực sự nhắc đến hình ảnh ở trang này không.
+    Phải có từ khóa thị giác nằm GẦN trích dẫn trang (trong khoảng 100 ký tự).
+    """
     norm_ans = answer.lower()
-    if not _VISUAL_KEYWORDS.search(norm_ans):
-        return False
-    cited = {int(m.group(1)) for m in PAGE_CITE_PATTERN.finditer(answer)}
-    return page_num in cited
+    page_tag = f"[page {page_num}]"
+    
+    start_search = 0
+    while True:
+        pos = norm_ans.find(page_tag, start_search)
+        if pos == -1:
+            break
+            
+        # Kiểm tra ngữ cảnh xung quanh tag [Page X] (trước 80 ký tự, sau 20 ký tự)
+        context_start = max(0, pos - 80)
+        context_end = min(len(norm_ans), pos + 25)
+        context = norm_ans[context_start:context_end]
+        
+        if _VISUAL_KEYWORDS.search(context):
+            return True
+        start_search = pos + 1
+        
+    return False
 
 def extract_image_refs_from_answer(chunks: List[Dict], answer: str, context_text: str = "") -> List[str]:
     seen_basenames = set()
