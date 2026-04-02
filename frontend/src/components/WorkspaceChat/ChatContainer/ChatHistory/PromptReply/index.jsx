@@ -126,7 +126,7 @@ const PromptReply = ({
           />
         </div>
         <ImageGallery images={images} />
-        {/* <Citations sources={sources} /> */}
+        <Citations sources={sources} />
         {activeCitationIndex !== null && getCitationSource() && (
           <CitationDetailModal
             source={getCitationSource()}
