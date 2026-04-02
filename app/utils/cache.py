@@ -18,7 +18,34 @@ _EMBED_CACHE_TTL = 5.0
 
 class MemoryCache:
     """Utility quản lý in-memory caches"""
-    
+
+    @staticmethod
+    def clear_all():
+        """Xóa toàn bộ cache (answer + embed)."""
+        global _ANSWER_CACHE, _EMBED_CACHE
+        _ANSWER_CACHE.clear()
+        _EMBED_CACHE.clear()
+
+    @staticmethod
+    def clear_answer_cache():
+        """Chỉ xóa cache câu trả lời."""
+        global _ANSWER_CACHE
+        _ANSWER_CACHE.clear()
+
+    @staticmethod
+    def clear_embed_cache():
+        """Chỉ xóa cache embedding."""
+        global _EMBED_CACHE
+        _EMBED_CACHE.clear()
+
+    @staticmethod
+    def get_cache_stats() -> Dict[str, int]:
+        """Thống kê cache."""
+        return {
+            "answer_cache_size": len(_ANSWER_CACHE),
+            "embed_cache_size": len(_EMBED_CACHE),
+        }
+
     @staticmethod
     def get_answer(cache_key: str) -> Any:
         now = time.time()

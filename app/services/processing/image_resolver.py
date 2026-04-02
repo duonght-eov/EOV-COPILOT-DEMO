@@ -12,7 +12,7 @@ logger = get_logger("IMAGE_RESOLVER")
 
 IMAGE_REF_PATTERN = re.compile(r'\[IMAGE_REF:\s*([^\]]+)\]')
 PAGE_CITE_PATTERN = re.compile(r'\[Page\s+(\d+)\]', re.IGNORECASE)
-_IMG_NGRAM_SIZE = 10  # Giảm ngưỡng để hiển thị ảnh dễ hơn sau khi đã lọc nhiễu VLM
+_IMG_NGRAM_SIZE = 13  # Giảm ngưỡng để hiển thị ảnh dễ hơn sau khi đã lọc nhiễu VLM
 _VISUAL_KEYWORDS = re.compile(
     r'(hình\s*ảnh|sơ\s*đồ|biểu\s*đồ|hình\s*vẽ|ảnh\s*minh\s*họa|minh\s*họa|hình\s*dưới|bảng\s*sau)',
     re.IGNORECASE
@@ -76,6 +76,22 @@ def _answer_visually_references_page(answer: str, page_num: int) -> bool:
         
     return False
 
+
+def _find_chunk_citation_for_image(content: str, img_start_pos: int) -> str | None:
+    """Tìm số citation [n] gần nhất phía trước ảnh để biết ảnh thuộc chunk nào."""
+    pre_text = content[:img_start_pos]
+    citations = list(re.finditer(r'\[\s*(\d+)\s*\]', pre_text))
+    if citations:
+        return f"[{citations[-1].group(1)}]"
+    return None
+
+def _is_image_visually_relevant(content: str, img_start_pos: int) -> bool:
+    """Soi các ký tự xung quanh bức ảnh (trước/sau 200 character) xem có chữ sơ đồ/hình ảnh không."""
+    context_start = max(0, img_start_pos - 200)
+    context_end = min(len(content), img_start_pos + 200)
+    surrounding_text = content[context_start:context_end]
+    return bool(_VISUAL_KEYWORDS.search(surrounding_text))
+
 def extract_image_refs_from_answer(chunks: List[Dict], answer: str, context_text: str = "") -> List[str]:
     seen_basenames = set()
     refs = []
@@ -96,13 +112,20 @@ def extract_image_refs_from_answer(chunks: List[Dict], answer: str, context_text
 
             description = _extract_img_description(content, img_match)
 
-            # Bypass: Nếu ảnh đã bị lỗi VLM lúc nạp liệu, nó sẽ không có mô tả tử tế để AI copy vào.
-            # Rất dễ bị bộ lọc ẩn oan mặc dù ảnh có tồn tại. Ta cần bypass luôn các ảnh mù dở này để User tự xem.
+            # Lấy citation [n] của đoạn văn chứa bức ảnh này
+            chunk_citation = _find_chunk_citation_for_image(content, img_match.start())
+            is_chunk_cited = (chunk_citation and chunk_citation in answer)
+            is_visually_relevant = _is_image_visually_relevant(content, img_match.start())
+
+            # Bypass: Nếu ảnh mù dở (Lỗi VLM), ta cần check gắt gao hơn để chống ảnh hiển thị rác.
+            # ĐIỀU KIỆN 1: Chunk chứa ảnh này phải được LLM trích dẫn (cite).
+            # ĐIỀU KIỆN 2: Văn bản xung quanh bức ảnh (trong tài liệu) phải có nhắc đến các từ khoá thị giác (ví dụ: "sơ đồ dưới đây", "như hình ảnh 1"). Đoạn này giúp lọc sạch 100% logo và viền trang.
             desc_lower = description.lower()
-            if "vlm service không khả dụng" in desc_lower or "vlm timeout" in desc_lower:
-                seen_basenames.add(basename)
-                refs.append(obj_key)
-                logger.info(f"[ImageFilter] [T3-vlm-fail-bypass] {basename}")
+            if "vlm service không khả dụng" in desc_lower or "vlm timeout" in desc_lower or "không thể tạo mô tả cho hình ảnh này" in desc_lower:
+                if is_chunk_cited and is_visually_relevant:
+                    seen_basenames.add(basename)
+                    refs.append(obj_key)
+                    logger.info(f"[ImageFilter] [T3-vlm-fail-bypass] {basename} (cited {chunk_citation}, context verified)")
                 continue
 
             if _image_desc_used_in_answer(description, answer):

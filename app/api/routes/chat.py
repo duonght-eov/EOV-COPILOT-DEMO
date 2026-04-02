@@ -3,8 +3,30 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 from app.schemas.chat import ChatRequest, ChatResponse
 from app.application.query_pipeline import query_pipeline
+from app.utils.cache import MemoryCache
 
 router = APIRouter()
+
+
+# ── Cache Management Endpoints ───────────────────────────────────────────
+@router.post("/cache/clear")
+async def clear_cache():
+    """Xóa toàn bộ cache (answer + embed)."""
+    MemoryCache.clear_all()
+    return {"status": "ok", "message": "All cache cleared"}
+
+
+@router.post("/cache/clear/answers")
+async def clear_answer_cache():
+    """Chỉ xóa cache câu trả lời."""
+    MemoryCache.clear_answer_cache()
+    return {"status": "ok", "message": "Answer cache cleared"}
+
+
+@router.get("/cache/stats")
+async def get_cache_stats():
+    """Thống kê cache."""
+    return MemoryCache.get_cache_stats()
 
 
 @router.post("/chat", response_model=ChatResponse)

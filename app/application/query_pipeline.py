@@ -34,6 +34,12 @@ def _clean_vlm_content(text: str) -> str:
 
     # Regex mạnh mẽ hơn để quét sạch: (từ chỉ nút/ô) + (nhãn tùy chọn) + (hình khối tùy chọn) + (màu sắc tùy chọn)
     fluff_patterns = [
+        # Chặn họng lỗi kỹ thuật (Cấm LLM thấy dòng chữ này)
+        r'Không\s*thể\s*tạo\s*mô\s*tả\s*cho\s*hình\s*ảnh\s*này\.?',
+        r'Hình\s*ảnh\s*minh\s*họa\s*\(VLM\s*service\s*không\s*khả\s*dụng\)\.?',
+        r'Hình\s*ảnh\s*minh\s*họa\s*\(VLM\s*timeout[^)]*\)\.?',
+        # Chặn "Lưu ý: ... không khả dụng ... lỗi hệ thống"
+        r'Lưu\s+ý\s*:?\s*[^.]*?(?:không\s+khả\s+dụng|không\s+hiển\s+thị\s+được|do\s+lỗi\s+hệ\s+thống)[^.]*\.?',
         # Nhận diện: nút "ABC" hình thoi màu xanh / ô hình thoi màu lục / nút bắt đầu màu đỏ
         r'(?:tại\s+)?(?:nút|ô|hộp|khung|hình|khối|điểm)\s+(?:["\'][\w\s]+?["\']\s+)?(?:hình\s+)?(?:thoi|chữ\s+nhật|tròn|vuông|oval|bình\s+hành|thang|trụ|tròn)\b(?:\s+màu\s+[\w\s]+?(?=[,.]|\s|$))?',
         # Màu sắc đơn lẻ đi kèm text mô tả layout
@@ -237,15 +243,20 @@ class QueryPipeline:
         mix_chunks = []
         context_text = ""
         try:
-            # Chạy song song: LightRAG cho context + ConsensusRetriever cho sources
+            # ⚠️ TODO: OPTIMIZE - _get_context() trả về 32968 chars nhưng KHÔNG ĐƯỢC DÙNG
+            # Chỉ có retrieved_chunks từ ConsensusRetriever mới được dùng thực tế
+            # Nên bỏ _get_context() để tiết kiệm ~2-3s rerank time
+            # Hoặc cải tiến để dùng cả 2 nguồn: context_text từ LightRAG + chunks từ Consensus
             import asyncio as _asyncio
             async def _get_context():
+                """LightRAG.aquery() - trả về context string lớn (~30K chars) - HIỆN KHÔNG DÙNG"""
                 try:
                     return await rag.aquery(question, param=QueryParam(mode=effective_mode, only_need_context=True, top_k=5))
                 except Exception:
                     return await rag.aquery(question, param=QueryParam(mode="naive", only_need_context=True, top_k=5))
 
             async def _get_chunks():
+                """ConsensusRetriever - trả về chunks đã rerank - ĐƯỢC DÙNG THỰC TẾ"""
                 retriever = ConsensusRetriever(rag)
                 return await retriever.consensus_search(query=question, top_k_each_method=4, final_k=6)
 
@@ -256,13 +267,13 @@ class QueryPipeline:
             if isinstance(mix_chunks, BaseException):
                 logger.warning(f"Chunk retrieval failed: {mix_chunks}")
                 mix_chunks = []
-            logger.info(f"[query][mix] context={len(context_text)} chars, chunks={len(mix_chunks)}")
+            logger.info(f"[query][mix] context={len(context_text)} chars (UNUSED), chunks={len(mix_chunks)} (USED)")
         except Exception as e:
             logger.error(f"All retrieval failed: {e}")
             return {"answer": "Đã xảy ra lỗi khi truy xuất dữ liệu.", "mode": mode, "images": []}
 
-        if not context_text or len(context_text.strip()) < 10:
-            logger.warning("Empty context retrieved. Returning fallback response.")
+        if not mix_chunks:
+            logger.warning("No chunks retrieved. Returning fallback response.")
             result = {
                 "answer": "Xin lỗi, tôi không tìm thấy thông tin nào liên quan trong tài liệu để trả lời câu hỏi này.",
                 "mode": mode,
@@ -284,7 +295,7 @@ class QueryPipeline:
             logger.error(f"LLM Generation failed: {e}")
             answer = "Xin lỗi, đã xảy ra lỗi trong quá trình tổng hợp câu trả lời."
 
-        image_refs = extract_image_refs_from_answer([], answer, original_context)
+        image_refs = extract_image_refs_from_answer(mix_chunks, answer, original_context)
         sources = format_chunks_as_sources(mix_chunks) if mix_chunks else []
 
         result = {
@@ -377,14 +388,18 @@ class QueryPipeline:
             else:
                 effective_mode = "mix" if mode == "hybrid" else mode
                 try:
+                    # ⚠️ TODO: OPTIMIZE - _get_ctx() trả về context string nhưng KHÔNG ĐƯỢC DÙNG
+                    # Chỉ có retrieved_chunks từ ConsensusRetriever mới được dùng
                     import asyncio as _asyncio
                     async def _get_ctx():
+                        """LightRAG.aquery() - context string ~30K chars - HIỆN KHÔNG DÙNG"""
                         try:
                             return await rag.aquery(question, param=QueryParam(mode=effective_mode, only_need_context=True, top_k=5))
                         except Exception:
                             return ""
 
                     async def _get_cks():
+                        """ConsensusRetriever - chunks đã rerank - DÙNG THỰC TẾ"""
                         retriever = ConsensusRetriever(rag)
                         return await retriever.consensus_search(query=question, top_k_each_method=4, final_k=6)
 
@@ -393,13 +408,13 @@ class QueryPipeline:
                         context_text = ""
                     if isinstance(retrieved_chunks, BaseException):
                         retrieved_chunks = []
-                    logger.info(f"[StreamQuery][mix] context={len(context_text)} chars, chunks={len(retrieved_chunks)}")
+                    logger.info(f"[StreamQuery][mix] context={len(context_text)} chars (UNUSED), chunks={len(retrieved_chunks)} (USED)")
                 except Exception as e:
                     logger.error(f"[StreamQuery] Retrieval failed: {e}")
                     context_text = ""
                     retrieved_chunks = []
 
-                if not context_text or len(context_text.strip()) < 10:
+                if not retrieved_chunks:
                     yield {"type": "error", "content": "Không tìm thấy thông tin liên quan."}
                     return
 
@@ -408,6 +423,9 @@ class QueryPipeline:
                     cleaned_context = _build_context_from_chunks(retrieved_chunks, clean=True)
                     original_context = _build_context_from_chunks(retrieved_chunks, clean=False)
                     logger.info(f"[StreamQuery][mix] rebuilt context from {len(retrieved_chunks)} chunks")
+                else:
+                    cleaned_context = context_text
+                    original_context = context_text
 
                 _parts = RAG_RESPONSE_TEMPLATE.split("---", 1)
                 sys_prompt = _parts[0].strip() if len(_parts) > 1 else RAG_RESPONSE_TEMPLATE
