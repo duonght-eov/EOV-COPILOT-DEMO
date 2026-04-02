@@ -96,6 +96,15 @@ def extract_image_refs_from_answer(chunks: List[Dict], answer: str, context_text
 
             description = _extract_img_description(content, img_match)
 
+            # Bypass: Nếu ảnh đã bị lỗi VLM lúc nạp liệu, nó sẽ không có mô tả tử tế để AI copy vào.
+            # Rất dễ bị bộ lọc ẩn oan mặc dù ảnh có tồn tại. Ta cần bypass luôn các ảnh mù dở này để User tự xem.
+            desc_lower = description.lower()
+            if "vlm service không khả dụng" in desc_lower or "vlm timeout" in desc_lower:
+                seen_basenames.add(basename)
+                refs.append(obj_key)
+                logger.info(f"[ImageFilter] [T3-vlm-fail-bypass] {basename}")
+                continue
+
             if _image_desc_used_in_answer(description, answer):
                 seen_basenames.add(basename)
                 refs.append(obj_key)
