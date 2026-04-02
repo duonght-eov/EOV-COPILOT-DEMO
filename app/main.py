@@ -5,7 +5,7 @@ load_dotenv()
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.router import router
+from app.api.router import router, root_router
 
 app = FastAPI(
     title="Water AI – Agentic Service",
@@ -21,7 +21,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(router)
+# Include both routers
+app.include_router(router)      # /api/v1/agent/*
+app.include_router(root_router)  # /api/* (AnythingLLM compatibility)
 
 
 @app.get("/health")

@@ -1,6 +1,9 @@
 import httpx
 from langchain_core.tools import Tool
 from app.core.config import get_settings
+import logging
+
+logger = logging.getLogger("document_tool")
 
 
 async def _search_documents(query: str, workspace_slug: str = "default") -> str:
@@ -14,13 +17,14 @@ async def _search_documents(query: str, workspace_slug: str = "default") -> str:
         "stream": False,
     }
     try:
+        logger.info(f"[DOCUMENT] Searching: {query[:50]}...")
         async with httpx.AsyncClient(timeout=120.0) as client:
             resp = await client.post(url, json=payload)
             resp.raise_for_status()
             data = resp.json()
             answer = data.get("response") or ""
             sources = data.get("sources", [])
-            
+
             # Trả về JSON string để Router bắt được RAW Array của sources
             # và Agent LLM đọc được RAW answer có chứa citation marker (vd [1], [2]).
             raw_output = {
@@ -30,12 +34,14 @@ async def _search_documents(query: str, workspace_slug: str = "default") -> str:
             import json
             return json.dumps(raw_output, ensure_ascii=False)
     except Exception as e:
+        logger.error(f"[DOCUMENT] Error: {e}")
         import json
         return json.dumps({"answer": f"[Lỗi tra cứu tài liệu: {e}]", "sources": []}, ensure_ascii=False)
 
 
 def make_document_tool(workspace_slug: str = "default") -> Tool:
     """Factory tạo Tool với workspace_slug được bind sẵn."""
+
     async def _run(query: str) -> str:
         return await _search_documents(query, workspace_slug)
 
@@ -48,5 +54,5 @@ def make_document_tool(workspace_slug: str = "default") -> Tool:
             "Input: câu hỏi dạng text tiếng Việt."
         ),
         coroutine=_run,
-        func=lambda q: None, 
+        func=lambda q: None,
     )
