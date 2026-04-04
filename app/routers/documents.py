@@ -160,8 +160,27 @@ async def upload_document_to_workspace(
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    # Background: forward sang rag-service để index
-    asyncio.create_task(_index_file_to_rag(file_path, slug))
+    # Không chạy ngầm nữa mà await lấy kết quả OCR
+    rag_result = await _index_file_to_rag(file_path, slug)
+
+    if rag_result and rag_result.get("next_step") == "select_images":
+        return {
+            "success": True,
+            "error": None,
+            "next_step": "select_images",
+            "images": rag_result.get("images", []),
+            "job_id": rag_result.get("job_id"),
+            "documents": [ # vẫn giữ documents cho UI đỡ crash nếu chót cần
+                {
+                    "id": str(uuid.uuid4()),
+                    "location": file_path,
+                    "name": os.path.basename(file_path),
+                    "originalName": file.filename,
+                    "title": os.path.splitext(file.filename)[0],
+                    "metadata": {}
+                }
+            ]
+        }
 
     return {
         "success": True,
@@ -196,10 +215,32 @@ async def _index_file_to_rag(file_path: str, workspace_slug: str):
                 data = {"workspace": workspace_slug, "ocr_model": "deepseek"}
                 resp = await client.post(f"{rag_url}/api/v1/ingest/upload", files=files, data=data)
             
-            print(f"[INDEX] RAG response: {resp.status_code} - {resp.text[:200]}")
+            resp.raise_for_status()
+            result = resp.json()
+            print(f"[INDEX] RAG status={resp.status_code}")
+            return result
 
     except Exception as e:
         print(f"[INDEX] Error indexing {file_path}: {e}")
+        return {"success": False, "error": str(e)}
+
+@router.post("/workspace/{slug}/index-selected-images")
+async def process_selected_images(slug: str, request: dict):
+    from app.config import get_settings
+    import httpx
+    cfg = get_settings()
+    rag_url = cfg.rag_service_url
+    
+    try:
+        async with httpx.AsyncClient(timeout=12000.0) as client:
+            resp = await client.post(
+                f"{rag_url}/api/v1/ingest/index-selected",
+                json=request
+            )
+            resp.raise_for_status()
+            return resp.json()
+    except Exception as e:
+        return {"success": False, "error": str(e)}
 
 
 

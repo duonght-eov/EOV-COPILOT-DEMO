@@ -359,6 +359,7 @@ async def update_embeddings(
         # Process updates in RAG service
         settings = get_settings()
         processed_count = 0
+        pending_image_jobs = []
         
         for file_path in adds:
             # Normalize relative path
@@ -428,13 +429,23 @@ async def update_embeddings(
                 doc.status = DocumentStatus.PROCESSING
                 await db.commit()
                 
-                await rag_service.process_document(
+                rag_resp = await rag_service.process_document(
                     file_path=full_path,
                     workspace_slug=slug
                 )
                 
-                doc.status = DocumentStatus.COMPLETED
-                processed_count += 1
+                if rag_resp and rag_resp.get("next_step") == "select_images":
+                    # Pending OCR Image selection
+                    pending_image_jobs.append({
+                        "job_id": rag_resp.get("job_id"),
+                        "filename": rag_resp.get("filename"),
+                        "images": rag_resp.get("images", [])
+                    })
+                    # Leave doc status as PROCESSING until user selects images
+                else:
+                    doc.status = DocumentStatus.COMPLETED
+                    processed_count += 1
+                    
             except Exception as e:
                 print(f"RAG processing failed for {full_path}: {e}")
                 doc.status = DocumentStatus.FAILED
@@ -510,6 +521,14 @@ async def update_embeddings(
                 detail=f"Failed to process documents: {', '.join(failed_docs)}"
             )
         
+        if pending_image_jobs:
+            return {
+                "workspace": {"slug": ws.slug},
+                "message": None,
+                "success": "partial",
+                "pending_jobs": pending_image_jobs
+            }
+
         return {"workspace": {"slug": ws.slug}, "message": None}
     except HTTPException:
         raise  # Re-raise HTTP exceptions
