@@ -13,6 +13,8 @@ from app.config import settings
 router = APIRouter()
 logger = get_logger("API_INGEST")
 
+_ocr_results_store: Dict[str, dict] = {}
+
 OCR_SERVICE_URL = settings.OCR_SERVICE_URL
 OCR_POLL_INTERVAL = 5      # giây
 OCR_POLL_TIMEOUT = settings.OCR_POLL_TIMEOUT     # giây tối đa chờ OCR
@@ -95,6 +97,36 @@ async def _poll_ocr_status(ocr_job_id: str) -> Dict[str, Any]:
             elapsed += OCR_POLL_INTERVAL
 
     raise TimeoutError(f"OCR job {ocr_job_id} timeout sau {OCR_POLL_TIMEOUT}s")
+
+
+def _extract_images_from_ocr(ocr_json: dict) -> list:
+    """Trích xuất danh sách metadata và link hỉnh ảnh từ kết quả OCR để người dùng review"""
+    blocks = []
+    doc_obj = ocr_json.get("document")
+    if isinstance(doc_obj, dict) and "content" in doc_obj:
+        for page in doc_obj["content"]:
+            p_num = page.get("page_number", 0)
+            for b in page.get("blocks", []):
+                b["page_idx"] = p_num
+                blocks.append(b)
+    elif "content" in ocr_json:
+        blocks = ocr_json["content"]
+
+    images = []
+    for item in blocks:
+        if item.get("type") == "image":
+            img_path = item.get("img_path") or item.get("image_path")
+            if img_path:
+                obj_path = img_path.replace("ocr-results/", "", 1) if img_path.startswith("ocr-results/") else img_path
+                images.append({
+                    "img_path": img_path,
+                    "preview_url": f"/api/workspace/image/{obj_path}",
+                    "page_number": item.get("page_idx", item.get("page_number", 0)),
+                    "type": "image",
+                    "selected": True,
+                    "bbox": item.get("bbox", [])
+                })
+    return images
 
 
 async def _download_ocr_json(ocr_job_id: str) -> Dict[str, Any]:
@@ -267,25 +299,52 @@ async def upload_and_index(
                     "message": f"Download OCR JSON thất bại: {e}",
                 }
 
-            # 5. Index vào RAG
-            ocr_json["workspace"] = workspace
-            ocr_json["job_id"] = job_id
-            ocr_json["original_filename"] = file.filename
-            await default_engine.index_document(
-                ocr_json, workspace=workspace, job_id=job_id,
-                original_filename=file.filename
-            )
-            logger.info(f"[RAG] Indexed job={job_id} workspace={workspace}")
+            # 5. Extract images từ OCR data để người dùng chọn trước khi Index vào DB
+            images = _extract_images_from_ocr(ocr_json)
 
-            return {
-                "success": True,
-                "job_id": job_id,
-                "ocr_job_id": ocr_job_id,
-                "workspace": workspace,
-                "filename": file.filename,
-                "indexed": True,
-                "message": "OCR + Indexing hoàn tất thành công",
-            }
+            if len(images) > 0:
+                # Có ảnh -> lưu vào store để chờ UI xác nhận
+                _ocr_results_store[job_id] = {
+                    "ocr_data": ocr_json,
+                    "workspace": workspace,
+                    "filename": file.filename,
+                    "ocr_job_id": ocr_job_id
+                }
+                logger.info(f"[OCR] Extracted {len(images)} images. Bắt đầu luồng kiểm duyệt ảnh.")
+                
+                return {
+                    "success": True,
+                    "job_id": job_id,
+                    "ocr_job_id": ocr_job_id,
+                    "workspace": workspace,
+                    "filename": file.filename,
+                    "indexed": False,
+                    "images": images,
+                    "total_images": len(images),
+                    "next_step": "select_images",
+                    "message": f"Phát hiện {len(images)} hình ảnh. Vui lòng chọn ảnh để tiếp tục indexing."
+                }
+            else:
+                # 6. Index thẳng vào RAG nếu không có hình ảnh
+                ocr_json["workspace"] = workspace
+                ocr_json["job_id"] = job_id
+                ocr_json["original_filename"] = file.filename
+                
+                logger.info(f"[RAG] No images found. Bắt đầu Auto-Indexing job={job_id} workspace={workspace}")
+                await default_engine.index_document(
+                    ocr_json, workspace=workspace, job_id=job_id,
+                    original_filename=file.filename
+                )
+
+                return {
+                    "success": True,
+                    "job_id": job_id,
+                    "ocr_job_id": ocr_job_id,
+                    "workspace": workspace,
+                    "filename": file.filename,
+                    "indexed": True,
+                    "message": "OCR và Indexing hoàn tất thành công (Không có ảnh chặn).",
+                }
         
         finally:
             if file_md5 in getattr(router, "_active_md5_jobs", set()):
@@ -300,6 +359,77 @@ async def upload_and_index(
             os.remove(temp_path)
         except Exception:
             pass
+
+
+@router.post("/index-selected")
+async def index_selected_images(
+    payload: Dict[str, Any] = Body(..., description="Job ID & Selected Images list")
+):
+    """
+    Tiếp tục tiến trình Indexing sau khi người dùng đã lựa chọn hình ảnh.
+    Nhận {"job_id": "...", "selected_images": [...], "excluded_images": [...], "workspace": "..."}
+    """
+    try:
+        job_id = payload.get("job_id")
+        excluded_images = payload.get("excluded_images", [])
+
+        if not job_id or job_id not in _ocr_results_store:
+            raise HTTPException(status_code=404, detail="Không tìm thấy phiên làm việc OCR (Job ID). Vui lòng upload lại tài liệu.")
+
+        stored_data = _ocr_results_store.pop(job_id)
+        ocr_json = stored_data["ocr_data"]
+        workspace = stored_data["workspace"]
+        filename = stored_data["filename"]
+
+        if excluded_images:
+            excluded_set = set(excluded_images)
+            doc_obj = ocr_json.get("document")
+            
+            if isinstance(doc_obj, dict) and "content" in doc_obj:
+                for page in doc_obj["content"]:
+                    blocks = page.get("blocks", [])
+                    filtered_blocks = []
+                    for b in blocks:
+                        img_path = b.get("img_path") or b.get("image_path")
+                        if b.get("type", "") == "image" and img_path in excluded_set:
+                            logger.info(f"Đã loại bỏ ảnh {img_path} khỏi tệp {filename}")
+                            continue
+                        filtered_blocks.append(b)
+                    page["blocks"] = filtered_blocks
+            elif "content" in ocr_json:
+                blocks = ocr_json["content"]
+                filtered_blocks = []
+                for b in blocks:
+                    img_path = b.get("img_path") or b.get("image_path")
+                    if b.get("type", "") == "image" and img_path in excluded_set:
+                        logger.info(f"Đã loại bỏ ảnh {img_path} khỏi tệp {filename}")
+                        continue
+                    filtered_blocks.append(b)
+                ocr_json["content"] = filtered_blocks
+
+        ocr_json["workspace"] = workspace
+        ocr_json["job_id"] = job_id
+        ocr_json["original_filename"] = filename
+        
+        logger.info(f"[RAG] User đã chọn ảnh. Tiếp tục Indexing job={job_id} workspace={workspace}")
+        result = await default_engine.index_document(
+            ocr_json, workspace=workspace, job_id=job_id,
+            original_filename=filename
+        )
+
+        return {
+            "success": True,
+            "job_id": job_id,
+            "workspace": workspace,
+            "filename": filename,
+            "indexed": True,
+            "message": "Indexing hoàn tất với các hình ảnh được chọn.",
+            "data": result,
+        }
+
+    except Exception as e:
+        logger.error(f"Chọn/Lọc ảnh -> Index Failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.delete("/workspace/{workspace_slug}/purge_data")
 async def purge_workspace_data(workspace_slug: str):
