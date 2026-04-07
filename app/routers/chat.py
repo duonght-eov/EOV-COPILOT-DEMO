@@ -679,28 +679,90 @@ async def stream_chat_in_thread(
         start_time = time.time()
         
         try:
-            # Try streaming from RAG service
-            async for component in rag_client.query_stream(
-                query=payload.message,
-                workspace_slug=slug,
-                mode=query_mode
-            ):
-                if "chunk" in component:
-                    chunk = component["chunk"]
-                    response_data["full_response"] += chunk
-                    # Yield SSE formatted data with type for frontend
-                    yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponseChunk', 'textResponse': chunk, 'close': False, 'sources': []})}\n\n"
-                
-                if "sources" in component:
-                    response_data["sources"] = component["sources"]
+            from app.config import get_settings
+            settings = get_settings()
 
-                if "images" in component:
-                    if "images" not in response_data:
-                        response_data["images"] = []
-                    response_data["images"] = component["images"]
+            if getattr(workspace, 'is_predict_enabled', False):
+                print(f"[THREAD-AGENT-ROUTING] Proxying query to Agentic Service for thread {thread_slug}")
+                try:
+                    from app.models.models import WorkspaceConnector
+                    from app.database import async_session_maker
 
-                if "error" in component:
-                    raise Exception(component["error"])
+                    connector_data = None
+                    async with async_session_maker() as session:
+                        result_conn = await session.execute(
+                            select(WorkspaceConnector).where(WorkspaceConnector.workspace_id == workspace.id)
+                        )
+                        connector = result_conn.scalar_one_or_none()
+                        if connector:
+                            connector_data = {
+                                "base_url": connector.base_url,
+                                "auth_type": connector.auth_type,
+                                "auth_credentials": connector.auth_credentials,
+                            }
+
+                    # session_id: Add thread id context
+                    agent_payload = {
+                        "message": payload.message,
+                        "session_id": f"{user_id}_{workspace_id}_{thread_id}",
+                        "workspace_slug": slug,
+                        "connector": connector_data,
+                    }
+
+                    async with httpx.AsyncClient(timeout=180.0) as client:
+                        async with client.stream(
+                            "POST",
+                            f"{settings.agentic_service_url}/api/v1/agent/chat/stream",
+                            json=agent_payload,
+                        ) as resp:
+                            async for line in resp.aiter_lines():
+                                if not (line and line.startswith("data: ")):
+                                    continue
+                                raw = line[6:]
+                                try:
+                                    data = json.loads(raw)
+                                    etype = data.get("type", "")
+                                    text = data.get("textResponse", "")
+                                    sources = data.get("sources", [])
+                                    imgs = data.get("images", [])
+
+                                    if etype == "textResponseChunk" and not data.get("close"):
+                                        response_data["full_response"] += text
+                                        yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponseChunk', 'textResponse': text, 'close': False, 'sources': []})}\n\n"
+
+                                    elif etype == "textResponse" or (etype == "textResponseChunk" and data.get("close")):
+                                        if sources: response_data["sources"] = sources
+                                        if imgs: 
+                                            if "images" not in response_data: response_data["images"] = []
+                                            response_data["images"] = imgs
+                                except json.JSONDecodeError:
+                                    pass
+                except Exception as e:
+                    print(f"Agentic Service Error: {e}")
+                    yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponseChunk', 'textResponse': '[Agent Error] ' + str(e), 'close': False, 'sources': []})}\n\n"
+                    raise e
+            else:
+                # Direct RAG service proxy if predict not enabled
+                async for component in rag_client.query_stream(
+                    query=payload.message,
+                    workspace_slug=slug,
+                    mode=query_mode
+                ):
+                    if "chunk" in component:
+                        chunk = component["chunk"]
+                        response_data["full_response"] += chunk
+                        yield f"data: {json.dumps({'uuid': stream_uuid, 'type': 'textResponseChunk', 'textResponse': chunk, 'close': False, 'sources': []})}\n\n"
+                    
+                    if "sources" in component:
+                        response_data["sources"] = component["sources"]
+
+                    if "images" in component:
+                        if "images" not in response_data:
+                            response_data["images"] = []
+                        response_data["images"] = component["images"]
+
+                    if "error" in component:
+                        raise Exception(component["error"])
             
             # Calculate metrics
             end_time = time.time()
