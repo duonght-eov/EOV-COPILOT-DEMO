@@ -14,6 +14,7 @@ function FileUploadProgressComponent({
   reason = null,
   onUploadSuccess,
   onUploadError,
+  onRequireImageSelection,
   setLoading,
   setLoadingMessage,
 }) {
@@ -47,23 +48,30 @@ function FileUploadProgressComponent({
 
       // Chunk streaming not working in production so we just sit and wait
       const { response, data } = await Workspace.uploadFile(slug, formData);
-      if (!response.ok) {
+      if (!response.ok || (data && !data.success)) {
         setStatus("failed");
         clearInterval(timer);
-        onUploadError(data.error);
-        setError(data.error);
+        const errorMessage = data?.error || data?.message || "Upload failed";
+        onUploadError(errorMessage);
+        setError(errorMessage);
       } else {
-        setLoading(false);
-        setLoadingMessage("");
-        setStatus("complete");
         clearInterval(timer);
-        onUploadSuccess();
-      }
+        if (data.next_step === "select_images") {
+          // Ngừng timer và ném thông tin duyệt ảnh lên component cha (chưa fade out)
+          setStatus("require_selection");
+          onRequireImageSelection(data.job_id, data.images);
+        } else {
+          setLoading(false);
+          setLoadingMessage("");
+          setStatus("complete");
+          onUploadSuccess();
 
-      // Begin fadeout timer to clear uploader queue.
-      setTimeout(() => {
-        fadeOut(() => setTimeout(() => beginFadeOut(), 300));
-      }, 5000);
+          // Begin fadeout timer to clear uploader queue for normal upload
+          setTimeout(() => {
+            fadeOut(() => setTimeout(() => beginFadeOut(), 300));
+          }, 5000);
+        }
+      }
     }
     !!file && !rejected && uploadFile();
   }, []);
@@ -125,9 +133,13 @@ function FileUploadProgressComponent({
       } h-14 px-2 py-2 flex items-center gap-x-4 rounded-lg bg-zinc-800 light:border-solid light:border-theme-modal-border light:bg-theme-bg-sidebar border border-white/20 shadow-md`}
     >
       <div className="w-6 h-6 flex-shrink-0">
-        {status !== "complete" ? (
+        {status === "pending" ? (
           <div className="flex items-center justify-center">
             <PreLoader size="6" />
+          </div>
+        ) : status === "require_selection" ? (
+          <div className="flex items-center justify-center w-6 h-6 bg-yellow-500 rounded-full">
+            <span className="text-white text-xs font-bold">!</span>
           </div>
         ) : (
           <CheckCircle
@@ -141,7 +153,7 @@ function FileUploadProgressComponent({
           {truncate(file.name, 30)}
         </p>
         <p className="text-white/80 light:text-theme-text-secondary text-xs font-medium">
-          {humanFileSize(file.size)} | {milliToHms(timerMs)}
+          {status === "require_selection" ? "Vui lòng chọn ảnh..." : `${humanFileSize(file.size)} | ${milliToHms(timerMs)}`}
         </p>
       </div>
     </div>

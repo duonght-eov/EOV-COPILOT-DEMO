@@ -14,6 +14,7 @@ export default function UploadFile({
   fetchKeys,
   setLoading,
   setLoadingMessage,
+  onRequireImageSelection,
 }) {
   const { t } = useTranslation();
   const [ready, setReady] = useState(false);
@@ -82,11 +83,10 @@ export default function UploadFile({
   return (
     <div>
       <div
-        className={`w-[560px] border-dashed border-[2px] border-theme-modal-border light:border-[#686C6F] rounded-2xl bg-theme-bg-primary transition-colors duration-300 p-3 ${
-          ready
+        className={`w-[560px] border-dashed border-[2px] border-theme-modal-border light:border-[#686C6F] rounded-2xl bg-theme-bg-primary transition-colors duration-300 p-3 ${ready
             ? " light:bg-[#E0F2FE] cursor-pointer hover:bg-theme-bg-secondary light:hover:bg-transparent"
             : "cursor-not-allowed"
-        }`}
+          }`}
         {...getRootProps()}
       >
         <input {...getInputProps()} />
@@ -123,6 +123,7 @@ export default function UploadFile({
                 reason={file?.reason}
                 onUploadSuccess={handleUploadSuccess}
                 onUploadError={handleUploadError}
+                onRequireImageSelection={onRequireImageSelection}
                 setLoading={setLoading}
                 setLoadingMessage={setLoadingMessage}
               />

@@ -63,7 +63,12 @@ const Workspace = {
         return { workspace: null, message: data.error || "Unknown error occurred" };
       }
 
-      return { workspace: data.workspace, message: data.message };
+      return { 
+        workspace: data.workspace, 
+        message: data.message,
+        success: data.success,
+        pending_jobs: data.pending_jobs 
+      };
     } catch (e) {
       return { workspace: null, message: e.message };
     }
@@ -307,6 +312,20 @@ const Workspace = {
     const data = await response.json();
     return data;
   },
+
+  indexSelectedImages: async function (slug, payload) {
+    const response = await fetch(
+      `${API_BASE}/workspace/${slug}/index-selected-images`,
+      {
+        method: "POST",
+        headers: baseJsonHeaders(),
+        body: JSON.stringify(payload),
+      }
+    );
+    const data = await response.json();
+    return { response, data };
+  },
+
   uploadLink: async function (slug, link) {
     const response = await fetch(`${API_BASE}/workspace/${slug}/upload-link`, {
       method: "POST",
