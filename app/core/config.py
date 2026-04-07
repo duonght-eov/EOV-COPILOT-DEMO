@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings
 from functools import lru_cache
 from typing import Optional
+from app.utils.logger import AgentLogger
 
 
 class Settings(BaseSettings):
@@ -8,6 +9,7 @@ class Settings(BaseSettings):
     host: str = "0.0.0.0"
     port: int = 8005
     debug: bool = True
+    LOG_LEVEL: str = "INFO"
 
     # LLM – Fastwork API (chuẩn OpenAI-Compatible)
     llm_provider: str = "openai"
@@ -28,6 +30,9 @@ class Settings(BaseSettings):
     # Database
     db_url: Optional[str] = None
 
+    # Prompts directory
+    PROMPTS_DIR: str = "./app/prompts"
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
@@ -35,4 +40,13 @@ class Settings(BaseSettings):
 
 @lru_cache()
 def get_settings() -> Settings:
-    return Settings()
+    """
+    Returns a cached instance of the Settings object.
+    Also initializes the logger based on the configured LOG_LEVEL.
+    """
+    settings_obj = Settings()
+
+    # Initialize Global Logger configuration once settings are loaded
+    AgentLogger.setup_logging(log_level=settings_obj.LOG_LEVEL)
+
+    return settings_obj

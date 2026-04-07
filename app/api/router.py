@@ -14,31 +14,21 @@ import uuid
 import asyncio
 import httpx
 import re
-from typing import Optional, AsyncGenerator
+from typing import Optional
 
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 from app.core.config import get_settings
+from app.core.intent_classifier import INTENT_RAG, classify_intent
 from app.tools.predict_tool import make_predict_tools
 from app.tools.document_tool import make_document_tool
 from app.agent_core.loops import build_agent_executor
-from langchain_core.tools import StructuredTool
+from app.utils.logger import get_logger
 
 router = APIRouter(prefix="/api/v1/agent", tags=["Agent"])
-
-# ── Intent labels ──────────────────────────────────────────────────────────
-INTENT_RAG = "rag"
-INTENT_PREDICT = "predict" # bao gồm short_forecast, long_forecast, history, dma_list
-INTENT_GENERAL = "general"
-
-INTENT_SYSTEM_PROMPT = """Bạn là bộ máy phân loại ý định (Intent Classifier). Phân loại câu hỏi thành đúng MỘT trong các nhãn sau:
-- rag: câu hỏi về quy trình, SOP, tài liệu nội bộ, hướng dẫn kỹ thuật, tiêu chuẩn, xây dựng, thi công, cách làm.
-- predict: câu hỏi về dự báo (ngắn hạn/dài hạn), danh sách mã DMA, hoặc tra cứu lịch sử tiêu thụ nước của DMA.
-- general: câu hỏi chung, chào hỏi, không thuộc nhóm trên.
-
-Chỉ trả về đúng một từ khóa nhãn (rag, predict, general), không giải thích."""
+logger = get_logger("Router")
 
 class ChatRequest(BaseModel):
     message: str
@@ -68,19 +58,6 @@ async def workspace_stream_chat_root(
     request.workspace_slug = workspace
     # Call the streaming endpoint (defined later in this file)
     return chat_stream(request)
-
-
-def _classify_intent(message: str) -> str:
-    """Phân loại intent bằng keyword matching (không gọi LLM, nhanh hơn)."""
-    predict_keywords = [
-        "dự báo", "dma", "mã dma", "tiêu thụ", "lịch sử", "forecast",
-        "khu vực", "danh sách dma", "có tồn tại", "tồn tại không",
-        "short-term", "long-term", "ngắn hạn", "dài hạn", "lượng nước"
-    ]
-    msg_lower = message.lower()
-    if any(k in msg_lower for k in predict_keywords):
-        return INTENT_PREDICT
-    return INTENT_RAG
 
 
 def _clean_english_from_response(llm_text: str, tool_outputs: list[str]) -> str:
@@ -196,12 +173,15 @@ async def chat_stream(request: ChatRequest):
 
     # Bước 1: Phân loại Intent
     try:
-        intent = _classify_intent(request.message)
-    except:
+        intent = classify_intent(request.message)
+        logger.info(f"[{stream_uuid[:8]}] Intent classified: {intent} | Message: '{request.message[:50]}...'")
+    except Exception as e:
+        logger.error(f"[{stream_uuid[:8]}] Intent classification failed: {e}, defaulting to RAG")
         intent = INTENT_RAG
 
     # Bước 2: Rẽ nhánh xử lý
     if intent == INTENT_RAG:
+        logger.info(f"[{stream_uuid[:8]}] Routing to RAG Service (workspace: {workspace_slug})")
         # FLOW A: TRỰC TIẾP SANG RAG (Bypass LLM Agent)
         return StreamingResponse(
             _proxy_rag_stream(request.message, workspace_slug, stream_uuid),
@@ -209,6 +189,7 @@ async def chat_stream(request: ChatRequest):
         )
     
     # FLOW B: RE-ACT AGENT TRẢ LỜI CÓ SUY LUẬN (Dành cho Tools số liệu)
+    logger.info(f"[{stream_uuid[:8]}] Routing to ReAct Agent (Predict/DMA)")
     tools = make_predict_tools(
         base_url=connector.get("base_url"),
         api_key=connector.get("auth_credentials")

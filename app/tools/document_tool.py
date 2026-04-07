@@ -1,9 +1,9 @@
 import httpx
 from langchain_core.tools import Tool
 from app.core.config import get_settings
-import logging
+from app.utils.logger import get_logger
 
-logger = logging.getLogger("document_tool")
+logger = get_logger("DocumentTool")
 
 
 async def _search_documents(query: str, workspace_slug: str = "default") -> str:

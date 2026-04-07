@@ -1,9 +1,9 @@
 import httpx
 from langchain_core.tools import Tool
 from app.core.config import get_settings
-import logging
+from app.utils.logger import get_logger
 
-logger = logging.getLogger("predict_tool")
+logger = get_logger("PredictTool")
 
 
 def _parse_forecast_records(data: dict) -> list:

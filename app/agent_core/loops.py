@@ -6,10 +6,14 @@ from langgraph.checkpoint.memory import MemorySaver
 
 from app.core.config import get_settings
 from app.agent_core.prompts import load_react_prompt
+from app.utils.logger import get_logger
+
+logger = get_logger("AgentLoops")
 
 
 def _build_llm() -> ChatOpenAI:
     settings = get_settings()
+    logger.info(f"Building LLM client: {settings.model_name} @ {settings.openai_api_base}")
     return ChatOpenAI(
         base_url=settings.openai_api_base,
         api_key=settings.openai_api_key,
@@ -24,6 +28,7 @@ def build_agent_executor(
     session_id: str,
     max_iterations: int = 10,
 ):
+    logger.info(f"[{session_id[:8]}] Building AgentExecutor with {len(tools)} tools, max_iterations={max_iterations}")
     llm = _build_llm()
     prompt = load_react_prompt("react_water_vi")
     memory = MemorySaver()
@@ -36,4 +41,5 @@ def build_agent_executor(
         checkpointer=memory,
     )
 
+    logger.debug(f"[{session_id[:8]}] AgentExecutor built successfully")
     return agent_graph
