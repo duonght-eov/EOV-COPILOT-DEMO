@@ -96,23 +96,38 @@ async def startup_event():
         logger.warning(f"[Startup] LLM client pre-init failed: {e}")
 
     # 4. Pre-warm Response LLM bằng 1 dummy call (khởi tạo HTTP connection pool)
+    # NOTE: Skip warm-up if using Ollama with large models to avoid long startup delay
+    # Models will be loaded on first request instead
     try:
         from app.infrastructure.llm.llm_func import response_llm_func
+        import asyncio
         logger.info("[Startup] Pre-warming Response LLM connection pool...")
-        await response_llm_func("hi", system_prompt=None)
-        logger.info("[Startup] Response LLM connection pool ready")
+        # Warm-up với timeout ngắn (5s) - nếu fail thì skip, không block startup
+        try:
+            await asyncio.wait_for(response_llm_func("hi", system_prompt=None), timeout=5.0)
+            logger.info("[Startup] Response LLM connection pool ready")
+        except asyncio.TimeoutError:
+            logger.warning("[Startup] Response LLM warm-up timeout (model not pre-loaded). Will load on first request.")
+        except Exception as e:
+            logger.warning(f"[Startup] Response LLM warm-up failed: {e}")
     except Exception as e:
-        logger.warning(f"[Startup] Response LLM warm-up failed: {e}")
+        logger.warning(f"[Startup] Response LLM warm-up skipped: {e}")
 
     # 4b. Pre-warm local LLM (keyword extraction) — force load model vào GPU
-    # max_tokens=1: chỉ cần ping để init connection pool, không generate thực sự
+    # NOTE: Skip warm-up if using Ollama with large models to avoid long startup delay
     try:
         from app.infrastructure.llm.llm_func import query_llm_func
+        import asyncio
         logger.info("[Startup] Pre-warming local LLM (keyword extraction model)...")
-        await query_llm_func("warmup", system_prompt=None, max_tokens=1)
-        logger.info("[Startup] Local LLM model loaded into GPU memory")
+        try:
+            await asyncio.wait_for(query_llm_func("warmup", system_prompt=None, max_tokens=1), timeout=5.0)
+            logger.info("[Startup] Local LLM model loaded into GPU memory")
+        except asyncio.TimeoutError:
+            logger.warning("[Startup] Local LLM warm-up timeout (model not pre-loaded). Will load on first request.")
+        except Exception as e:
+            logger.warning(f"[Startup] Local LLM warm-up failed: {e}")
     except Exception as e:
-        logger.warning(f"[Startup] Local LLM warm-up failed (non-critical): {e}")
+        logger.warning(f"[Startup] Local LLM warm-up skipped: {e}")
 
     # 5. Pre-initialize Query Engine cho các workspace đã khai báo (tùy chọn)
     workspaces = [w.strip() for w in settings.PRELOAD_WORKSPACES.split(",") if w.strip()]

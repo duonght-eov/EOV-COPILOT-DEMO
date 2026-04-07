@@ -12,7 +12,7 @@ logger = get_logger("IMAGE_RESOLVER")
 
 IMAGE_REF_PATTERN = re.compile(r'\[IMAGE_REF:\s*([^\]]+)\]')
 PAGE_CITE_PATTERN = re.compile(r'\[Page\s+(\d+)\]', re.IGNORECASE)
-_IMG_NGRAM_SIZE = 13  # Giảm ngưỡng để hiển thị ảnh dễ hơn sau khi đã lọc nhiễu VLM
+_IMG_NGRAM_SIZE = 10 # Giảm ngưỡng để hiển thị ảnh dễ hơn sau khi đã lọc nhiễu VLM
 _VISUAL_KEYWORDS = re.compile(
     r'(hình\s*ảnh|sơ\s*đồ|biểu\s*đồ|hình\s*vẽ|ảnh\s*minh\s*họa|minh\s*họa|hình\s*dưới|bảng\s*sau)',
     re.IGNORECASE
